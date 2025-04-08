@@ -320,7 +320,7 @@ const Signup = () => {
                   onChange={handleChange}
                   className="cursor-pointer"
                 />
-                <Label htmlFor="student">Student</Label>
+                <Label htmlFor="student">Học sinh</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <Input
