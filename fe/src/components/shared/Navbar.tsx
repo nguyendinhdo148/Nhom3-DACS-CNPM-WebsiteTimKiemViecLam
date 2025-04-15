@@ -1,24 +1,63 @@
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
-import { Avatar, AvatarImage } from "../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { User2, LogOut } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import axios from "axios";
+import { API_USER } from "@/utils/constant";
+import { setUser } from "@/redux/authSlice";
+import toast from "react-hot-toast";
+// import { useEffect } from "react";
 
 const Navbar = () => {
-  const user = false;
+  const { user } = useSelector((store: RootState) => store.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logoutHandler = async () => {
+    try {
+      const res = await axios.post(
+        `${API_USER}/logout`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      if (res.data.success) {
+        localStorage.removeItem("user");
+        dispatch(setUser(null));
+        navigate("/");
+        toast.success("Đăng xuất thành công!");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error instanceof Error ? error.message : "An unknown error");
+    }
+  };
+
   return (
     <div className="bg-white">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16">
         <div>
-          <h1 className="text-2xl font-bold">
-            Vie<span className="text-[#f83002]">Jobs</span>
-          </h1>
+          <Link to="/">
+            <h1 className="text-3xl font-bold">
+              Vie<span className="text-[#f83002]">Jobs</span>
+            </h1>
+          </Link>
         </div>
         <div className="flex items-center gap-12">
           <ul className="flex font-medium items-center gap-5 cursor-pointer">
-            <li>Home</li>
-            <li>Jobs</li>
-            <li>Browse</li>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/jobs">Jobs</Link>
+            </li>
+            <li>
+              <Link to="/browse">Browse</Link>
+            </li>
           </ul>
 
           {!user ? (
@@ -42,39 +81,61 @@ const Navbar = () => {
               <PopoverTrigger asChild>
                 <Avatar className="cursor-pointer">
                   <AvatarImage
-                    src="https://github.com/shadcn.png"
-                    alt="@shadcn"
+                    src={
+                      user.profile?.profilePhoto || "avatar.webp"
+                    }
+                    alt={user.fullname}
+                    className="object-cover hover:scale-105 transition-transform duration-200"
                   />
                 </Avatar>
               </PopoverTrigger>
-              <PopoverContent className="w-80">
-                <div className="flex space-y-2 gap-4">
-                  <Avatar className="cursor-pointer">
+              <PopoverContent className="w-80 p-4 bg-white rounded-lg shadow-lg border border-gray-100">
+                {/* User Profile Section */}
+                <div className="flex items-center gap-4 pb-4 border-b border-gray-100">
+                  <Avatar className="h-12 w-12">
                     <AvatarImage
-                      src="https://github.com/shadcn.png"
-                      alt="@shadcn"
+                      src={user.profile?.profilePhoto}
+                      alt={user.fullname}
+                      className="object-cover"
                     />
+                    <AvatarFallback className="bg-gray-100 text-gray-700">
+                      {user.fullname
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </AvatarFallback>
                   </Avatar>
-                  <div>
-                    <h4 className="font-medium">Alison Paker</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Lorem ipsum dolor sit amet.
+                  <div className="overflow-hidden">
+                    <h4 className="font-medium text-gray-900 truncate">
+                      {user.fullname}
+                    </h4>
+                    <p className="text-sm text-gray-500 truncate">
+                      {user.email}
                     </p>
                   </div>
                 </div>
-                <div className="flex flex-col gap-3 my-2 text-gray-600">
-                  <div className="flex w-fit items-center gap-2">
-                    <User2 />
-                    <Button variant="link" className="hover:cursor-pointer">
-                      View profile
-                    </Button>
-                  </div>
-                  <div className="flex w-fit items-center gap-2">
-                    <LogOut />
-                    <Button variant="link" className="hover:cursor-pointer">
-                      Logout
-                    </Button>
-                  </div>
+
+                {/* Menu Actions */}
+                <div className="mt-3 space-y-1.5">
+                  <Button
+                    variant="default"
+                    className="w-full justify-start gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50"
+                    asChild
+                  >
+                    <Link to="/profile">
+                      <User2 className="h-4 w-4 text-gray-500" />
+                      <span>Xem hồ sơ</span>
+                    </Link>
+                  </Button>
+
+                  <Button
+                    variant="default"
+                    className="cursor-pointer w-full justify-start gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50"
+                    onClick={logoutHandler}
+                  >
+                    <LogOut className="h-4 w-4 text-gray-500" />
+                    <span>Đăng xuất</span>
+                  </Button>
                 </div>
               </PopoverContent>
             </Popover>

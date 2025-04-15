@@ -3,12 +3,15 @@ import Navbar from "../shared/Navbar";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { RadioGroup } from "../ui/radio-group";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { Button } from "../ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { toast } from "sonner";
+import { toast } from "react-hot-toast";
 import { API_USER } from "@/utils/constant";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { setLoading, setUser } from "@/redux/authSlice";
 
 type FormData = {
   email: string;
@@ -32,6 +35,8 @@ const Login = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector((store: RootState) => store.auth); // Access loading state from Redux store
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -71,6 +76,7 @@ const Login = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  // Handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -79,7 +85,7 @@ const Login = () => {
     setIsSubmitting(true);
 
     try {
-      // Here you would typically make an API call to submit the form data
+      dispatch(setLoading(true));
       const res = await axios.post(`${API_USER}/login`, formData, {
         headers: {
           "Content-Type": "application/json",
@@ -88,19 +94,21 @@ const Login = () => {
       });
 
       if (res.data.success) {
+        const userData = res.data.user;
+        // Lưu user data vào localStorage
+        localStorage.setItem("user", JSON.stringify(userData));
+        dispatch(setUser(userData));
         navigate("/");
         toast.success("Đăng nhập thành công!");
       }
-
-      // Redirect or handle successful login
-      // navigate('/dashboard');
     } catch (error) {
       console.error("Login error:", error);
       setErrors((prev) => ({
         ...prev,
-        server: "Email hoặc mật khẩu không đúng. Vui lòng thử lại.",
+        server: "Email hoặc mật khẩu hoặc role không đúng. Vui lòng thử lại.",
       }));
     } finally {
+      dispatch(setLoading(false));
       setIsSubmitting(false);
     }
   };
@@ -225,7 +233,19 @@ const Login = () => {
               isSubmitting ? "opacity-70 cursor-not-allowed" : ""
             }`}
           >
-            {isSubmitting ? "Đang đăng nhập..." : "Đăng nhập"}
+            {isSubmitting ? (
+              "Đang đăng nhập..."
+            ) : loading ? (
+              <Button className="w-full my-4">
+                {" "}
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Vui lòng
+                đợi...{" "}
+              </Button>
+            ) : (
+              <Button type="submit" className="w-full my-4">
+                Đăng nhập
+              </Button>
+            )}
           </Button>
 
           <div className="text-center">

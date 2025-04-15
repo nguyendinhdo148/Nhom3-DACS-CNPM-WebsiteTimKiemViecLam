@@ -3,13 +3,17 @@ import Navbar from "../shared/Navbar";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { RadioGroup } from "../ui/radio-group";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { API_USER } from "@/utils/constant";
-import { toast } from "sonner";
+// import { toast } from "sonner";
+import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { setLoading } from "@/redux/authSlice";
 
 type FormData = {
   fullname: string;
@@ -18,7 +22,7 @@ type FormData = {
   password: string;
   confirmPassword: string;
   role: "student" | "recruiter";
-  profilePhoto: File | null;
+  file: File | null;
 };
 
 type FormErrors = {
@@ -40,11 +44,13 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
     role: "student",
-    profilePhoto: null,
+    file: null,
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector((store: RootState) => store.auth); // Access loading state from Redux store
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -111,14 +117,15 @@ const Signup = () => {
     setIsSubmitting(true);
 
     try {
+      dispatch(setLoading(true)); // Set loading state to true
       const formDataToSend = new FormData();
       formDataToSend.append("fullname", formData.fullname);
       formDataToSend.append("email", formData.email);
       formDataToSend.append("phoneNumber", formData.phoneNumber);
       formDataToSend.append("password", formData.password);
       formDataToSend.append("role", formData.role);
-      if (formData.profilePhoto) {
-        formDataToSend.append("profilePhoto", formData.profilePhoto);
+      if (formData.file) {
+        formDataToSend.append("file", formData.file);
       }
 
       const res = await axios.post(`${API_USER}/register`, formDataToSend, {
@@ -139,7 +146,7 @@ const Signup = () => {
           password: "",
           confirmPassword: "",
           role: "student",
-          profilePhoto: null,
+          file: null,
         });
       } else {
         toast.error(res.data.message || "Đăng ký thất bại.");
@@ -160,6 +167,7 @@ const Signup = () => {
         }));
       }
     } finally {
+      dispatch(setLoading(false)); // Set loading state to false
       setIsSubmitting(false);
     }
   };
@@ -337,10 +345,10 @@ const Signup = () => {
             </RadioGroup>
 
             <div className="flex items-center gap-2">
-              <Label htmlFor="profilePhoto">Profile</Label>
+              <Label htmlFor="file">Profile</Label>
               <Input
-                id="profilePhoto"
-                name="profilePhoto"
+                id="file"
+                name="file"
                 accept="image/*"
                 type="file"
                 onChange={handleChange}
@@ -357,7 +365,19 @@ const Signup = () => {
               isSubmitting ? "opacity-70 cursor-not-allowed" : ""
             }`}
           >
-            {isSubmitting ? "Đang xử lý..." : "Đăng ký"}
+            {isSubmitting ? (
+              "Đang đăng nhập..."
+            ) : loading ? (
+              <Button className="w-full my-4">
+                {" "}
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Vui lòng
+                đợi...{" "}
+              </Button>
+            ) : (
+              <Button type="submit" className="w-full my-4">
+                Đăng ký
+              </Button>
+            )}
           </Button>
           <span>
             Bạn đã có tài khoản?{" "}

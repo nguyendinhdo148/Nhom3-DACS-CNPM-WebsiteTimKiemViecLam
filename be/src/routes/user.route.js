@@ -16,7 +16,7 @@ router
   .post("/register", singleUpload, register)
   .post("/login", login)
   .post("/logout", isAuthenticated, logout);
-router.put("/profile/update", isAuthenticated, updateProfile);
+router.put("/profile/update", isAuthenticated, singleUpload, updateProfile);
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
 

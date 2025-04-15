@@ -32,6 +32,7 @@ export const register = async (req, res, next) => {
         });
       }
     }
+
     const user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({
@@ -138,13 +139,28 @@ export const logout = async (req, res, next) => {
 export const updateProfile = async (req, res, next) => {
   try {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
-    const file = req.file;
 
-    // cloudinary...
+    // cloudinary upload file
+    let profileResume = null;
+    let profileResumeOriginalName = null;
+    if (req.file) {
+      try {
+        const fileUri = getDataUri(req.file);
+        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+        profileResume = cloudResponse.secure_url;
+        profileResumeOriginalName = req.file.originalname;
+      } catch (uploadError) {
+        console.error("File upload error:", uploadError);
+        return res.status(500).json({
+          message: "Error uploading profile photo",
+          success: false,
+        });
+      }
+    }
 
     let skillsArray;
     if (skills) {
-      skillsArray = skills.split(",");
+      skillsArray = skills.split(", ");
     }
 
     const userId = req.id; // middleware authentication
@@ -164,8 +180,10 @@ export const updateProfile = async (req, res, next) => {
     if (phoneNumber) user.phoneNumber = phoneNumber;
     if (bio) user.profile.bio = bio;
     if (skills) user.profile.skills = skillsArray;
-
-    // resume...
+    if (profileResume) {
+      user.profile.resume = profileResume;
+      user.profile.resumeOriginalName = profileResumeOriginalName;
+    }
 
     await user.save();
 
@@ -180,6 +198,7 @@ export const updateProfile = async (req, res, next) => {
 
     return res.status(200).json({
       message: "Profile updated successfully.",
+      user,
       success: true,
     });
   } catch (error) {
