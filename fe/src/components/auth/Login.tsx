@@ -8,7 +8,7 @@ import { Button } from "../ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { API_USER } from "@/utils/constant";
+import { API } from "@/utils/constant";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { setLoading, setUser } from "@/redux/authSlice";
@@ -86,7 +86,7 @@ const Login = () => {
 
     try {
       dispatch(setLoading(true));
-      const res = await axios.post(`${API_USER}/login`, formData, {
+      const res = await axios.post(`${API}/user/login`, formData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -242,7 +242,7 @@ const Login = () => {
                 đợi...{" "}
               </Button>
             ) : (
-              <Button type="submit" className="w-full my-4">
+              <Button type="submit" className="w-full my-4 cursor-pointer">
                 Đăng nhập
               </Button>
             )}

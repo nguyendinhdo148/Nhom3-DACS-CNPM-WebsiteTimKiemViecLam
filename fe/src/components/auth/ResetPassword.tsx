@@ -4,8 +4,8 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { useState } from "react";
-import { API_USER } from "@/utils/constant";
-import { LockKeyhole, ShieldCheck } from "lucide-react";
+import { API } from "@/utils/constant";
+import { LoaderCircle, LockKeyhole, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const ResetPassword = () => {
@@ -25,8 +25,8 @@ const ResetPassword = () => {
     setIsLoading(true);
 
     // Validate password strength
-    if (password.length < 8) {
-      setError("Mật khẩu phải có ít nhất 8 ký tự");
+    if (!/^(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(password)) {
+      setError("Mật khẩu phải có ít nhất 8 ký tự, gồm chữ hoa và chữ thường");
       setIsLoading(false);
       return;
     }
@@ -44,7 +44,7 @@ const ResetPassword = () => {
     }
 
     try {
-      const res = await axios.post(`${API_USER}/reset-password`, {
+      const res = await axios.post(`${API}/user/reset-password`, {
         token,
         password: password,
       });
@@ -82,7 +82,7 @@ const ResetPassword = () => {
               transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
               className="mx-auto w-16 h-16 mb-6"
             >
-              <ShieldCheck className="w-full h-full text-green-500" />
+              <LoaderCircle className="w-full h-full text-green-500" />
             </motion.div>
             <h2 className="text-2xl font-bold text-gray-800 mb-2">
               Thành công!
@@ -176,7 +176,7 @@ const ResetPassword = () => {
             {/* Submit Button */}
             <motion.div whileTap={{ scale: 0.98 }}>
               <Button
-                className="w-full py-3 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white rounded-lg transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 shadow-md hover:shadow-lg"
+                className="w-full cursor-pointer py-3 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white rounded-lg transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 shadow-md hover:shadow-lg"
                 onClick={handleReset}
                 disabled={isLoading}
               >

@@ -8,7 +8,7 @@ import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { API_USER } from "@/utils/constant";
+import { API } from "@/utils/constant";
 // import { toast } from "sonner";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -128,7 +128,7 @@ const Signup = () => {
         formDataToSend.append("file", formData.file);
       }
 
-      const res = await axios.post(`${API_USER}/register`, formDataToSend, {
+      const res = await axios.post(`${API}/user/register`, formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -374,7 +374,7 @@ const Signup = () => {
                 đợi...{" "}
               </Button>
             ) : (
-              <Button type="submit" className="w-full my-4">
+              <Button type="submit" className="w-full my-4 cursor-pointer">
                 Đăng ký
               </Button>
             )}

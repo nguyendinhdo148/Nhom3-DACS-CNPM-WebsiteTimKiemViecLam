@@ -206,6 +206,61 @@ export const updateProfile = async (req, res, next) => {
   }
 };
 
+export const updateAvatar = async (req, res, next) => {
+  try {
+    const userId = req.id; // middleware authentication
+
+    let user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found.",
+        success: false,
+      });
+    }
+
+    // cloudinary upload file
+    let profilePhotoUrl = null;
+    if (req.file) {
+      try {
+        const fileUri = getDataUri(req.file);
+        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+        profilePhotoUrl = cloudResponse.secure_url;
+      } catch (uploadError) {
+        console.error("File upload error:", uploadError);
+        return res.status(500).json({
+          message: "Error uploading profile photo",
+          success: false,
+        });
+      }
+    }
+
+    // update profile
+    if (profilePhotoUrl) {
+      user.profile.profilePhoto = profilePhotoUrl;
+    }
+
+    await user.save();
+
+    user = {
+      _id: user._id,
+      fullname: user.fullname,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      role: user.role,
+      profile: user.profile,
+    };
+
+    return res.status(200).json({
+      message: "Avatar updated successfully.",
+      user,
+      success: true,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const forgotPassword = async (req, res, next) => {
   try {
     const { email } = req.body;

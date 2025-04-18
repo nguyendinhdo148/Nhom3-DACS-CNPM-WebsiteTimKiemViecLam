@@ -4,6 +4,7 @@ import {
   login,
   logout,
   updateProfile,
+  updateAvatar,
   forgotPassword,
   resetPassword,
 } from "../controllers/user.controller.js";
@@ -17,6 +18,7 @@ router
   .post("/login", login)
   .post("/logout", isAuthenticated, logout);
 router.put("/profile/update", isAuthenticated, singleUpload, updateProfile);
+router.put("/profile/avatar", isAuthenticated, singleUpload, updateAvatar);
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
 

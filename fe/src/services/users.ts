@@ -1,4 +1,4 @@
-import { API_USER } from "@/utils/constant";
+import { API } from "@/utils/constant";
 import axios from "axios";
 
 interface RegisterParams {
@@ -23,7 +23,7 @@ export const register = async ({
   role,
 }: RegisterParams) => {
   try {
-    const { data } = await axios.post(`${API_USER}/register`, {
+    const { data } = await axios.post(`${API}/register`, {
       fullname,
       email,
       phoneNumber,
@@ -47,7 +47,7 @@ export const register = async ({
 
 export const login = async ({ email, password, role }: LoginParams) => {
   try {
-    const { data } = await axios.post(`${API_USER}/login`, {
+    const { data } = await axios.post(`${API}/login`, {
       email,
       password,
       role,

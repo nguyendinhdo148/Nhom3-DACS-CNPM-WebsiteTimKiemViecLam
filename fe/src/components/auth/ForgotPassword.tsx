@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import { API_USER } from "@/utils/constant";
+import { API } from "@/utils/constant";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -22,7 +22,7 @@ const ForgotPassword = () => {
     }
 
     try {
-      const res = await axios.post(`${API_USER}/forgot-password`, { email });
+      const res = await axios.post(`${API}/user/forgot-password`, { email });
 
       if (res.data.success) {
         setMessage(

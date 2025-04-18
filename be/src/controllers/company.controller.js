@@ -1,4 +1,6 @@
 import { Company } from "../models/company.model.js";
+import cloudinary from "../utils/cloudinary.js";
+import getDataUri from "../utils/dataUri.js";
 
 // for recruiter
 export const registerCompany = async (req, res, next) => {
@@ -71,9 +73,27 @@ export const getCompanyById = async (req, res, next) => {
 export const updateCompany = async (req, res, next) => {
   try {
     const { name, description, website, location } = req.body;
-    const file = req.file;
+
+    let logo = null;
+    if (req.file) {
+      try {
+        const fileUri = getDataUri(req.file);
+        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+        logo = cloudResponse.secure_url;
+      } catch (uploadError) {
+        console.error("File upload error:", uploadError);
+        return res.status(500).json({
+          message: "Error uploading profile photo",
+          success: false,
+        });
+      }
+    }
 
     const updateData = { name, description, website, location };
+
+    if (logo) {
+      updateData.logo = logo;
+    }
 
     const existCompany = await Company.findById(req.params.id);
     if (!existCompany) {

@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import axios from "axios";
-import { API_USER } from "@/utils/constant";
+import { API } from "@/utils/constant";
 import { setUser } from "@/redux/authSlice";
 import toast from "react-hot-toast";
 // import { useEffect } from "react";
@@ -19,7 +19,7 @@ const Navbar = () => {
   const logoutHandler = async () => {
     try {
       const res = await axios.post(
-        `${API_USER}/logout`,
+        `${API}/user/logout`,
         {},
         {
           withCredentials: true,
@@ -50,10 +50,10 @@ const Navbar = () => {
         <div className="flex items-center gap-12">
           <ul className="flex font-medium items-center gap-5 cursor-pointer">
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/">Trang chủ</Link>
             </li>
             <li>
-              <Link to="/jobs">Jobs</Link>
+              <Link to="/jobs">Việc làm</Link>
             </li>
             <li>
               <Link to="/browse">Browse</Link>
@@ -81,18 +81,22 @@ const Navbar = () => {
               <PopoverTrigger asChild>
                 <Avatar className="cursor-pointer">
                   <AvatarImage
-                    src={
-                      user.profile?.profilePhoto || "avatar.webp"
-                    }
+                    src={user.profile?.profilePhoto}
                     alt={user.fullname}
                     className="object-cover hover:scale-105 transition-transform duration-200"
                   />
+                  <AvatarFallback className="bg-gray-100 text-gray-700">
+                    {user.fullname
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
+                  </AvatarFallback>
                 </Avatar>
               </PopoverTrigger>
               <PopoverContent className="w-80 p-4 bg-white rounded-lg shadow-lg border border-gray-100">
                 {/* User Profile Section */}
                 <div className="flex items-center gap-4 pb-4 border-b border-gray-100">
-                  <Avatar className="h-12 w-12">
+                  <Avatar className="size-12">
                     <AvatarImage
                       src={user.profile?.profilePhoto}
                       alt={user.fullname}

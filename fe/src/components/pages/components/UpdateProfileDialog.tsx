@@ -14,7 +14,7 @@ import { RootState } from "@/redux/store";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import axios from "axios";
-import { API_USER } from "@/utils/constant";
+import { API } from "@/utils/constant";
 import toast from "react-hot-toast";
 import { setUser } from "@/redux/authSlice";
 import { Loader2 } from "lucide-react";
@@ -68,7 +68,7 @@ const UpdateProfileDialog = ({ open, setOpen }: UpdateProfileDialogProps) => {
     }
     try {
       setLoading(true);
-      const res = await axios.put(`${API_USER}/profile/update`, formData, {
+      const res = await axios.put(`${API}/user/profile/update`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -97,12 +97,16 @@ const UpdateProfileDialog = ({ open, setOpen }: UpdateProfileDialogProps) => {
           className="sm:max-w-[625px] bg-white rounded-lg shadow-xl"
         >
           <DialogHeader className="border-b pb-4">
-            <DialogTitle className="text-xl font-semibold text-gray-800">
-              Cập nhật thông tin cá nhân
+            <DialogTitle>
+              <span className="text-xl font-semibold text-gray-800">
+                Cập nhật thông tin cá nhân
+              </span>
             </DialogTitle>
-            <DialogDescription className="text-gray-600">
-              Thực hiện thay đổi cho hồ sơ của bạn tại đây. Nhấp vào lưu khi bạn
-              hoàn tất.
+            <DialogDescription>
+              <span className="text-gray-600">
+                Thực hiện thay đổi cho hồ sơ của bạn tại đây. Nhấp vào lưu khi
+                bạn hoàn tất.
+              </span>
             </DialogDescription>
           </DialogHeader>
 
