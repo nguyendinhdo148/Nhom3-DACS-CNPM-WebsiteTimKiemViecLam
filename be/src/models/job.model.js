@@ -23,6 +23,11 @@ const jobSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    benefits: [
+      {
+        type: String,
+      },
+    ],
     location: {
       type: String,
       required: true,
@@ -39,6 +44,12 @@ const jobSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Company",
       required: true,
+    },
+    status: {
+      type: String,
+      enum: ["active", "draft", "closed"],
+      required: true,
+      default: "active",
     },
     created_by: {
       type: mongoose.Schema.Types.ObjectId,

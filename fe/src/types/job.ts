@@ -7,6 +7,7 @@ export interface Job {
   title: string;
   description: string;
   requirements: string[];
+  benefits: string[]; // Assuming benefits is an array of strings
   salary: number;
   experienceLevel: number;
   location: string;

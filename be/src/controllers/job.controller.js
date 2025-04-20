@@ -2,12 +2,13 @@ import { Job } from "../models/job.model.js";
 import { Company } from "../models/company.model.js";
 
 // for recruiter
-export const postJob = async (req, res, next) => {
+export const createJob = async (req, res, next) => {
   try {
     const {
       title,
       description,
       requirements,
+      benefits,
       salary,
       location,
       jobType,
@@ -22,6 +23,7 @@ export const postJob = async (req, res, next) => {
       !title ||
       !description ||
       !requirements ||
+      !benefits ||
       !salary ||
       !location ||
       !jobType ||
@@ -66,6 +68,7 @@ export const postJob = async (req, res, next) => {
       title,
       description,
       requirements,
+      benefits,
       salary: Number(salary),
       location,
       jobType,

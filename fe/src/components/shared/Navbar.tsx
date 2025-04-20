@@ -2,7 +2,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { User2, LogOut } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import axios from "axios";
@@ -16,6 +16,17 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const location = useLocation();
+
+  const isActive = (path: string) => location.pathname === path;
+
+  const navItemClass = (path: string) =>
+    `pb-1 border-b-2 ${
+      isActive(path)
+        ? "text-blue-600 border-blue-600 font-semibold"
+        : "text-gray-700 border-transparent hover:text-blue-500 hover:border-blue-500 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
+    }`;
+
   const logoutHandler = async () => {
     try {
       const res = await axios.post(
@@ -26,7 +37,6 @@ const Navbar = () => {
         }
       );
       if (res.data.success) {
-        localStorage.removeItem("user");
         dispatch(setUser(null));
         navigate("/");
         toast.success("Đăng xuất thành công!");
@@ -49,15 +59,25 @@ const Navbar = () => {
         </div>
         <div className="flex items-center gap-12">
           <ul className="flex font-medium items-center gap-5 cursor-pointer">
-            <li>
-              <Link to="/">Trang chủ</Link>
-            </li>
-            <li>
-              <Link to="/jobs">Việc làm</Link>
-            </li>
-            <li>
-              <Link to="/browse">Browse</Link>
-            </li>
+            {user && user?.role === "student" && (
+              <>
+                <li>
+                  <Link to="/" className={navItemClass("/")}>
+                    Trang chủ
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/jobs" className={navItemClass("/jobs")}>
+                    Việc làm
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/browse" className={navItemClass("/browse")}>
+                    Browse
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
 
           {!user ? (
@@ -77,30 +97,14 @@ const Navbar = () => {
               </Link>
             </div>
           ) : (
-            <Popover>
-              <PopoverTrigger asChild>
-                <Avatar className="cursor-pointer">
-                  <AvatarImage
-                    src={user.profile?.profilePhoto}
-                    alt={user.fullname}
-                    className="object-cover hover:scale-105 transition-transform duration-200"
-                  />
-                  <AvatarFallback className="bg-gray-100 text-gray-700">
-                    {user.fullname
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </AvatarFallback>
-                </Avatar>
-              </PopoverTrigger>
-              <PopoverContent className="w-80 p-4 bg-white rounded-lg shadow-lg border border-gray-100">
-                {/* User Profile Section */}
-                <div className="flex items-center gap-4 pb-4 border-b border-gray-100">
-                  <Avatar className="size-12">
+            user?.role === "student" && (
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Avatar className="cursor-pointer">
                     <AvatarImage
                       src={user.profile?.profilePhoto}
                       alt={user.fullname}
-                      className="object-cover"
+                      className="object-cover hover:scale-105 transition-transform duration-200"
                     />
                     <AvatarFallback className="bg-gray-100 text-gray-700">
                       {user.fullname
@@ -109,40 +113,58 @@ const Navbar = () => {
                         .join("")}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="overflow-hidden">
-                    <h4 className="font-medium text-gray-900 truncate">
-                      {user.fullname}
-                    </h4>
-                    <p className="text-sm text-gray-500 truncate">
-                      {user.email}
-                    </p>
+                </PopoverTrigger>
+                <PopoverContent className="w-80 p-4 bg-white rounded-lg shadow-lg border border-gray-100">
+                  {/* User Profile Section */}
+                  <div className="flex items-center gap-4 pb-4 border-b border-gray-100">
+                    <Avatar className="size-12">
+                      <AvatarImage
+                        src={user.profile?.profilePhoto}
+                        alt={user.fullname}
+                        className="object-cover"
+                      />
+                      <AvatarFallback className="bg-gray-100 text-gray-700">
+                        {user.fullname
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="overflow-hidden">
+                      <h4 className="font-medium text-gray-900 truncate">
+                        {user.fullname}
+                      </h4>
+                      <p className="text-sm text-gray-500 truncate">
+                        {user.email}
+                      </p>
+                    </div>
                   </div>
-                </div>
 
-                {/* Menu Actions */}
-                <div className="mt-3 space-y-1.5">
-                  <Button
-                    variant="default"
-                    className="w-full justify-start gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50"
-                    asChild
-                  >
-                    <Link to="/profile">
-                      <User2 className="h-4 w-4 text-gray-500" />
-                      <span>Xem hồ sơ</span>
-                    </Link>
-                  </Button>
+                  {/* Menu Actions */}
+                  <div className="mt-3 space-y-1.5">
+                    <Button
+                      variant="default"
+                      className="w-full justify-start gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50"
+                      asChild
+                    >
+                      <Link to="/profile">
+                        <User2 className="h-4 w-4 text-gray-500" />
+                        <span>Xem hồ sơ</span>
+                      </Link>
+                    </Button>
 
-                  <Button
-                    variant="default"
-                    className="cursor-pointer w-full justify-start gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50"
-                    onClick={logoutHandler}
-                  >
-                    <LogOut className="h-4 w-4 text-gray-500" />
-                    <span>Đăng xuất</span>
-                  </Button>
-                </div>
-              </PopoverContent>
-            </Popover>
+                    <Button
+                      variant="default"
+                      className="cursor-pointer w-full justify-start gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50"
+                      onClick={logoutHandler}
+                    >
+                      <LogOut className="h-4 w-4 text-gray-500" />
+                      <span>Đăng xuất</span>
+                    </Button>
+                  </div>
+                </PopoverContent>
+              </Popover>
+            )
           )}
         </div>
       </div>

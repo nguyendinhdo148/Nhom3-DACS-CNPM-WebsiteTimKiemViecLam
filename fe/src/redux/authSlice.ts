@@ -1,10 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { User } from "../types/user";
 
-const userFromStorage = localStorage.getItem("user")
-  ? JSON.parse(localStorage.getItem("user")!)
-  : null;
-
 interface AuthState {
   loading: boolean;
   user: User | null;
@@ -12,14 +8,13 @@ interface AuthState {
 
 const initialState: AuthState = {
   loading: false,
-  user: userFromStorage,
+  user: null,
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    // action
     setLoading: (state, action) => {
       state.loading = action.payload;
     },

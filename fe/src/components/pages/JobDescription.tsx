@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import axios from "axios";
@@ -22,6 +22,7 @@ const JobDescription = () => {
     singleJob?.applications?.some((app) => app?.applicant._id === user?._id) ||
     false;
 
+  const navigate = useNavigate();
   const params = useParams();
   const jobId = params.id;
 
@@ -45,6 +46,11 @@ const JobDescription = () => {
   }, [jobId, dispatch]);
 
   const appliedJobHandle = async () => {
+    if (!user) {
+      toast("Bạn cần đăng nhập để ứng tuyển!", { icon: "🔒" });
+      return navigate("/login");
+    }
+
     try {
       const res = await axios.post(
         `${API}/application/apply-job/${jobId}`,

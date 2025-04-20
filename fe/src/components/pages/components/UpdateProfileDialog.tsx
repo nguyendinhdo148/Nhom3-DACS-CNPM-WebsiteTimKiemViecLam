@@ -76,7 +76,6 @@ const UpdateProfileDialog = ({ open, setOpen }: UpdateProfileDialogProps) => {
       });
       if (res.data.success) {
         dispatch(setUser(res.data.user));
-        localStorage.setItem("user", JSON.stringify(res.data.user)); // Lưu user data mới vào localStorage
         toast.success("Cập nhật thành công!");
       }
     } catch (error) {
@@ -201,21 +200,40 @@ const UpdateProfileDialog = ({ open, setOpen }: UpdateProfileDialogProps) => {
               </div>
 
               {/* Resume Upload */}
-              <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-4">
-                <Label htmlFor="file" className="sm:text-right text-gray-700">
+              <div className="grid grid-cols-1 sm:grid-cols-4 items-start gap-4">
+                <Label
+                  htmlFor="file"
+                  className="sm:text-right text-gray-700 pt-2"
+                >
                   Resume
                 </Label>
-                <div className="sm:col-span-3">
+
+                <div className="sm:col-span-3 space-y-2">
+                  {typeof input.file === "string" && (
+                    <div className="text-sm text-blue-600">
+                      <span className="font-medium">File hiện tại:</span>{" "}
+                      <a
+                        href={input.file}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline"
+                      >
+                        {input.file.split("/").pop()}
+                      </a>
+                    </div>
+                  )}
+
                   <Input
                     id="file"
                     name="file"
                     type="file"
                     onChange={fileChangeHandler}
                     accept="application/pdf"
-                    className="w-full"
+                    className="w-full cursor-pointer"
                     aria-label="Resume upload"
                   />
-                  <p className="text-sm text-gray-500 mt-1">
+
+                  <p className="text-sm text-gray-500">
                     Chọn file CV/Resume của bạn (PDF)
                   </p>
                 </div>

@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import {
-  postJob,
+  createJob,
   getAllJobs,
   getJobById,
   getRecruiterJobs,
@@ -12,7 +12,7 @@ import { isAuthenticated, isRecruiter } from "../middleware/auth.middleware.js";
 
 const router = Router();
 
-router.post("/post", isAuthenticated, isRecruiter, postJob);
+router.post("/create-job", isAuthenticated, isRecruiter, createJob);
 router
   .get("/all-jobs", getAllJobs)
   .get("/recruiter-jobs", isAuthenticated, isRecruiter, getRecruiterJobs)

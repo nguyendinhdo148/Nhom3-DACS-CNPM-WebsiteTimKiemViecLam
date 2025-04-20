@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Job } from "@/types/job";
@@ -8,17 +8,6 @@ interface LatestJobCardsProps {
 }
 
 const LatestJobCards = ({ job }: LatestJobCardsProps) => {
-  const navigate = useNavigate();
-
-  const handleApplyClick = () => {
-    const isLoggedIn = localStorage.getItem("user");
-    if (isLoggedIn) {
-      navigate(`/jobs/description/${job._id}`);
-    } else {
-      navigate("/login");
-    }
-  };
-
   return (
     <div className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100">
       <div className="mb-4">
@@ -70,12 +59,11 @@ const LatestJobCards = ({ job }: LatestJobCardsProps) => {
         </Badge>
       </div>
 
-      <Button
-        onClick={handleApplyClick}
-        className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors duration-300 cursor-pointer"
-      >
-        Ứng tuyển ngay
-      </Button>
+      <Link to={`/jobs/description/${job?._id}`}>
+        <Button className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition-colors duration-300 cursor-pointer">
+          Ứng tuyển ngay
+        </Button>
+      </Link>
     </div>
   );
 };

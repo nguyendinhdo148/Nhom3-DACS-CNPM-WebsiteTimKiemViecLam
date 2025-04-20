@@ -3,12 +3,15 @@ import axios from "axios";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { API } from "@/utils/constant";
 import { LoaderCircle, LockKeyhole, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 const ResetPassword = () => {
+  const { user } = useSelector((state: RootState) => state.auth);
   const { token } = useParams();
   const navigate = useNavigate();
 
@@ -18,6 +21,12 @@ const ResetPassword = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   const handleReset = async () => {
     setMessage("");

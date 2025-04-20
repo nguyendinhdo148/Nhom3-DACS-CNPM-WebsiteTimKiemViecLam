@@ -1,18 +1,37 @@
 import { Company } from "../models/company.model.js";
+import { Job } from "../models/job.model.js";
+import { Application } from "../models/application.model.js";
 import cloudinary from "../utils/cloudinary.js";
 import getDataUri from "../utils/dataUri.js";
 
 // for recruiter
-export const registerCompany = async (req, res, next) => {
+export const createCompany = async (req, res, next) => {
   try {
-    const { companyName } = req.body;
-    if (!companyName) {
-      return res.status(400).json({
-        message: "Something is missing",
-        success: false,
-      });
+    const { name, description, website, location } = req.body;
+
+    let logo = null;
+    if (req.file) {
+      try {
+        const fileUri = getDataUri(req.file);
+        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+        logo = cloudResponse.secure_url;
+      } catch (uploadError) {
+        console.error("File upload error:", uploadError);
+        return res.status(500).json({
+          message: "Error uploading profile photo",
+          success: false,
+        });
+      }
     }
-    let company = await Company.findOne({ name: companyName });
+
+    // if (!name || !description || !website || !location) {
+    //   return res.status(400).json({
+    //     message: "Something is missing",
+    //     success: false,
+    //   });
+    // }
+
+    let company = await Company.findOne({ name });
     if (company) {
       return res.status(400).json({
         message: "Company already exist with this name.",
@@ -20,7 +39,14 @@ export const registerCompany = async (req, res, next) => {
       });
     }
 
-    company = await Company.create({ name: companyName, userId: req.id });
+    company = await Company.create({
+      name,
+      description,
+      website,
+      location,
+      logo,
+      userId: req.id,
+    });
 
     return res.status(201).json({
       message: "Company created successfully.",
@@ -126,8 +152,11 @@ export const updateCompany = async (req, res, next) => {
 
 // for recruiter
 export const deleteCompany = async (req, res, next) => {
+  // Find all jobs under this company
+  const companyId = req.params.id;
+  
   try {
-    const existCompany = await Company.findById(req.params.id);
+    const existCompany = await Company.findById(companyId);
     if (!existCompany) {
       return res.status(404).json({
         message: "Company not found.",
@@ -142,9 +171,25 @@ export const deleteCompany = async (req, res, next) => {
       });
     }
 
-    await Company.findByIdAndDelete(req.params.id);
-    return res.status(200).json({ message: "Company deleted.", success: true });
+    // Find all jobs of this company
+    const jobs = await Job.find({ company: companyId });
+    const jobIds = jobs.map((job) => job._id);
+
+    // Delete applications related to those jobs
+    if (jobIds.length > 0) {
+      await Application.deleteMany({ job: { $in: jobIds } });
+      await Job.deleteMany({ _id: { $in: jobIds } });
+    }
+
+    // Delete the company
+    await Company.findByIdAndDelete(companyId);
+
+    return res.status(200).json({
+      message: "Company, related jobs, and applications deleted successfully.",
+      success: true,
+    });
   } catch (error) {
-    next(error);
+    console.error("Delete company error:", error);
+    return next(error);
   }
 };

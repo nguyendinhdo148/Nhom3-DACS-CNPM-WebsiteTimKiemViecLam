@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import Navbar from "../shared/Navbar";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -36,7 +36,13 @@ const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading } = useSelector((store: RootState) => store.auth); // Access loading state from Redux store
+  const { loading, user } = useSelector((store: RootState) => store.auth); // Access loading state from Redux store
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -96,7 +102,7 @@ const Login = () => {
       if (res.data.success) {
         const userData = res.data.user;
         // Lưu user data vào localStorage
-        localStorage.setItem("user", JSON.stringify(userData));
+        // localStorage.setItem("user", JSON.stringify(userData));
         dispatch(setUser(userData));
         navigate("/");
         toast.success("Đăng nhập thành công!");

@@ -2,15 +2,25 @@ import { Mail } from "lucide-react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { API } from "@/utils/constant";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 const ForgotPassword = () => {
+  const { user } = useSelector((state: RootState) => state.auth);
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async () => {
     setMessage("");
@@ -49,8 +59,8 @@ const ForgotPassword = () => {
         <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-sm border border-gray-100">
           {/* Logo */}
           <div className="flex justify-center mb-6">
-            <h1 className="text-3xl font-bold">
-              Vie<span className="text-[#f83002]">Jobs</span>
+            <h1 className="text-3xl font-bold text-black drop-shadow-lg tracking-wide">
+              Vie<span className="text-[#f83002] drop-shadow-lg">Jobs</span>
             </h1>
           </div>
 
@@ -167,20 +177,28 @@ const ForgotPassword = () => {
         <div className="max-w-md relative z-10">
           {/* Logo */}
           <div className="flex justify-center mb-8">
-            <h1 className="text-5xl font-bold text-black">
-              Vie<span className="text-[#f83002] drop-shadow-lg">Jobs</span>
+            <h1 className="relative text-4xl font-extrabold tracking-wide">
+              <span className="absolute left-1 top-1 text-gray-800 opacity-40 select-none">
+                Vie<span className="text-red-600">Jobs</span>
+              </span>
+              <span className="text-black">Vie</span>
+              <span className="text-[#f83002]">Jobs</span>
             </h1>
           </div>
 
           {/* Slogan */}
-          <h2 className="text-3xl font-semibold mb-6 text-center leading-tight">
-            <span className="text-white/95">Tiếp lợi thế</span>
+          <h2 className="text-3xl font-bold text-center leading-tight mb-6 relative">
+            <span className="text-white/95 drop-shadow-[2px_2px_1px_rgba(0,0,0,0.25)]">
+              Tiếp lợi thế
+            </span>
             <br />
-            <span className="text-[#c1f0d4]">Nối thành công</span>
+            <span className="text-[#c1f0d4] drop-shadow-[2px_2px_1px_rgba(0,0,0,0.25)]">
+              Nối thành công
+            </span>
           </h2>
 
           {/* Description */}
-          <p className="text-lg text-center text-[#e0f8ec] mb-8">
+          <p className="text-lg text-center text-[#e0f8ec] mb-8 drop-shadow-[1.5px_1.5px_1px_rgba(0,0,0,0.2)]">
             Hệ sinh thái nhân sự tiên phong ứng dụng công nghệ AI tại Việt Nam
           </p>
 

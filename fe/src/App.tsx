@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
-// import { Toaster } from "./components/ui/sonner";
 import { Toaster } from "react-hot-toast";
 import Jobs from "./components/pages/Jobs";
 import Browse from "./components/pages/Browse";
@@ -11,6 +10,11 @@ import JobDescription from "./components/pages/JobDescription";
 import ForgotPassword from "./components/auth/ForgotPassword";
 import ResetPassword from "./components/auth/ResetPassword";
 import ScrollRestoration from "./components/pages/components/ScrollRestoration";
+import RecruiterLayout from "./components/recruiter/RecruiterLayout";
+import Recruiter from "./components/recruiter/screeens/Recruiter";
+import Company from "./components/recruiter/screeens/Company";
+import JobManager from "./components/recruiter/screeens/JobManager";
+import Candidates from "./components/recruiter/screeens/Candidates";
 
 function App() {
   return (
@@ -26,6 +30,13 @@ function App() {
         <Route path="/browse" element={<Browse />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/jobs/description/:id" element={<JobDescription />} />
+
+        <Route path="/recruiter" element={<RecruiterLayout />}>
+          <Route index element={<Recruiter />} />
+          <Route path="/recruiter/company" element={<Company />} />
+          <Route path="/recruiter/jobs" element={<JobManager />} />
+          <Route path="/recruiter/candidates" element={<Candidates />} />
+        </Route>
       </Routes>
       <Toaster
         position="top-center"

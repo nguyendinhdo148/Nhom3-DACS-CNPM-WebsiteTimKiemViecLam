@@ -48,9 +48,9 @@ const Profile = () => {
       });
 
       if (res.data.success) {
-        console.log(res.data.user);
+        // console.log(res.data.user);
         dispatch(setUser(res.data.user));
-        localStorage.setItem("user", JSON.stringify(res.data.user));
+        // localStorage.setItem("user", JSON.stringify(res.data.user));
         toast.success("Cập nhật ảnh đại diện thành công!");
       }
     } catch (error) {
