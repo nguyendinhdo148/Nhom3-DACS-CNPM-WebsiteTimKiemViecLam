@@ -20,7 +20,7 @@ import { setCompanies, setSelectedCompany } from "@/redux/companySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import type { Company } from "@/types/comapany";
-import SkeletonCompany from "../components/Skeleton/SkeletonCompany";
+import CommonSkeleton from "../components/Skeleton/CommonSkeleton";
 
 const Company = () => {
   const { companies, selectedCompany } = useSelector(
@@ -51,6 +51,8 @@ const Company = () => {
   useEffect(() => {
     fetchCompanies();
   }, [fetchCompanies]);
+
+  
 
   // handleAddCompany function
   const handleAddCompany = async (formData: FormData) => {
@@ -134,7 +136,7 @@ const Company = () => {
   };
 
   if (isLoading) {
-    return <SkeletonCompany />;
+    return <CommonSkeleton />;
   }
 
   return (

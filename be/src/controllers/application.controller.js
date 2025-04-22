@@ -126,6 +126,55 @@ export const getApplicants = async (req, res, next) => {
   }
 };
 
+export const getApplicantsForRecruiter = async (req, res, next) => {
+  try {
+    const userId = req.id;
+    const jobs = await Job.find({ created_by: userId })
+      .select(
+        "-description -requirements -salary -experienceLevel -location -jobType -benefits -position -createdAt -updatedAt -__v"
+      )
+      .populate({
+        path: "applications",
+        options: { sort: { createdAt: -1 } },
+        populate: {
+          path: "applicant",
+          select:
+            "-_id -password -role -profile.resume -refreshToken -refreshTokenExpiry -createdAt -updatedAt -__v",
+          options: { sort: { createdAt: -1 } },
+        },
+      });
+
+    if (!jobs) {
+      return res.status(404).json({
+        message: "Jobs not found.",
+        success: false,
+      });
+    }
+
+    const applications = [];
+    jobs.forEach((job) => {
+      job.applications.forEach((app) => {
+        applications.push({
+          ...app.toObject(),
+          job: {
+            _id: job._id,
+            title: job.title,
+            company: job.company,
+            experienceLevel: job.experienceLevel,
+          },
+        });
+      });
+    });
+
+    return res.status(200).json({
+      applications,
+      success: true,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // for recruiter
 export const updateApplicationStatus = async (req, res, next) => {
   try {

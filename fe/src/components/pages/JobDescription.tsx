@@ -11,7 +11,7 @@ import { formatDistanceToNow } from "date-fns";
 import { vi } from "date-fns/locale"; // dùng locale tiếng Việt nếu muốn
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { motion } from "framer-motion"; // Import framer-motion
-import { CircleCheck, Dot } from "lucide-react";
+import { CircleCheck, Dot, SquarePen } from "lucide-react";
 import toast from "react-hot-toast";
 
 const JobDescription = () => {
@@ -161,7 +161,7 @@ const JobDescription = () => {
       {singleJob?.requirements && singleJob.requirements.length > 0 && (
         <div className="bg-white p-6 rounded-xl shadow-sm mb-6">
           <h2 className="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">
-            Yêu cầu công việc
+            Yêu cầu ứng viên
           </h2>
           <ul className="list-disc list-inside text-gray-700 leading-relaxed space-y-1">
             {singleJob?.requirements.map((req, index) => (
@@ -174,6 +174,40 @@ const JobDescription = () => {
               >
                 {/* Xử lý từng đoạn văn bản có dấu chấm */}
                 {req
+                  .split(/\.\s+/)
+                  .filter((sentence) => sentence.trim().length > 0)
+                  .map((sentence, i) => (
+                    <div key={i} className="flex items-start gap-2">
+                      <SquarePen className="size-5 text-yellow-500 flex-shrink-0 mt-1" />
+                      <span>
+                        {sentence.trim()}
+                        {/* Thêm dấu chấm nếu câu không kết thúc bằng dấu chấm */}
+                        {!sentence.trim().endsWith(".") && "."}
+                      </span>
+                    </div>
+                  ))}
+              </motion.li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {singleJob?.benefits && singleJob.benefits.length > 0 && (
+        <div className="bg-white p-6 rounded-xl shadow-sm mb-6">
+          <h2 className="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">
+            Phúc lợi
+          </h2>
+          <ul className="list-disc list-inside text-gray-700 leading-relaxed space-y-1">
+            {singleJob?.benefits.map((benefit, index) => (
+              <motion.li
+                key={index}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="flex flex-col gap-1"
+              >
+                {/* Xử lý từng đoạn văn bản có dấu chấm */}
+                {benefit
                   .split(/\.\s+/)
                   .filter((sentence) => sentence.trim().length > 0)
                   .map((sentence, i) => (

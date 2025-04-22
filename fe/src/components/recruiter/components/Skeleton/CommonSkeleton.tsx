@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 
-const SkeletonCompany = () => {
+const CommonSkeleton = () => {
   return (
     <div className="space-y-6">
       {/* Header Skeleton */}
@@ -49,4 +49,4 @@ const SkeletonCompany = () => {
   );
 };
 
-export default SkeletonCompany;
+export default CommonSkeleton;

@@ -6,6 +6,18 @@ import nodemailer from "nodemailer";
 import cloudinary from "../utils/cloudinary.js";
 import getDataUri from "../utils/dataUri.js";
 
+const generateTokens = (userId) => {
+  const accessToken = jwt.sign({ userId }, process.env.SECRET_KEY, {
+    expiresIn: "15m",
+  });
+
+  const refreshToken = jwt.sign({ userId }, process.env.REFRESH_SECRET_KEY, {
+    expiresIn: "7d",
+  });
+
+  return { accessToken, refreshToken };
+};
+
 export const register = async (req, res, next) => {
   try {
     const { fullname, email, phoneNumber, password, role } = req.body;
@@ -94,12 +106,12 @@ export const login = async (req, res, next) => {
       });
     }
 
-    const tokenData = {
-      userId: user._id,
-    };
-    const token = await jwt.sign(tokenData, process.env.SECRET_KEY, {
-      expiresIn: "1d",
-    });
+    // const tokenData = {
+    //   userId: user._id,
+    // };
+    // const token = await jwt.sign(tokenData, process.env.SECRET_KEY, {
+    //   expiresIn: "1d",
+    // });
 
     user = {
       _id: user._id,
@@ -110,12 +122,27 @@ export const login = async (req, res, next) => {
       profile: user.profile,
     };
 
+    const { accessToken, refreshToken } = generateTokens(user._id);
+
+    // Lưu refresh token vào DB
+    await User.findByIdAndUpdate(user._id, {
+      refreshToken,
+      refreshTokenExpiry: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    });
+
     return res
       .status(200)
-      .cookie("token", token, {
-        maxAge: 1 * 24 * 60 * 60 * 1000,
-        httpsOnly: true,
+      .cookie("accessToken", accessToken, {
+        httpOnly: true,
+        secure: true,
         sameSite: "strict",
+        maxAge: 15 * 60 * 1000, // 15 phút
+      })
+      .cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 ngày
       })
       .json({
         message: `Welcome back ${user.fullname}`,
@@ -126,16 +153,51 @@ export const login = async (req, res, next) => {
     next(error);
   }
 };
+
+export const refreshToken = async (req, res) => {
+  const { refreshToken } = req.cookies;
+
+  // Kiểm tra refresh token
+  const user = await User.findOne({ refreshToken });
+
+  if (!user || user.refreshTokenExpiry < Date.now()) {
+    return res.status(401).json({ message: "Invalid refresh token" });
+  }
+
+  // Tạo token mới
+  const { accessToken, newRefreshToken } = generateTokens(user._id);
+
+  // Cập nhật refresh token mới
+  await User.findByIdAndUpdate(user._id, {
+    refreshToken: newRefreshToken,
+    refreshTokenExpiry: Date.now() + 7 * 24 * 60 * 60 * 1000,
+  });
+
+  return res
+    .cookie("accessToken", accessToken)
+    .cookie("refreshToken", newRefreshToken)
+    .json({ success: true });
+};
+
 export const logout = async (req, res, next) => {
   try {
-    return res.status(200).cookie("token", "", { maxAge: 0 }).json({
-      message: "Logged out successfully.",
-      success: true,
+    // return res.status(200).cookie("token", "", { maxAge: 0 }).json({
+    //   message: "Logged out successfully.",
+    //   success: true,
+    // });
+    await User.findByIdAndUpdate(req.id, {
+      refreshToken: null,
+      refreshTokenExpiry: null,
     });
+
+    // Xóa cookies
+    res.clearCookie("accessToken").clearCookie("refreshToken");
+    return res.json({ success: true });
   } catch (error) {
     next(error);
   }
 };
+
 export const updateProfile = async (req, res, next) => {
   try {
     const { fullname, email, phoneNumber, bio, skills } = req.body;

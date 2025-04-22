@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import {
   Table,
@@ -8,48 +8,25 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, Eye, Search, XCircle } from "lucide-react";
+import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import axios from "axios";
+import { API } from "@/utils/constant";
+import { useDispatch, useSelector } from "react-redux";
+import { setApplications } from "@/redux/applicationSlice";
+import toast from "react-hot-toast";
+import { RootState } from "@/redux/store";
+import { setLoading } from "@/redux/jobSlice";
+import CommonSkeleton from "../components/Skeleton/CommonSkeleton";
+import ActionButtons from "../components/ActionButtons";
 
 const Candidates = () => {
-  const [candidates] = useState([
-    {
-      id: 1,
-      name: "Nguyễn Văn A",
-      avatar: null,
-      email: "nguyenvana@example.com",
-      position: "Frontend Developer",
-      company: "Tech Corp",
-      appliedDate: "2024-04-19",
-      status: "pending",
-      experience: "3 years",
-    },
-    {
-      id: 2,
-      name: "Trần Thị B",
-      avatar: null,
-      email: "tranthib@example.com",
-      position: "Backend Developer",
-      company: "Digital Solutions",
-      appliedDate: "2024-04-18",
-      status: "accepted",
-      experience: "4 years",
-    },
-    {
-      id: 3,
-      name: "Lê Văn C",
-      avatar: null,
-      email: "levanc@example.com",
-      position: "UI/UX Designer",
-      company: "Tech Corp",
-      appliedDate: "2024-04-17",
-      status: "rejected",
-      experience: "2 years",
-    },
-  ]);
+  const { applications, isLoading } = useSelector(
+    (store: RootState) => store.application
+  );
+  const dispatch = useDispatch();
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -68,36 +45,79 @@ const Candidates = () => {
     }
   };
 
+  const fetchApplications = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get(`${API}/application/applicantsForRecruiter`, {
+        withCredentials: true,
+      });
+
+      if (res.data.success) {
+        dispatch(setApplications(res.data.applications));
+      }
+    } catch (error) {
+      console.error("Error fetching applications:", error);
+      toast.error("Lỗi khi tải danh sách ứng viên");
+    } finally {
+      setLoading(false);
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    fetchApplications();
+  }, [fetchApplications]);
+
+  if (isLoading) {
+    return <CommonSkeleton />;
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Quản lý ứng viên</h1>
-        <p className="mt-1 text-gray-600">
-          Xem và quản lý danh sách ứng viên ứng tuyển
+        <h1 className="text-3xl font-bold text-gray-900">
+          📋 Quản lý ứng viên
+        </h1>
+        <p className="mt-2 text-gray-600 text-sm">
+          Xem và quản lý danh sách ứng viên ứng tuyển vào các vị trí công việc
         </p>
       </div>
 
       {/* Filters */}
-      <Card className="p-6">
-        <div className="flex items-center gap-4">
+      <Card className="p-6 shadow-md border rounded-2xl">
+        <div className="flex flex-col md:flex-row md:items-center gap-4">
           <div className="flex-1">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-              <Input placeholder="Tìm kiếm ứng viên..." className="pl-10" />
+              <Input
+                placeholder="Tìm kiếm ứng viên..."
+                className="pl-10 rounded-xl"
+              />
             </div>
           </div>
-          <div className="flex gap-2">
-            <Badge variant="outline" className="cursor-pointer">
-              Tất cả ({candidates.length})
+          <div className="flex flex-wrap gap-2">
+            <Badge
+              variant="outline"
+              className="cursor-pointer rounded-full px-4 py-1 text-sm hover:bg-gray-100"
+            >
+              Tất cả ({applications.length})
             </Badge>
-            <Badge variant="outline" className="cursor-pointer">
+            <Badge
+              variant="outline"
+              className="cursor-pointer rounded-full px-4 py-1 text-sm hover:bg-yellow-50 text-yellow-700 border-yellow-300"
+            >
               Đang xem xét (1)
             </Badge>
-            <Badge variant="outline" className="cursor-pointer">
+            <Badge
+              variant="outline"
+              className="cursor-pointer rounded-full px-4 py-1 text-sm hover:bg-green-50 text-green-700 border-green-300"
+            >
               Đã chấp nhận (1)
             </Badge>
-            <Badge variant="outline" className="cursor-pointer">
+            <Badge
+              variant="outline"
+              className="cursor-pointer rounded-full px-4 py-1 text-sm hover:bg-red-50 text-red-700 border-red-300"
+            >
               Đã từ chối (1)
             </Badge>
           </div>
@@ -105,84 +125,86 @@ const Candidates = () => {
       </Card>
 
       {/* Candidates List */}
-      <Card>
-        <div className="p-6">
+      <Card className="shadow-md border rounded-2xl">
+        <div className="p-6 overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead className="w-[300px]">Ứng viên</TableHead>
-                <TableHead>Vị trí ứng tuyển</TableHead>
-                <TableHead>Kinh nghiệm</TableHead>
-                <TableHead>Ngày ứng tuyển</TableHead>
-                <TableHead>Trạng thái</TableHead>
-                <TableHead className="text-right">Thao tác</TableHead>
+              <TableRow className="bg-gray-50">
+                <TableHead className="w-[300px] text-gray-700 font-semibold">
+                  Ứng viên
+                </TableHead>
+                <TableHead className="text-gray-700 font-semibold">
+                  Vị trí ứng tuyển
+                </TableHead>
+                <TableHead className="text-gray-700 font-semibold">
+                  Ngày ứng tuyển
+                </TableHead>
+                <TableHead className="text-gray-700 font-semibold">
+                  Trạng thái
+                </TableHead>
+                <TableHead className="text-right text-gray-700 font-semibold">
+                  Thao tác
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {candidates.map((candidate) => (
-                <TableRow key={candidate.id}>
-                  <TableCell>
-                    <div className="flex items-center gap-3">
-                      <Avatar className="h-10 w-10">
-                        <AvatarImage src={candidate.avatar || ""} />
-                        <AvatarFallback className="bg-blue-100 text-blue-600">
-                          {candidate.name.charAt(0)}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <div className="font-medium">{candidate.name}</div>
-                        <div className="text-sm text-gray-500">
-                          {candidate.email}
+              {applications.length > 0 ? (
+                applications.map((app) => (
+                  <TableRow
+                    key={app._id}
+                    className="hover:bg-gray-50 transition"
+                  >
+                    <TableCell>
+                      <div className="flex items-center gap-3">
+                        <Avatar className="h-10 w-10 rounded-full shadow">
+                          <AvatarImage
+                            src={app.applicant?.profile?.profilePhoto || ""}
+                          />
+                          <AvatarFallback className="bg-blue-100 text-blue-600">
+                            {app.applicant?.fullname.charAt(0)}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="font-medium">
+                            {app.applicant?.fullname}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {app.applicant?.email}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <div>
-                      <div className="font-medium">{candidate.position}</div>
-                      <div className="text-sm text-gray-500">
-                        {candidate.company}
+                    </TableCell>
+                    <TableCell>
+                      <div>
+                        <div className="font-medium">{app.job?.title}</div>
+                        <div className="text-sm text-gray-500">
+                          {app.job?.company?.name}
+                        </div>
                       </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>{candidate.experience}</TableCell>
-                  <TableCell>
-                    {new Date(candidate.appliedDate).toLocaleDateString(
-                      "vi-VN"
-                    )}
-                  </TableCell>
-                  <TableCell>{getStatusBadge(candidate.status)}</TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex items-center justify-end gap-2">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="hover:bg-gray-100"
-                      >
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      {candidate.status === "pending" && (
-                        <>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="hover:bg-green-50 text-green-600"
-                          >
-                            <CheckCircle2 className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="hover:bg-red-50 text-red-600"
-                          >
-                            <XCircle className="h-4 w-4" />
-                          </Button>
-                        </>
-                      )}
+                    </TableCell>
+                    <TableCell>
+                      {new Date(app.createdAt).toLocaleDateString("vi-VN")}
+                    </TableCell>
+                    <TableCell>{getStatusBadge(app.status)}</TableCell>
+                    <TableCell className="text-right">
+                      <ActionButtons
+                        status={app.status}
+                        onView={() => console.log("Xem chi tiết", app._id)}
+                        onAccept={() => console.log("Chấp nhận", app._id)}
+                        onReject={() => console.log("Từ chối", app._id)}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={7} className="text-center py-10">
+                    <div className="text-gray-500 text-lg flex flex-col items-center gap-2">
+                      <span>📭 Không có ứng viên nào</span>
                     </div>
                   </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
           </Table>
         </div>

@@ -14,6 +14,7 @@ export interface Job {
   jobType: string;
   position: number;
   company: Company; // Company object instead of just an ID
+  status: string; // e.g., "active", "draft", "closed".
   created_by: User; // Assuming user ID as a string
   applications: Application[]; // Array of application IDs
   createdAt: string; // ISO date string

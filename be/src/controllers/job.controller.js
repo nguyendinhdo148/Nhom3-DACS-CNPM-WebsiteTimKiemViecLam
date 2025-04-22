@@ -12,12 +12,14 @@ export const createJob = async (req, res, next) => {
       salary,
       location,
       jobType,
-      experience,
+      experienceLevel,
       position,
-      companyId,
+      company,
     } = req.body;
 
     const recruiterId = req.id; // middleware authentication
+
+    // console.log(req.body);
 
     if (
       !title ||
@@ -27,9 +29,9 @@ export const createJob = async (req, res, next) => {
       !salary ||
       !location ||
       !jobType ||
-      !experience ||
+      !experienceLevel ||
       !position ||
-      !companyId
+      !company
     ) {
       return res.status(400).json({
         message: "Something is missing.",
@@ -38,8 +40,8 @@ export const createJob = async (req, res, next) => {
     }
 
     // check if company exists
-    const company = await Company.findById(companyId);
-    if (!company) {
+    const companyDoc = await Company.findById(company);
+    if (!companyDoc) {
       return res.status(404).json({
         message: "Company not found.",
         success: false,
@@ -47,7 +49,7 @@ export const createJob = async (req, res, next) => {
     }
 
     // check if recruiter is authorized to create a job for this company
-    if (company.userId.toString() !== recruiterId) {
+    if (companyDoc.userId.toString() !== recruiterId) {
       return res.status(401).json({
         message: "You are not authorized to create a job for this company.",
         success: false,
@@ -72,9 +74,9 @@ export const createJob = async (req, res, next) => {
       salary: Number(salary),
       location,
       jobType,
-      experienceLevel: experience,
+      experienceLevel,
       position,
-      company: companyId,
+      company,
       created_by: recruiterId,
     });
 
@@ -155,7 +157,9 @@ export const getJobById = async (req, res, next) => {
 export const getRecruiterJobs = async (req, res, next) => {
   try {
     const recruiterId = req.id;
-    const jobs = await Job.find({ created_by: recruiterId });
+    const jobs = await Job.find({ created_by: recruiterId }).populate(
+      "company"
+    );
 
     if (!jobs) {
       return res.status(404).json({
