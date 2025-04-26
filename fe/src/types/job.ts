@@ -1,5 +1,5 @@
 import { Application } from "./application";
-import { Company } from "./comapany";
+import { Company } from "./company";
 import { User } from "./user";
 
 export interface Job {
@@ -14,6 +14,7 @@ export interface Job {
   jobType: string;
   position: number;
   company: Company; // Company object instead of just an ID
+  category: string; // e.g., "Engineering", "Marketing", etc.
   status: string; // e.g., "active", "draft", "closed".
   created_by: User; // Assuming user ID as a string
   applications: Application[]; // Array of application IDs

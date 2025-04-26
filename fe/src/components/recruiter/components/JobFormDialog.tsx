@@ -34,6 +34,7 @@ export interface JobFormData {
   jobType: string;
   experienceLevel: number;
   position: number;
+  category: string;
   company: {
     _id: string;
     name: string;
@@ -58,6 +59,7 @@ const initialFormData: JobFormData = {
   jobType: "",
   experienceLevel: 0,
   position: 1,
+  category: "",
   company: {
     _id: "",
     name: "",
@@ -111,6 +113,7 @@ export const JobFormDialog = ({
         jobType: job.jobType,
         experienceLevel: job.experienceLevel,
         position: job.position,
+        category: job.category,
         company: {
           _id: job.company?._id || "",
           name: job.company?.name || "",
@@ -353,6 +356,23 @@ export const JobFormDialog = ({
                   </SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="experienceLevel">
+                Chuyên ngành <span className="text-red-700">*</span>
+              </Label>
+              <input
+                type="text"
+                name="category"
+                value={formData.category}
+                onChange={(e) =>
+                  setFormData({ ...formData, category: e.target.value })
+                }
+                className="w-full border rounded-md px-3 py-2 text-gray-800"
+                placeholder="Ví dụ: IT, Kế toán, Marketing..."
+                required
+              />
             </div>
 
             <div className="grid gap-2">

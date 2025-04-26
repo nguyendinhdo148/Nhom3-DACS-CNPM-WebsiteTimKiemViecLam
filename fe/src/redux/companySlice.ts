@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Company } from "@/types/comapany";
+import { Company } from "@/types/company";
 
 interface CompanyState {
   companies: Company[];

@@ -93,7 +93,7 @@ const UpdateProfileDialog = ({ open, setOpen }: UpdateProfileDialogProps) => {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent
           onInteractOutside={() => setOpen(false)}
-          className="sm:max-w-[625px] bg-white rounded-lg shadow-xl"
+          className="w-full sm:max-w-2xl bg-white rounded-lg shadow-xl px-4 sm:px-6"
         >
           <DialogHeader className="border-b pb-4">
             <DialogTitle>

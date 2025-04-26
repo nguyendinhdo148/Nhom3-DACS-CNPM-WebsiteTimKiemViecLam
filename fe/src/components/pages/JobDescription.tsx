@@ -29,6 +29,10 @@ const JobDescription = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    window.scrollTo(0, 0); // cuộn lên đầu
+  }, [jobId]);
+
+  useEffect(() => {
     const fetchSingleJob = async () => {
       try {
         const res = await axios.get(`${API}/job/${jobId}`, {
@@ -256,6 +260,19 @@ const JobDescription = () => {
           <p>
             <strong className="text-gray-800">Số lượng tuyển:</strong>{" "}
             {singleJob?.position}
+          </p>
+          <p>
+            <strong className="text-gray-800">Website:</strong>{" "}
+            <a
+              href={singleJob?.company.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:underline"
+            >
+              {singleJob?.company?.website
+                ? new URL(singleJob.company.website).hostname
+                : "N/A"}
+            </a>
           </p>
           <p>
             <strong className="text-gray-800">Ngày đăng:</strong>{" "}

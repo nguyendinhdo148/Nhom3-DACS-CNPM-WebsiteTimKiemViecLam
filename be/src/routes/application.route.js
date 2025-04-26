@@ -6,6 +6,7 @@ import {
   getApplicants,
   updateApplicationStatus,
   getApplicantsForRecruiter,
+  getOverview,
 } from "../controllers/application.controller.js";
 import { isAuthenticated, isRecruiter } from "../middleware/auth.middleware.js";
 
@@ -27,5 +28,6 @@ router.put(
   isRecruiter,
   updateApplicationStatus
 );
+router.get("/overview", isAuthenticated, isRecruiter, getOverview);
 
 export default router;

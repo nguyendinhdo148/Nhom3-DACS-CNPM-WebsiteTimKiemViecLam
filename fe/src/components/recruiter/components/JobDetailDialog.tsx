@@ -58,6 +58,9 @@ export const JobDetailDialog = ({
             <p>
               <strong>Mức lương:</strong> {job.salary} Triệu
             </p>
+            <p>
+              <strong>Ngày tạo:</strong> {new Date(job.createdAt).toLocaleDateString("vi-VN")}
+            </p>
           </div>
         </DialogHeader>
 

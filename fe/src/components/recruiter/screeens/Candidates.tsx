@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import {
   Table,
@@ -18,14 +18,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { setApplications } from "@/redux/applicationSlice";
 import toast from "react-hot-toast";
 import { RootState } from "@/redux/store";
-import { setLoading } from "@/redux/jobSlice";
 import CommonSkeleton from "../components/Skeleton/CommonSkeleton";
 import ActionButtons from "../components/ActionButtons";
+import { PaginationButtons } from "@/components/helpers/PaginationButtons";
+import { paginate } from "@/components/helpers/pagination";
 
 const Candidates = () => {
-  const { applications, isLoading } = useSelector(
-    (store: RootState) => store.application
-  );
+  const { applications } = useSelector((store: RootState) => store.application);
+  const [isLoading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const dispatch = useDispatch();
 
   const getStatusBadge = (status: string) => {
@@ -46,7 +48,6 @@ const Candidates = () => {
   };
 
   const fetchApplications = useCallback(async () => {
-    setLoading(true);
     try {
       const res = await axios.get(`${API}/application/applicantsForRecruiter`, {
         withCredentials: true,
@@ -67,18 +68,72 @@ const Candidates = () => {
     fetchApplications();
   }, [fetchApplications]);
 
+  const handleAcceptAndReject = async (
+    applicationId: string,
+    status: string
+  ) => {
+    try {
+      const res = await axios.put(
+        `${API}/application/update-application-status/${applicationId}`,
+        {
+          status: status,
+        },
+        { withCredentials: true }
+      );
+      if (res.data.success) {
+        fetchApplications();
+        toast.success(
+          status === "accepted"
+            ? "Chấp nhận ứng viên thành công"
+            : "Từ chối ứng viên thành công"
+        );
+      }
+    } catch (error) {
+      console.error("Error accepting application:", error);
+      toast.error("Lỗi khi chấp nhận ứng viên");
+    }
+  };
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemPerPage = 6; // Number of jobs per page
+
+  // Filter applications based on search term
+  const filteredApplications = applications.filter((app) => {
+    const fullName = app.applicant?.fullname.toLowerCase();
+    const email = app.applicant?.email.toLowerCase();
+    const jobTitle = app.job?.title.toLowerCase();
+    const term = searchTerm.toLowerCase();
+    return (
+      fullName.includes(term) || email.includes(term) || jobTitle.includes(term)
+    );
+  });
+
+  // Calculate total pages for pagination based on filtered applications
+  const { paginatedData: paginatedCandidates, totalPages } = paginate(
+    filteredApplications,
+    currentPage,
+    itemPerPage
+  );
+
+  const candidatesRef = useRef<HTMLDivElement | null>(null);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    candidatesRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   if (isLoading) {
     return <CommonSkeleton />;
   }
 
   return (
-    <div className="space-y-6">
+    <div ref={candidatesRef} className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">
+        <h1 className="text-3xl font-semibold text-gray-800 flex items-center gap-2">
           📋 Quản lý ứng viên
         </h1>
-        <p className="mt-2 text-gray-600 text-sm">
+        <p className="mt-1 text-gray-500">
           Xem và quản lý danh sách ứng viên ứng tuyển vào các vị trí công việc
         </p>
       </div>
@@ -91,7 +146,9 @@ const Candidates = () => {
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
               <Input
                 placeholder="Tìm kiếm ứng viên..."
-                className="pl-10 rounded-xl"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 rounded-xl focus:outline-none focus:ring-0 focus:border-transparent"
               />
             </div>
           </div>
@@ -106,19 +163,22 @@ const Candidates = () => {
               variant="outline"
               className="cursor-pointer rounded-full px-4 py-1 text-sm hover:bg-yellow-50 text-yellow-700 border-yellow-300"
             >
-              Đang xem xét (1)
+              Đang xem xét (
+              {applications.filter((app) => app.status === "pending").length})
             </Badge>
             <Badge
               variant="outline"
               className="cursor-pointer rounded-full px-4 py-1 text-sm hover:bg-green-50 text-green-700 border-green-300"
             >
-              Đã chấp nhận (1)
+              Đã chấp nhận (
+              {applications.filter((app) => app.status === "accepted").length})
             </Badge>
             <Badge
               variant="outline"
               className="cursor-pointer rounded-full px-4 py-1 text-sm hover:bg-red-50 text-red-700 border-red-300"
             >
-              Đã từ chối (1)
+              Đã từ chối (
+              {applications.filter((app) => app.status === "rejected").length})
             </Badge>
           </div>
         </div>
@@ -148,8 +208,8 @@ const Candidates = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {applications.length > 0 ? (
-                applications.map((app) => (
+              {paginatedCandidates.length > 0 ? (
+                paginatedCandidates.map((app) => (
                   <TableRow
                     key={app._id}
                     className="hover:bg-gray-50 transition"
@@ -178,7 +238,7 @@ const Candidates = () => {
                       <div>
                         <div className="font-medium">{app.job?.title}</div>
                         <div className="text-sm text-gray-500">
-                          {app.job?.company?.name}
+                          {app.job?.company.name}
                         </div>
                       </div>
                     </TableCell>
@@ -188,10 +248,15 @@ const Candidates = () => {
                     <TableCell>{getStatusBadge(app.status)}</TableCell>
                     <TableCell className="text-right">
                       <ActionButtons
+                        applicant={app.applicant}
                         status={app.status}
                         onView={() => console.log("Xem chi tiết", app._id)}
-                        onAccept={() => console.log("Chấp nhận", app._id)}
-                        onReject={() => console.log("Từ chối", app._id)}
+                        onAccept={() =>
+                          handleAcceptAndReject(app._id, "accepted")
+                        }
+                        onReject={() =>
+                          handleAcceptAndReject(app._id, "rejected")
+                        }
                       />
                     </TableCell>
                   </TableRow>
@@ -209,6 +274,13 @@ const Candidates = () => {
           </Table>
         </div>
       </Card>
+
+      {/* Pagination Buttons */}
+      <PaginationButtons
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };

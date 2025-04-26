@@ -6,6 +6,7 @@ interface JobState {
   singleJob: Job | undefined;
   jobsForRecruiter: Job[];
   selectedJob: Job | null;
+  searchedQuery: string | "";
   isLoading: boolean;
   error: string | null;
 }
@@ -15,6 +16,7 @@ const initialState: JobState = {
   singleJob: undefined,
   jobsForRecruiter: [],
   selectedJob: null,
+  searchedQuery: "",
   isLoading: false,
   error: null,
 };
@@ -34,6 +36,9 @@ const jobSlice = createSlice({
     },
     setSelectedJob: (state, action) => {
       state.selectedJob = action.payload;
+    },
+    setSearchedQuery: (state, action) => {
+      state.searchedQuery = action.payload;
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload;
@@ -55,6 +60,7 @@ export const {
   setSingleJob,
   setJobsForRecruiter,
   setSelectedJob,
+  setSearchedQuery,
   setLoading,
   setError,
   resetError,

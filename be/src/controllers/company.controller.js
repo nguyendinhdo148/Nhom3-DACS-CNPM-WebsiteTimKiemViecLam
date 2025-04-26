@@ -7,36 +7,32 @@ import getDataUri from "../utils/dataUri.js";
 // for recruiter
 export const createCompany = async (req, res, next) => {
   try {
-    const { name, description, website, location } = req.body;
+    const { name, description, website, location, taxCode } = req.body;
+    const files = req.files;
 
-    let logo = null;
-    if (req.file) {
-      try {
-        const fileUri = getDataUri(req.file);
-        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-        logo = cloudResponse.secure_url;
-      } catch (uploadError) {
-        console.error("File upload error:", uploadError);
-        return res.status(500).json({
-          message: "Error uploading profile photo",
-          success: false,
-        });
-      }
-    }
-
-    // if (!name || !description || !website || !location) {
-    //   return res.status(400).json({
-    //     message: "Something is missing",
-    //     success: false,
-    //   });
-    // }
-
-    let company = await Company.findOne({ name });
+    // Kiểm tra tên công ty trùng
+    let company = await Company.findOne({ taxCode });
     if (company) {
       return res.status(400).json({
-        message: "Company already exist with this name.",
+        message: "Duplicate business license.",
         success: false,
       });
+    }
+
+    // Upload logo nếu có
+    let logo = null;
+    if (files?.logo?.length) {
+      const fileUri = getDataUri(files.logo[0]);
+      const uploadRes = await cloudinary.uploader.upload(fileUri.content);
+      logo = uploadRes.secure_url;
+    }
+
+    // Upload business license nếu có
+    let businessLicense = null;
+    if (files?.businessLicense?.length) {
+      const fileUri = getDataUri(files.businessLicense[0]);
+      const uploadRes = await cloudinary.uploader.upload(fileUri.content);
+      businessLicense = uploadRes.secure_url;
     }
 
     company = await Company.create({
@@ -44,7 +40,9 @@ export const createCompany = async (req, res, next) => {
       description,
       website,
       location,
+      taxCode,
       logo,
+      businessLicense,
       userId: req.id,
     });
 
@@ -54,6 +52,7 @@ export const createCompany = async (req, res, next) => {
       success: true,
     });
   } catch (error) {
+    console.error("Error creating company:", error);
     next(error);
   }
 };
@@ -98,29 +97,49 @@ export const getCompanyById = async (req, res, next) => {
 // for recruiter
 export const updateCompany = async (req, res, next) => {
   try {
-    const { name, description, website, location } = req.body;
+    const { name, description, website, location, taxCode } = req.body;
 
-    let logo = null;
-    if (req.file) {
-      try {
-        const fileUri = getDataUri(req.file);
-        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-        logo = cloudResponse.secure_url;
-      } catch (uploadError) {
-        console.error("File upload error:", uploadError);
-        return res.status(500).json({
-          message: "Error uploading profile photo",
-          success: false,
-        });
-      }
+    const files = req.files; // req.files là một object chứa các file được upload
+
+    // kiểm tra taxCode có bị trùng không
+    const checkTaxCode = await Company.findOne({
+      taxCode,
+      _id: { $ne: req.params.id }, // loại trừ công ty hiện tại
+    });
+    if (checkTaxCode) {
+      return res.status(400).json({
+        message: "Duplicate business license.",
+        success: false,
+      });
     }
 
-    const updateData = { name, description, website, location };
+    // Upload logo nếu có
+    let logo = null;
+    if (files?.logo?.length) {
+      const fileUri = getDataUri(files.logo[0]);
+      const uploadRes = await cloudinary.uploader.upload(fileUri.content);
+      logo = uploadRes.secure_url;
+    }
+
+    // Upload business license nếu có
+    let businessLicense = null;
+    if (files?.businessLicense?.length) {
+      const fileUri = getDataUri(files.businessLicense[0]);
+      const uploadRes = await cloudinary.uploader.upload(fileUri.content);
+      businessLicense = uploadRes.secure_url;
+    }
+
+    const updateData = { name, description, website, location, taxCode };
 
     if (logo) {
       updateData.logo = logo;
     }
 
+    if (businessLicense) {
+      updateData.businessLicense = businessLicense;
+    }
+
+    // Kiểm tra xem công ty có tồn tại
     const existCompany = await Company.findById(req.params.id);
     if (!existCompany) {
       return res.status(404).json({
@@ -154,7 +173,7 @@ export const updateCompany = async (req, res, next) => {
 export const deleteCompany = async (req, res, next) => {
   // Find all jobs under this company
   const companyId = req.params.id;
-  
+
   try {
     const existCompany = await Company.findById(companyId);
     if (!existCompany) {

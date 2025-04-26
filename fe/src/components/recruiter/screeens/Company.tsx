@@ -19,7 +19,7 @@ import Swal from "sweetalert2";
 import { setCompanies, setSelectedCompany } from "@/redux/companySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import type { Company } from "@/types/comapany";
+import type { Company } from "@/types/company";
 import CommonSkeleton from "../components/Skeleton/CommonSkeleton";
 
 const Company = () => {
@@ -52,8 +52,6 @@ const Company = () => {
     fetchCompanies();
   }, [fetchCompanies]);
 
-  
-
   // handleAddCompany function
   const handleAddCompany = async (formData: FormData) => {
     try {
@@ -82,11 +80,11 @@ const Company = () => {
   };
 
   // handleEditCompany function
-  const handleEditCompany = async (companyData: FormData) => {
+  const handleEditCompany = async (formData: FormData) => {
     try {
       const response = await axios.put(
         `${API}/company/update-company/${selectedCompany?._id}`,
-        companyData,
+        formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -102,7 +100,11 @@ const Company = () => {
       }
     } catch (error) {
       console.error("Edit company error:", error);
-      toast.error("Không thể cập nhật công ty");
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.message);
+      } else {
+        toast.error("Không thể cập nhật công ty");
+      }
     }
   };
 
@@ -144,20 +146,24 @@ const Company = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Quản lý công ty</h1>
-          <p className="mt-1 text-gray-600">
-            Quản lý thông tin và việc làm của các công ty
+          <h1 className="text-3xl font-semibold text-gray-800 flex items-center gap-2">
+            🏢 <span>Quản lý công ty</span>
+          </h1>
+
+          <p className="mt-1 text-gray-500">
+            Quản lý thông tin, giấy tờ và trạng thái hoạt động của công ty
           </p>
         </div>
         <Button
-          className="text-white bg-blue-600 hover:bg-blue-700 cursor-pointer"
+          size="lg"
+          className="cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-md hover:shadow-lg transition"
           onClick={() => {
             setSelectedCompany(null);
             setIsDialogOpen(true);
           }}
         >
           <div className="flex items-center gap-2">
-            <Plus className="size-4" />
+            <Plus className="mr-2 size-4" />
             <span>Thêm công ty mới</span>
           </div>
         </Button>
@@ -169,10 +175,14 @@ const Company = () => {
           {companies.length > 0 ? (
             <Table>
               <TableHeader>
-                <TableRow>
+                <TableRow className="hover:bg-gray-50 transition">
                   <TableHead className="w-[300px]">Công ty</TableHead>
                   <TableHead>Địa điểm</TableHead>
                   <TableHead>Website</TableHead>
+                  <TableHead>Mã số thuế</TableHead>
+                  <TableHead>Giấy phép kinh doanh</TableHead>
+                  <TableHead>Ngày tạo</TableHead>
+                  <TableHead>Ngày cập nhật</TableHead>
                   <TableHead className="text-right">Thao tác</TableHead>
                 </TableRow>
               </TableHeader>
@@ -192,7 +202,7 @@ const Company = () => {
                         </Avatar>
                         <div>
                           <div className="font-medium">{company.name}</div>
-                          <div className="text-sm text-gray-500 truncate ">
+                          <div className="text-sm text-gray-500 line-clamp-2 max-w-[350px]">
                             {company.description}
                           </div>
                         </div>
@@ -214,6 +224,33 @@ const Company = () => {
                           {new URL(company.website).hostname}
                         </a>
                       )}
+                    </TableCell>
+                    <TableCell>{company.taxCode}</TableCell>
+                    <TableCell>
+                      {company.businessLicense && (
+                        <a
+                          href={company.businessLicense}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline"
+                        >
+                          Xem Giấy phép
+                        </a>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {new Date(company.createdAt).toLocaleDateString("vi-VN", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      })}
+                    </TableCell>
+                    <TableCell>
+                      {new Date(company.updatedAt).toLocaleDateString("vi-VN", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      })}
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex items-center justify-end gap-2">

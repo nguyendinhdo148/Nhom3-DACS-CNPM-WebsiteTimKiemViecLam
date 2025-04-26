@@ -32,7 +32,9 @@ const Jobs = () => {
                 {allJobs.length <= 0 ? (
                   <span>Không có bài tuyển dụng nào có sẵn</span>
                 ) : (
-                  allJobs.map((job, index) => <Job key={index} job={job} />)
+                  allJobs
+                    .filter((job) => job.status === "active")
+                    .map((job, index) => <Job key={index} job={job} />)
                 )}
               </div>
             </div>

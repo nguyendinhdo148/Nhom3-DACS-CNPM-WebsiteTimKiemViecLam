@@ -15,6 +15,7 @@ export const createJob = async (req, res, next) => {
       experienceLevel,
       position,
       company,
+      category,
     } = req.body;
 
     const recruiterId = req.id; // middleware authentication
@@ -31,7 +32,8 @@ export const createJob = async (req, res, next) => {
       !jobType ||
       !experienceLevel ||
       !position ||
-      !company
+      !company ||
+      !category
     ) {
       return res.status(400).json({
         message: "Something is missing.",
@@ -77,6 +79,7 @@ export const createJob = async (req, res, next) => {
       experienceLevel,
       position,
       company,
+      category,
       created_by: recruiterId,
     });
 
@@ -157,9 +160,9 @@ export const getJobById = async (req, res, next) => {
 export const getRecruiterJobs = async (req, res, next) => {
   try {
     const recruiterId = req.id;
-    const jobs = await Job.find({ created_by: recruiterId }).populate(
-      "company"
-    );
+    const jobs = await Job.find({ created_by: recruiterId })
+      .populate("company")
+      .sort({ createdAt: -1 });
 
     if (!jobs) {
       return res.status(404).json({

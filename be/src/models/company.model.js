@@ -5,7 +5,6 @@ const companySchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      unique: true,
     },
     description: {
       type: String,
@@ -18,6 +17,13 @@ const companySchema = new mongoose.Schema(
     },
     logo: {
       type: String, // URL to company logo
+    },
+    businessLicense: {
+      type: String, // URL ảnh scan giấy phép kinh doanh
+    },
+    taxCode: {
+      type: String, // Mã số thuế
+      unique: true, // Mã số thuế là duy nhất
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,

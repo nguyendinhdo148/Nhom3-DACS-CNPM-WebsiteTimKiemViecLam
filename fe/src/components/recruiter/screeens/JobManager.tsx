@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card } from "@/components/ui/card";
 import {
@@ -105,6 +105,7 @@ const JobManager = () => {
           benefits: formData.benefits,
           salary: formData.salary,
           company: formData.company._id,
+          category: formData.category,
           status: formData.status,
         },
         {
@@ -139,6 +140,7 @@ const JobManager = () => {
           benefits: formData.benefits,
           salary: formData.salary,
           company: formData.company._id,
+          category: formData.category,
           status: formData.status,
         },
         {
@@ -190,13 +192,19 @@ const JobManager = () => {
     }
   };
 
+  const jobsRef = useRef<HTMLDivElement | null>(null);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    jobsRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   if (isLoading) return <CommonSkeleton />;
 
   return (
-    <div className="space-y-6 px-6 py-4">
+    <div ref={jobsRef} className="space-y-6">
       <div className="flex items-center justify-between border-b pb-4">
         <div>
-          <h1 className="text-3xl font-semibold text-gray-900">
+          <h1 className="text-3xl font-semibold text-gray-800 flex items-center gap-2">
             🎯 Quản lý việc làm
           </h1>
           <p className="text-gray-500 mt-1">
@@ -204,7 +212,7 @@ const JobManager = () => {
           </p>
         </div>
         <Button
-          className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-xl shadow-md"
+          className="cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-md hover:shadow-lg transition"
           onClick={() => {
             dispatch(setSelectedJob(null));
             setIsDialogOpen(true);
@@ -328,7 +336,7 @@ const JobManager = () => {
                     <TableCell>
                       <Badge
                         variant="outline"
-                        className="text-sm px-3 py-1 rounded-2xl font-medium shadow-sm bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 transition-all duration-200 cursor-pointer"
+                        className="text-sm px-3 py-1 rounded-2xl font-medium shadow-sm bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 transition-all duration-200"
                         style={{ minWidth: 40, justifyContent: "center" }}
                       >
                         {job.applications?.length || 0}
@@ -394,7 +402,7 @@ const JobManager = () => {
       <PaginationButtons
         currentPage={currentPage}
         totalPages={totalPages}
-        onPageChange={setCurrentPage}
+        onPageChange={handlePageChange}
       />
 
       {/* Job Form Dialog */}

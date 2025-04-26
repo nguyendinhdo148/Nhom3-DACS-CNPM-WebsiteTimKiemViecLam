@@ -9,8 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useState, useEffect } from "react";
-import { ImagePlus } from "lucide-react";
-import { Company } from "@/types/comapany";
+import { File, ImagePlus } from "lucide-react";
+import { Company } from "@/types/company";
 import toast from "react-hot-toast";
 
 interface CompanyFormDialogProps {
@@ -27,6 +27,8 @@ const initialFormData = {
   website: "",
   location: "",
   logo: null as File | null,
+  businessLicense: null as File | null,
+  taxCode: "",
 };
 
 const CompanyFormDialog = ({
@@ -59,6 +61,8 @@ const CompanyFormDialog = ({
         website: company.website || "",
         location: company.location || "",
         logo: null,
+        businessLicense: null,
+        taxCode: company.taxCode || "",
       });
       setLogoPreview(company.logo || null);
     } else {
@@ -75,11 +79,38 @@ const CompanyFormDialog = ({
     }
   };
 
+  // handle business license file change
+  const handleBusinessLicenseChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setFormData({ ...formData, businessLicense: file });
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!formData.name.trim()) {
       toast.error("Vui lòng nhập tên công ty");
+      return;
+    }
+
+    if (!formData.businessLicense && !company) {
+      toast.error("Vui lòng chọn giấy phép kinh doanh");
+      return;
+    }
+
+    const taxCode = formData.taxCode.trim();
+
+    if (!taxCode) {
+      toast.error("Vui lòng nhập mã số thuế");
+      return;
+    }
+
+    if (!/^\d{10}$/.test(taxCode)) {
+      toast.error("Mã số thuế phải gồm đúng 10 chữ số");
       return;
     }
 
@@ -92,8 +123,12 @@ const CompanyFormDialog = ({
       submitFormData.append("website", formData.website.trim());
       submitFormData.append("location", formData.location.trim());
       if (formData.logo) {
-        submitFormData.append("file", formData.logo);
+        submitFormData.append("logo", formData.logo);
       }
+      if (formData.businessLicense) {
+        submitFormData.append("businessLicense", formData.businessLicense);
+      }
+      submitFormData.append("taxCode", formData.taxCode.trim());
 
       // Pass the FormData to parent component instead of making API call here
       onSuccess(submitFormData);
@@ -114,7 +149,7 @@ const CompanyFormDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-[600px] bg-white rounded-lg shadow-xl">
+      <DialogContent className="sm:max-w-[600px] max-h-[95vh] overflow-auto bg-white rounded-lg shadow-xl">
         <DialogHeader>
           <DialogTitle>
             {company ? "Cập nhật thông tin công ty" : "Thêm công ty mới"}
@@ -209,6 +244,68 @@ const CompanyFormDialog = ({
               }
               placeholder="Địa chỉ công ty"
             />
+          </div>
+
+          {/* Tax Code */}
+          <div className="grid gap-2">
+            <Label htmlFor="taxCode">
+              Mã số thuế <span className="text-red-700">*</span>
+            </Label>
+            <Input
+              id="taxCode"
+              value={formData.taxCode}
+              onChange={(e) =>
+                setFormData({ ...formData, taxCode: e.target.value })
+              }
+              placeholder="Mã số thuế"
+              required
+            />
+          </div>
+
+          {/* Business License */}
+          <div className="grid gap-2">
+            <Label htmlFor="businessLicense">
+              Giấy phép kinh doanh <span className="text-red-700">*</span>{" "}
+            </Label>
+            {company?.businessLicense ? (
+              <div className="flex items-center gap-1">
+                <File className="w-4 h-4" />
+                <a
+                  href={company.businessLicense}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline text-sm"
+                >
+                  Xem file hiện tại
+                </a>
+              </div>
+            ) : (
+              <p className="text-sm text-gray-500">
+                Chưa có giấy phép kinh doanh
+              </p>
+            )}
+            <div className="border rounded-md p-2 relative">
+              <Input
+                type="file"
+                accept="application/pdf, image/*"
+                onChange={handleBusinessLicenseChange}
+                className="absolute inset-0 opacity-0 cursor-pointer"
+                required={!company?.businessLicense && !company}
+              />
+              {!formData.businessLicense ? (
+                <p className="text-sm text-gray-500">
+                  Chọn file hoặc kéo và thả Giấy phép kinh doanh tại đây.
+                </p>
+              ) : (
+                <p className="text-sm text-gray-500">
+                  File đã chọn: {formData.businessLicense?.name}
+                </p>
+              )}
+            </div>
+            <p className="text-sm text-gray-500 mt-1">
+              Tải lên Giấy phép kinh doanh của công ty. Hỗ trợ định dạng PDF
+              hoặc hình ảnh.
+            </p>
           </div>
 
           {/* Submit Button */}

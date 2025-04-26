@@ -51,6 +51,10 @@ const jobSchema = new mongoose.Schema(
       required: true,
       default: "active",
     },
+    category: {
+      type: String,
+      required: true,
+    },
     created_by: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

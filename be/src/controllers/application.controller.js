@@ -130,18 +130,18 @@ export const getApplicantsForRecruiter = async (req, res, next) => {
   try {
     const userId = req.id;
     const jobs = await Job.find({ created_by: userId })
-      .select(
-        "-description -requirements -salary -experienceLevel -location -jobType -benefits -position -createdAt -updatedAt -__v"
-      )
+      .select("id title")
       .populate({
         path: "applications",
-        options: { sort: { createdAt: -1 } },
         populate: {
           path: "applicant",
           select:
-            "-_id -password -role -profile.resume -refreshToken -refreshTokenExpiry -createdAt -updatedAt -__v",
-          options: { sort: { createdAt: -1 } },
+            "id fullname email profile.skills profile.bio profile.profilePhoto profile.resume profile.resumeOriginalName",
         },
+      })
+      .populate({
+        path: "company",
+        select: "id name",
       });
 
     if (!jobs) {
@@ -160,10 +160,19 @@ export const getApplicantsForRecruiter = async (req, res, next) => {
             _id: job._id,
             title: job.title,
             company: job.company,
-            experienceLevel: job.experienceLevel,
           },
         });
       });
+    });
+
+    const statusPriority = { pending: 1, accepted: 2, rejected: 3 };
+
+    applications.sort((a, b) => {
+      const statusA = statusPriority[a.status] || 99;
+      const statusB = statusPriority[b.status] || 99;
+      if (statusA !== statusB) return statusA - statusB;
+      // Nếu cùng status thì mới so sánh createdAt (ưu tiên các ứng viên đã nộp trước)
+      return new Date(a.createdAt) - new Date(b.createdAt);
     });
 
     return res.status(200).json({
@@ -212,6 +221,97 @@ export const updateApplicationStatus = async (req, res, next) => {
     return res.status(200).json({
       message: "Application status updated.",
       success: true,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getOverview = async (req, res, next) => {
+  try {
+    const userId = req.id;
+
+    // Set mốc thời gian hôm nay và hôm qua
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+
+    // 1. Lấy tất cả jobs của recruiter
+    const jobs = await Job.find({ created_by: userId });
+
+    // 2. Lấy tất cả application IDs từ các jobs
+    const applicationIds = jobs.flatMap((job) => job.applications);
+
+    // 3. Lấy tất cả applications từ applicationIds
+    const applications = await Application.find({
+      _id: { $in: applicationIds },
+    })
+      .populate({
+        path: "applicant",
+        select: "fullname email profile.profilePhoto",
+      })
+      .populate({
+        path: "job",
+        select:
+          "title location jobType salary experienceLevel applications company",
+      })
+      .lean();
+
+    // 4. Tính toán thống kê
+    const todayApplications = applications.filter(
+      (app) => new Date(app.createdAt).getTime() >= today.getTime()
+    ).length;
+
+    const yesterdayApplications = applications.filter((app) => {
+      const createdAt = new Date(app.createdAt);
+      return createdAt >= yesterday && createdAt < today;
+    }).length;
+
+    const activeJobs = jobs.filter((job) => job.status === "active").length;
+
+    // Nếu có status job hôm qua thì lọc theo createdAt, nếu không thì lấy job tạo trước today
+    const yesterdayActiveJobs = jobs.filter((job) => {
+      const createdAt = new Date(job.createdAt);
+      return job.status === "active" && createdAt < today;
+    }).length;
+
+    const pendingApplications = applications.filter(
+      (app) => app.status === "pending"
+    ).length;
+
+    const yesterdayPendingApplications = applications.filter(
+      (app) =>
+        app.status === "pending" &&
+        new Date(app.createdAt) < today &&
+        new Date(app.createdAt) >= yesterday
+    ).length;
+
+    // 5. Gần đây nhất
+    const recentApplications = applications
+      .sort((a, b) => b.createdAt - a.createdAt)
+      .slice(0, 8);
+
+    // 6. Tin nổi bật
+    const popularJobs = jobs
+      .sort((a, b) => b.applications.length - a.applications.length)
+      .slice(0, 3);
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        todayApplications,
+        yesterdayApplications,
+        activeJobs,
+        yesterdayActiveJobs,
+        pendingApplications,
+        yesterdayPendingApplications,
+        upcomingInterviews: 0, // bạn có thể cập nhật sau
+        yesterdayUpcomingInterviews: 0, // để frontend dễ tính toán
+        recentApplications,
+        popularJobs,
+      },
     });
   } catch (error) {
     next(error);
