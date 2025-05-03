@@ -49,8 +49,8 @@ const Job = ({ job }: JobProps) => {
           <div className="flex items-center gap-2 mt-1">
             <p className="text-sm text-gray-600">{job?.company.name}</p>
             <div className="flex items-center gap-1 text-sm text-gray-500">
-              <MapPin className="h-3 w-3" />
-              <span>{job?.company?.location}</span>
+              <MapPin className="size-3" />
+              <span className="line-clamp-1">{job?.company?.location}</span>
             </div>
           </div>
         </div>

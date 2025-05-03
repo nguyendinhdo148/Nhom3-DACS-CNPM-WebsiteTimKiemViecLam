@@ -1,9 +1,11 @@
+import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Trash2 } from "lucide-react"; // Icon đẹp, nếu bạn dùng Lucide
 
 const filteredData = [
   {
-    filterType: "Địa điểm",
+    label: "Địa điểm",
+    filterType: "location",
     array: [
       "Hà Nội",
       "Hồ Chí Minh",
@@ -15,54 +17,87 @@ const filteredData = [
     ],
   },
   {
-    filterType: "Việc làm",
+    label: "Việc làm",
+    filterType: "jobType",
     array: [
       "Frontend Developer",
       "Backend Developer",
       "Fullstack Developer",
       "DevOps Engineer",
-      "Data Scientist",
-      "Graphics Designer",
-      "UI/UX Designer",
+      "AWS Cloud",
+      "Graphic Designer",
+      "AI Engineer",
       "Mobile Developer",
-      "Game Developer",
+      "Sales",
+      "Marketing",
     ],
   },
   {
-    filterType: "Lương",
+    label: "Lương",
+    filterType: "salary",
     array: [
-      "0 - 1.000.000",
-      "1.000.000 - 3.000.000",
-      "3.000.000 - 5.000.000",
-      "> 5.000.000",
+      "0 - 5.000.000",
+      "5.000.000 - 15.000.000",
+      "15.000.000 - 40.000.000",
+      "> 40.000.000",
     ],
   },
 ];
 
-const FilterCard = () => {
+const FilterCard = ({
+  filters,
+  onFilterChange,
+  onResetFilters,
+}: {
+  filters: {
+    location: string[];
+    jobType: string[];
+    salary: string[];
+  };
+  onFilterChange: (type: string, value: string) => void;
+  onResetFilters: () => void;
+}) => {
   return (
-    <div className="w-full bg-white p-3 rounded-md">
-      <h1 className="font-bold text-lg">Lọc công việc</h1>
-      <hr className="mt-3" />
+    <div className="w-full bg-white p-4 rounded-lg shadow-sm border border-gray-300">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="font-semibold text-sm text-gray-800">Lọc công việc</h1>
+        <button
+          onClick={onResetFilters}
+          className="flex items-center gap-1 px-3 py-1.5 text-sm text-red-600 border border-red-200 rounded-md hover:bg-red-50 transition-all"
+        >
+          <Trash2 size={14} />
+          Xóa bộ lọc
+        </button>
+      </div>
 
-      <RadioGroup className="mt-3">
-        {filteredData.map((data, index) => (
-          <div key={index}>
-            <h1 className="font-bold text-lg">{data.filterType}</h1>
-            {data.array.map((item, index) => {
-              return (
-                <div key={index} className="flex items-center space-x-2 my-2">
-                  <RadioGroupItem
-                    value={item}
-                    className="cursor-pointer h-5 w-5 border-2 border-gray-300 text-indigo-600 focus:ring-indigo-500 focus:border-indigo-500 checked:bg-indigo-100"
-                  />
-                  <Label>{item}</Label>
-                </div>
-              );
-            })}
+      {filteredData.map((section, index) => (
+        <div key={index} className="mt-4">
+          <h2 className="font-medium text-base text-gray-700 mb-2 border-b pb-1">
+            {section.label}
+          </h2>
+          <div className="grid grid-cols-1 gap-y-2">
+            {section.array.map((item, idx) => (
+              <div key={idx} className="flex items-center space-x-2">
+                <Checkbox
+                  id={`${section.filterType}-${item}`}
+                  checked={
+                    filters[section.filterType as keyof typeof filters].includes(item)
+                  }
+                  onCheckedChange={() =>
+                    onFilterChange(section.filterType, item)
+                  }
+                />
+                <Label
+                  htmlFor={`${section.filterType}-${item}`}
+                  className="cursor-pointer text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                >
+                  {item}
+                </Label>
+              </div>
+            ))}
           </div>
-        ))}
-      </RadioGroup>
+        </div>
+      ))}
     </div>
   );
 };

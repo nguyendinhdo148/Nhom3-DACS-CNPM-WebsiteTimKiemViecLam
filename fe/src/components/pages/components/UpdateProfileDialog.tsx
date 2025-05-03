@@ -144,6 +144,7 @@ const UpdateProfileDialog = ({ open, setOpen }: UpdateProfileDialogProps) => {
                   className="sm:col-span-3"
                   placeholder="Nhập địa chỉ email"
                   aria-label="Email"
+                  disabled
                 />
               </div>
 
@@ -249,8 +250,8 @@ const UpdateProfileDialog = ({ open, setOpen }: UpdateProfileDialogProps) => {
                   className="mr-2 text-white bg-gray-400 hover:bg-gray-500 transition-colors cursor-pointer"
                 >
                   <span className="flex items-center">
-                    <Loader2 className="mr-2" size="sm" />
-                    <span>Loading...</span>
+                    <Loader2 className="mr-2 animate-spin" size="sm" />
+                    <span className="animate-pulse">Đang lưu...</span>
                   </span>
                 </Button>
               ) : (

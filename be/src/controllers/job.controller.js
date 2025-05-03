@@ -243,3 +243,56 @@ export const deleteJob = async (req, res, next) => {
     next(error);
   }
 };
+
+export const suggestions = async (req, res, next) => {
+  try {
+    const keyword = (req.query.keyword || "").trim();
+
+    if (!keyword) {
+      return res.status(200).json({ suggestions: [], success: true });
+    }
+
+    const regexKeyword = new RegExp(keyword, "i");
+
+    // Truy vấn cơ bản (không truy vấn nested field trong $or trước populate)
+    const jobs = await Job.find({ status: "active" })
+      .populate({
+        path: "company",
+        select: "name logo",
+      })
+      .select("_id title location company")
+      .limit(20) // tăng giới hạn để lọc thêm sau populate
+      .lean();
+
+    // Lọc lại theo keyword sau khi đã populate
+    const filtered = jobs.filter((job) => {
+      return (
+        regexKeyword.test(job.title) ||
+        regexKeyword.test(job.location) ||
+        regexKeyword.test(job.company?.name || "")
+      );
+    });
+
+    const suggestions = filtered.slice(0, 10).map((job) => ({
+      id: job._id.toString(),
+      title: job.title,
+      location: job.location,
+      company: job.company
+        ? {
+            id: job.company._id?.toString?.() || "",
+            name: job.company.name,
+            logo: job.company.logo,
+          }
+        : null,
+    }));
+
+    return res.status(200).json({ suggestions, success: true });
+  } catch (error) {
+    console.error("Error in suggestions:", error);
+    return res.status(500).json({
+      message: "Đã xảy ra lỗi khi lấy gợi ý việc làm",
+      error: error.message,
+      success: false,
+    });
+  }
+};

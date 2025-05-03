@@ -1,5 +1,7 @@
 import { Application } from "../models/application.model.js";
 import { Job } from "../models/job.model.js";
+import { sendMail } from "../services/emailService.js";
+import { buildEmailTemplate } from "../services/template.js";
 
 // for student
 export const applyJob = async (req, res, next) => {
@@ -197,7 +199,22 @@ export const updateApplicationStatus = async (req, res, next) => {
       });
     }
 
-    const application = await Application.findOne({ _id: applicationId });
+    const application = await Application.findOne({ _id: applicationId })
+      .populate("applicant")
+      .populate({
+        path: "job",
+        populate: [
+          {
+            path: "company",
+            select: "name logo",
+          },
+          {
+            path: "created_by",
+            select: "email",
+          },
+        ],
+      });
+
     if (!application) {
       return res.status(404).json({
         message: "Application not found.",
@@ -217,6 +234,47 @@ export const updateApplicationStatus = async (req, res, next) => {
 
     application.status = status.toLowerCase();
     await application.save();
+
+    // Gửi email thông báo
+    const applicantEmail = application.applicant?.email;
+    const applicantName = application.applicant?.fullname;
+    const jobTitle = application.job?.title;
+    const companyName = application.job?.company?.name;
+    const companyLogo = application.job?.company?.logo;
+    const emailRecruiter = application.job?.created_by?.email;
+
+    const jobDetailUrl = `http://localhost:5173/jobs/description/${application.job._id}`;
+
+    const { subject, html } = buildEmailTemplate({
+      type: status.toLowerCase(), // "accepted" hoặc "rejected"
+      applicantName,
+      jobTitle,
+      companyName,
+      companyLogo,
+      emailRecruiter,
+      jobDetailUrl,
+    });
+
+    if (subject && html) {
+      await sendMail({
+        to: applicantEmail,
+        subject,
+        html,
+        replyTo: emailRecruiter,
+      });
+    }
+
+    // delete application after 1 minute
+    // if (status.toLowerCase() === "rejected") {
+    //   setTimeout(async () => {
+    //     try {
+    //       await Application.findByIdAndDelete(applicationId);
+    //       console.log(`Application ${applicationId} deleted after 1 minute.`);
+    //     } catch (err) {
+    //       console.error(`Failed to delete application ${applicationId}:`, err);
+    //     }
+    //   }, 1 * 60 * 1000);
+    // }
 
     return res.status(200).json({
       message: "Application status updated.",

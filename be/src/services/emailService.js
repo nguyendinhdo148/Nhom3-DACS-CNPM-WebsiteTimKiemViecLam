@@ -1,5 +1,32 @@
 import nodemailer from "nodemailer";
 
+export const sendMail = async ({ to, subject, html, replyTo }) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: `"VieJobs" <${process.env.EMAIL_USER}>`, // Sử dụng from được truyền vào hoặc default
+      to,
+      subject,
+      html,
+      replyTo: replyTo || undefined,
+    };
+
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.error("Lỗi gửi email:", error);
+    throw error;
+  }
+};
+
+/* import nodemailer from "nodemailer";
+
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -151,3 +178,5 @@ export const sendEmail = async ({ email, resetUrl }) => {
     throw new Error("Email sending failed");
   }
 };
+
+*/

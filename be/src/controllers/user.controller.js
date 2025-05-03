@@ -240,8 +240,11 @@ export const updateProfile = async (req, res, next) => {
     if (fullname) user.fullname = fullname;
     if (email) user.email = email;
     if (phoneNumber) user.phoneNumber = phoneNumber;
-    if (bio) user.profile.bio = bio;
-    if (skills) user.profile.skills = skillsArray;
+
+    // allow update bio, skills can empty
+    user.profile.bio = bio;
+    user.profile.skills = skillsArray;
+
     if (profileResume) {
       user.profile.resume = profileResume;
       user.profile.resumeOriginalName = profileResumeOriginalName;

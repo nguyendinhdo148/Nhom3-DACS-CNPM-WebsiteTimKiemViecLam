@@ -15,6 +15,7 @@ import Recruiter from "./components/recruiter/screeens/Recruiter";
 import Company from "./components/recruiter/screeens/Company";
 import JobManager from "./components/recruiter/screeens/JobManager";
 import Candidates from "./components/recruiter/screeens/Candidates";
+import AppliedJob from "./components/pages/AppliedJob";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/browse" element={<Browse />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/applied-jobs" element={<AppliedJob />} />
         <Route path="/jobs/description/:id" element={<JobDescription />} />
 
         <Route path="/recruiter" element={<RecruiterLayout />}>

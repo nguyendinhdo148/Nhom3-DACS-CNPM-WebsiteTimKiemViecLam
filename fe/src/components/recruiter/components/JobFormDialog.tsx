@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCompanies } from "@/redux/companySlice";
 import axios from "axios";
 import { API } from "@/utils/constant";
+import { Loader2 } from "lucide-react";
 
 export interface JobFormData {
   title: string;
@@ -73,12 +74,14 @@ export const JobFormDialog = ({
   job,
   onSuccess,
 }: JobFormDialogProps) => {
+  const [isGenerating, setIsGenerating] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<JobFormData>(initialFormData);
   const dispatch = useDispatch();
 
   const { companies } = useSelector((state: RootState) => state.company);
 
+  // Fetch companies
   const fetchCompanies = useCallback(async () => {
     try {
       const res = await axios.get(`${API}/company`, {
@@ -125,6 +128,7 @@ export const JobFormDialog = ({
     }
   }, [job, open]);
 
+  // Handle form submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -170,6 +174,36 @@ export const JobFormDialog = ({
       toast.error("Có lỗi xảy ra khi xử lý form");
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  // Generate description by AI
+  const handleGenDescription = async () => {
+    try {
+      setIsGenerating(true);
+      const res = await axios.post(
+        `${API}/ai/generate-description`,
+        {
+          title: formData.title,
+          category: formData.category,
+        },
+        { withCredentials: true }
+      );
+
+      if (res.data.success && res.data.description) {
+        setFormData((prev) => ({
+          ...prev,
+          description: res.data.description,
+        }));
+        toast.success("Đã tạo mô tả công việc thành công!");
+      } else {
+        toast.error("Không tạo được mô tả, vui lòng thử lại!");
+      }
+    } catch (error) {
+      console.error("Generate AI error:", error);
+      toast.error("Có lỗi khi sử dụng AI!");
+    } finally {
+      setIsGenerating(false);
     }
   };
 
@@ -255,7 +289,7 @@ export const JobFormDialog = ({
 
           {/* --- Mô tả & Yêu cầu --- */}
           <div className="space-y-4 border p-4 rounded-xl shadow-sm">
-            <h3 className="text-lg font-semibold">Mô tả & Yêu cầu</h3>
+            <h3 className="text-lg font-semibold">Mô tả & Yêu cầu công việc</h3>
 
             <div className="grid gap-2">
               <Label htmlFor="description">
@@ -271,6 +305,25 @@ export const JobFormDialog = ({
                 required
                 rows={5}
               />
+
+              {/* Gen mô tả bằng AI */}
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                className="hover:bg-gray-100 cursor-pointer right-2 top-2 text-sm flex gap-2 items-center"
+                onClick={handleGenDescription}
+                disabled={isGenerating || !formData.title.trim()}
+              >
+                {isGenerating ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Đang tạo...
+                  </>
+                ) : (
+                  "✨ Dùng AI tạo mô tả"
+                )}
+              </Button>
             </div>
 
             <div className="grid gap-2">

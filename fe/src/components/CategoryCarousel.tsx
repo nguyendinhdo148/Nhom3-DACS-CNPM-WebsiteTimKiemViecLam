@@ -1,3 +1,4 @@
+import { useEffect, useRef, useCallback } from "react";
 import { Button } from "./ui/button";
 import {
   Carousel,
@@ -5,6 +6,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "./ui/carousel";
 
 const category = [
@@ -20,12 +22,37 @@ const category = [
 ];
 
 const CategoryCarousel = () => {
+  const carouselRef = useRef<CarouselApi | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const startAutoplay = useCallback(() => {
+    stopAutoplay();
+    intervalRef.current = setInterval(() => {
+      carouselRef.current?.scrollNext();
+    }, 2500);
+  }, []);
+
+  const stopAutoplay = useCallback(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+  }, []);
+
+  useEffect(() => {
+    startAutoplay();
+    return () => stopAutoplay(); // cleanup on unmount
+  }, [startAutoplay, stopAutoplay]);
+
   return (
-    <div>
+    <div onMouseEnter={stopAutoplay} onMouseLeave={startAutoplay}>
       <h1 className="text-xl font-bold text-center bg-gradient-to-r from-[#fdbb2d] to-[#ec38bc] bg-clip-text text-transparent">
         Gợi ý cho bạn:
       </h1>
-      <Carousel className="w-full max-w-xl mx-auto my-5">
+      <Carousel
+        setApi={(api) => (carouselRef.current = api)}
+        opts={{ loop: true }}
+        className="w-full max-w-xl mx-auto my-5"
+      >
         <CarouselContent>
           {category.map((cate, index) => (
             <CarouselItem

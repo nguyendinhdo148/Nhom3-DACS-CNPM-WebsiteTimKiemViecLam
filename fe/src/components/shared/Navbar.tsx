@@ -1,7 +1,7 @@
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { User2, LogOut } from "lucide-react";
+import { User2, LogOut, BriefcaseBusiness } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
@@ -71,11 +71,11 @@ const Navbar = () => {
                     Việc làm
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to="/browse" className={navItemClass("/browse")}>
                     Browse
                   </Link>
-                </li>
+                </li> */}
               </>
             )}
           </ul>
@@ -150,6 +150,17 @@ const Navbar = () => {
                       <Link to="/profile">
                         <User2 className="h-4 w-4 text-gray-500" />
                         <span>Xem hồ sơ</span>
+                      </Link>
+                    </Button>
+
+                    <Button
+                      variant="default"
+                      className="w-full justify-start gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50"
+                      asChild
+                    >
+                      <Link to="/applied-jobs">
+                        <BriefcaseBusiness className="h-4 w-4 text-gray-500" />
+                        <span>Việc làm đã ứng tuyển</span>
                       </Link>
                     </Button>
 

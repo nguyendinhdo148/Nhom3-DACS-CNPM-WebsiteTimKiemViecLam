@@ -1,13 +1,14 @@
 import { useSelector } from "react-redux";
 import LatestJobCards from "./LatestJobCards";
 import { RootState } from "@/redux/store";
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { paginate } from "./helpers/pagination";
 import { PaginationButtons } from "./helpers/PaginationButtons";
 import { Button } from "./ui/button";
 import LatestJobsSkeleton from "./skeletons/LatestJobsSkeleton";
 import { useRef } from "react";
 import { useSearchParams } from "react-router-dom";
+import NoJobFound from "./helpers/NoJobFound";
 
 const LatestJobs = () => {
   const { allJobs } = useSelector((store: RootState) => store.job);
@@ -23,7 +24,7 @@ const LatestJobs = () => {
   const [filterCategory, setFilterCategory] = useState(categoryParam);
 
   const itemPerPage = 9;
-  const categories = ["all", "it", "marketing", "design", "sales"];
+  const categories = ["all", "it", "marketing", "design", "sales", "abc"];
 
   const activeJobs = useMemo(
     () => allJobs.filter((job) => job.status === "active"),
@@ -49,9 +50,9 @@ const LatestJobs = () => {
   // Hàm xử lý thay đổi category
   const handleCategoryChange = useCallback(
     (category: string) => {
-      setCurrentPage(1);
+      setCurrentPage(1); // Đặt lại trang về 1
       setFilterCategory(category);
-      setSearchParams({ page: "1", category });
+      setSearchParams({ page: "1", category }); // Cập nhật searchParams với trang 1 và category đã chọn
     },
     [setSearchParams]
   );
@@ -59,9 +60,22 @@ const LatestJobs = () => {
   // Hàm xử lý thay đổi trang
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    setSearchParams({ page: page.toString(), category: filterCategory });
-    jobsRef.current?.scrollIntoView({ behavior: "smooth" });
+    setSearchParams({ page: page.toString(), category: filterCategory }); // Cập nhật URL khi thay đổi trang
   };
+
+  useEffect(() => {
+    // Cập nhật lại state từ URL params khi URL thay đổi
+    const pageFromUrl = parseInt(searchParams.get("page") || "1");
+    const categoryFromUrl = searchParams.get("category") || "all";
+
+    setCurrentPage(pageFromUrl);
+    setFilterCategory(categoryFromUrl);
+
+    // Cuộn lên đầu trang khi thay đổi trang hoặc category
+    if (jobsRef.current) {
+      jobsRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [searchParams]);
 
   if (allJobs.length === 0) {
     return <LatestJobsSkeleton />;
@@ -100,9 +114,7 @@ const LatestJobs = () => {
       {/* Hiển thị công việc */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {paginatedJobs.length === 0 ? (
-          <span className="text-gray-500 col-span-full">
-            Không có bài tuyển dụng nào phù hợp
-          </span>
+          <NoJobFound />
         ) : (
           paginatedJobs.map((job, index) => (
             <LatestJobCards key={index} job={job} />
