@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import Navbar from "../shared/Navbar";
-import AppliedJobTable from "./components/AppliedJobTable";
+import SavedJobsTable from "./components/SavedJobsTable";
+import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { RootState } from "@/redux/store";
 
-const AppliedJob = () => {
+const SavedJobs = () => {
   const { user } = useSelector((store: RootState) => store.auth);
   const navigate = useNavigate();
 
@@ -22,14 +22,11 @@ const AppliedJob = () => {
       <Navbar />
       <div className="max-w-5xl mx-auto px-4 mt-6">
         <div className="bg-white rounded-2xl shadow-sm p-4">
-          <h1 className="text-2xl font-semibold text-gray-800 mb-2">
-            Công việc đã ứng tuyển
-          </h1>
-          <AppliedJobTable />
+          <SavedJobsTable />
         </div>
       </div>
     </div>
   );
 };
 
-export default AppliedJob;
+export default SavedJobs;

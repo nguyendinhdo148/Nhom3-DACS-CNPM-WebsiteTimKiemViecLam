@@ -18,14 +18,18 @@ import {
 } from "lucide-react";
 import { RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { API } from "@/utils/constant";
 import axios from "axios";
 import { setApplications } from "@/redux/applicationSlice";
 import toast from "react-hot-toast";
 import { Application } from "@/types/application";
+import { PaginationButtons } from "@/components/helpers/PaginationButtons";
+import { paginate } from "@/components/helpers/pagination";
+import { CustomTooltip } from "@/components/helpers/CustomTooltip";
 
 const AppliedJobTable = () => {
+  const { user } = useSelector((store: RootState) => store.auth);
   const { applications } = useSelector((store: RootState) => store.application);
   const dispatch = useDispatch();
 
@@ -45,8 +49,11 @@ const AppliedJobTable = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    if (!user) {
+      return;
+    }
     fetchApplications();
-  }, [fetchApplications]);
+  }, [fetchApplications, user]);
 
   const getStatusBadge = (status: Application["status"]) => {
     const variants = {
@@ -77,11 +84,29 @@ const AppliedJobTable = () => {
     );
   };
 
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemPerPage = 6; // Number of jobs per page
+
+  // Calculate total pages for pagination based on filtered applications
+  const { paginatedData: appliedJobs, totalPages } = paginate(
+    applications,
+    currentPage,
+    itemPerPage
+  );
+
+  const appliedJobsRef = useRef<HTMLDivElement | null>(null);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    appliedJobsRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="rounded-2xl border border-gray-200 shadow-sm overflow-hidden bg-white">
-      <div className="px-6 py-4 border-b border-gray-100 bg-gray-50">
-        <h2 className="text-lg font-semibold text-gray-800">
-          Đơn ứng tuyển gần đây
+      <div className="px-6 py-5 border-b border-gray-200 bg-gray-50">
+        <h2 className="text-xl font-bold text-gray-800">
+          Công việc đã ứng tuyển
         </h2>
         <p className="text-sm text-gray-500">
           Danh sách các công việc bạn đã nộp đơn
@@ -94,7 +119,9 @@ const AppliedJobTable = () => {
         </TableCaption>
         <TableHeader className="bg-white">
           <TableRow className="text-gray-600">
-            <TableHead className="w-[140px] text-center">Ngày ứng tuyển</TableHead>
+            <TableHead className="w-[140px] text-center">
+              Ngày ứng tuyển
+            </TableHead>
             <TableHead className="min-w-[180px]">Vị trí công việc</TableHead>
             <TableHead className="min-w-[140px]">Công ty</TableHead>
             <TableHead className="min-w-[200px]">Địa điểm</TableHead>
@@ -102,8 +129,8 @@ const AppliedJobTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {applications.length > 0 ? (
-            applications.map((application) => (
+          {appliedJobs.length > 0 ? (
+            appliedJobs.map((application) => (
               <TableRow
                 key={application._id}
                 className="hover:bg-gray-50 transition"
@@ -115,21 +142,31 @@ const AppliedJobTable = () => {
                 <TableCell>
                   <div className="flex items-center gap-2 truncate max-w-[200px]">
                     <Briefcase className="w-4 h-4 text-gray-400 shrink-0" />
-                    <span className="truncate">{application.job.title}</span>
+                    <CustomTooltip content={application.job.title}>
+                      <span className="truncate">{application.job.title}</span>
+                    </CustomTooltip>
                   </div>
                 </TableCell>
 
                 <TableCell>
                   <div className="flex items-center gap-2 truncate max-w-[140px]">
                     <Building2 className="w-4 h-4 text-gray-400 shrink-0" />
-                    <span className="truncate">{application.job.company.name}</span>
+                    <CustomTooltip content={application.job.company.name}>
+                      <span className="truncate">
+                        {application.job.company.name}
+                      </span>
+                    </CustomTooltip>
                   </div>
                 </TableCell>
 
                 <TableCell>
                   <div className="flex items-center gap-2 truncate max-w-[220px]">
                     <MapPin className="w-4 h-4 text-gray-400 shrink-0" />
-                    <span className="truncate">{application.job.location}</span>
+                    <CustomTooltip content={application.job.location}>
+                      <span className="truncate">
+                        {application.job.location}
+                      </span>
+                    </CustomTooltip>
                   </div>
                 </TableCell>
 
@@ -155,6 +192,15 @@ const AppliedJobTable = () => {
           )}
         </TableBody>
       </Table>
+
+      {/* Pagination Buttons */}
+      <div className="flex justify-center border-t border-gray-50 px-6 pb-4 bg-gray-50">
+        <PaginationButtons
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 };

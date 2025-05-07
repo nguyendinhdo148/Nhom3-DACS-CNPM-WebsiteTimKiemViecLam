@@ -189,11 +189,11 @@ const ForgotPassword = () => {
           {/* Slogan */}
           <h2 className="text-3xl font-bold text-center leading-tight mb-6 relative">
             <span className="text-white/95 drop-shadow-[2px_2px_1px_rgba(0,0,0,0.25)]">
-              Tiếp lợi thế
+              Kết nối nhanh
             </span>
             <br />
             <span className="text-[#c1f0d4] drop-shadow-[2px_2px_1px_rgba(0,0,0,0.25)]">
-              Nối thành công
+              Phát triển bền
             </span>
           </h2>
 

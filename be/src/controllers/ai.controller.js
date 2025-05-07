@@ -19,7 +19,7 @@ export const generate_description = async (req, res, next) => {
     - Lĩnh vực: ${category || "Không xác định"}
     
     Yêu cầu:
-    - Viết 3-4 câu.
+    - Viết 6-7 câu.
     - Mỗi câu kết thúc bằng dấu chấm.
     - Nội dung rõ ràng, chuyên nghiệp.
     `;

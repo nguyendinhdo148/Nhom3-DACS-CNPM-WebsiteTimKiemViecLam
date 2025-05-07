@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import type { Company } from "@/types/company";
 import CommonSkeleton from "../components/Skeleton/CommonSkeleton";
+import { CustomTooltip } from "@/components/helpers/CustomTooltip";
 
 const Company = () => {
   const { companies, selectedCompany } = useSelector(
@@ -201,7 +202,11 @@ const Company = () => {
                           </AvatarFallback>
                         </Avatar>
                         <div>
-                          <div className="font-medium">{company.name}</div>
+                          <div className="font-medium max-w-[200px] line-clamp-1">
+                            <CustomTooltip content={company.name}>
+                              <span className="block">{company.name}</span>
+                            </CustomTooltip>
+                          </div>
                           <div className="text-sm text-gray-500 line-clamp-2 max-w-[350px]">
                             {company.description}
                           </div>

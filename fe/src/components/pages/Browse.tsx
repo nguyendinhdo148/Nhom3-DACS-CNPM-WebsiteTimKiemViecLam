@@ -3,12 +3,62 @@ import Job from "./components/Job";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { setSearchedQuery } from "@/redux/jobSlice";
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { API } from "@/utils/constant";
 
 const Browse = () => {
+  const { user } = useSelector((store: RootState) => store.auth);
+
   const location = useLocation(); // lấy URL hiện tại
+  const [savedJobs, setSavedJobs] = useState<string[]>([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user?.role === "recruiter") {
+      navigate("/recruiter");
+    }
+
+    const fetchSavedJobs = async () => {
+      try {
+        const response = await axios.get(`${API}/save-job/`, {
+          withCredentials: true,
+        });
+        // Map để lấy chỉ job._id từ mảng savedJobs trả về
+        const savedJobIds = response.data.savedJobs.map(
+          (savedJob: { job: { _id: string } }) => savedJob.job._id
+        );
+        setSavedJobs(savedJobIds);
+      } catch (error) {
+        console.error("Lỗi khi lấy danh sách công việc đã lưu:", error);
+      }
+    };
+    fetchSavedJobs();
+  }, [user, navigate]);
+
+  const onJobSaveChange = async (jobId: string, isSaved: boolean) => {
+    try {
+      if (isSaved) {
+        await axios.post(
+          `${API}/save-job/save/${jobId}`,
+          {},
+          {
+            withCredentials: true,
+          }
+        );
+        setSavedJobs((prev) => [...prev, jobId]);
+      } else {
+        await axios.delete(`${API}/save-job/unsave/${jobId}`, {
+          withCredentials: true,
+        });
+        setSavedJobs((prev) => prev.filter((id) => id !== jobId));
+      }
+    } catch (error) {
+      console.error("Lỗi khi thao tác với công việc đã lưu:", error);
+    }
+  };
 
   // Lấy query từ URL và set lại searchedQuery trong Redux (chỉ 1 lần khi component mount)
   useEffect(() => {
@@ -45,7 +95,14 @@ const Browse = () => {
         </h1>
         <div className="grid grid-cols-3 gap-4">
           {filteredJobs.map((job) => {
-            return <Job key={job._id} job={job} />;
+            return (
+              <Job
+                key={job._id}
+                job={job}
+                savedJobs={savedJobs}
+                onJobSaveChange={onJobSaveChange}
+              />
+            );
           })}
         </div>
       </div>

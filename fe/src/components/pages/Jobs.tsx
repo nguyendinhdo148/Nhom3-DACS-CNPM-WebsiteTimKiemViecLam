@@ -7,11 +7,60 @@ import Job from "./components/Job";
 import { RootState } from "@/redux/store";
 import useGetAllJobs from "@/hooks/useGetAllJobs";
 import NoJobFound from "../helpers/NoJobFound";
+import axios from "axios";
+import { API } from "@/utils/constant";
 
 const Jobs = () => {
+  const { user } = useSelector((store: RootState) => store.auth);
   const { allJobs } = useSelector((store: RootState) => store.job);
+  const [searchText, setSearchText] = useState("");
+  const [savedJobs, setSavedJobs] = useState<string[]>([]);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    if (user?.role === "recruiter") {
+      navigate("/recruiter");
+    }
+
+    const fetchSavedJobs = async () => {
+      try {
+        const response = await axios.get(`${API}/save-job/`, {
+          withCredentials: true,
+        });
+        // Map để lấy chỉ job._id từ mảng savedJobs trả về
+        const savedJobIds = response.data.savedJobs.map(
+          (savedJob: { job: { _id: string } }) => savedJob.job._id
+        );
+        setSavedJobs(savedJobIds);
+      } catch (error) {
+        console.error("Lỗi khi lấy danh sách công việc đã lưu:", error);
+      }
+    };
+    fetchSavedJobs();
+  }, [user, navigate]);
+
+  const onJobSaveChange = async (jobId: string, isSaved: boolean) => {
+    try {
+      if (isSaved) {
+        await axios.post(
+          `${API}/save-job/save/${jobId}`,
+          {},
+          {
+            withCredentials: true,
+          }
+        );
+        setSavedJobs((prev) => [...prev, jobId]);
+      } else {
+        await axios.delete(`${API}/save-job/unsave/${jobId}`, {
+          withCredentials: true,
+        });
+        setSavedJobs((prev) => prev.filter((id) => id !== jobId));
+      }
+    } catch (error) {
+      console.error("Lỗi khi thao tác với công việc đã lưu:", error);
+    }
+  };
 
   const [filters, setFilters] = useState({
     location: [] as string[],
@@ -29,16 +78,20 @@ const Jobs = () => {
       salary: searchParams.get("salary")?.split(",") || [],
     };
     setFilters(queryFilters);
+    setSearchText(searchParams.get("query") || "");
   }, [searchParams]);
 
   // Cập nhật URL khi lọc thay đổi
-  const updateURL = (updatedFilters: typeof filters) => {
+  const updateURL = (updatedFilters: typeof filters, search?: string) => {
     const params = new URLSearchParams();
     Object.entries(updatedFilters).forEach(([key, values]) => {
       if (values.length > 0) {
         params.set(key, values.join(","));
       }
     });
+    if (search) {
+      params.set("query", search);
+    }
     navigate(`?${params.toString()}`, { replace: true });
   };
 
@@ -108,21 +161,37 @@ const Jobs = () => {
         }
       });
 
+    const normalizedSearchText = normalize(searchText);
+    const matchSearch =
+      normalizedSearchText === "" ||
+      normalize(job.title).includes(normalizedSearchText) ||
+      normalize(job.company.location || "").includes(normalizedSearchText) ||
+      normalize(job.company.name).includes(normalizedSearchText) ||
+      normalize(job.jobType || "").includes(normalizedSearchText);
+
     return (
-      job.status === "active" && matchLocation && matchJobType && matchSalary
+      job.status === "active" &&
+      matchLocation &&
+      matchJobType &&
+      matchSalary &&
+      matchSearch
     );
   });
 
   return (
     <div>
       <Navbar />
-      <div className="max-w-7xl mx-auto">
+      <div className="pt-4 max-w-7xl mx-auto">
         <div className="flex gap-5">
           <div className="w-[20%] h-[88vh] overflow-y-auto">
             <FilterCard
               filters={filters}
               onFilterChange={handleFilterChange}
               onResetFilters={resetFilters}
+              onSearchChange={(text) => {
+                setSearchText(text);
+                updateURL(filters, text);
+              }}
             />
           </div>
           <div className="flex-1 h-[88vh] overflow-y-auto pb-5">
@@ -130,8 +199,13 @@ const Jobs = () => {
               <NoJobFound />
             ) : (
               <div className="grid grid-cols-3 gap-4">
-                {filteredJobs.map((job, index) => (
-                  <Job key={index} job={job} />
+                {filteredJobs.map((job) => (
+                  <Job
+                    key={job._id}
+                    job={job}
+                    savedJobs={savedJobs}
+                    onJobSaveChange={onJobSaveChange}
+                  />
                 ))}
               </div>
             )}

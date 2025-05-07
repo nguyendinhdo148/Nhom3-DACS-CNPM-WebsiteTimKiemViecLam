@@ -16,6 +16,7 @@ import Company from "./components/recruiter/screeens/Company";
 import JobManager from "./components/recruiter/screeens/JobManager";
 import Candidates from "./components/recruiter/screeens/Candidates";
 import AppliedJob from "./components/pages/AppliedJob";
+import SavedJobs from "./components/pages/SavedJobs";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/browse" element={<Browse />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/applied-jobs" element={<AppliedJob />} />
+        <Route path="/saved-jobs" element={<SavedJobs />} />
         <Route path="/jobs/description/:id" element={<JobDescription />} />
 
         <Route path="/recruiter" element={<RecruiterLayout />}>

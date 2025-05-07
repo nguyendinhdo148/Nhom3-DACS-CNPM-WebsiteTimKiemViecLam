@@ -48,6 +48,7 @@ const FilterCard = ({
   filters,
   onFilterChange,
   onResetFilters,
+  onSearchChange,
 }: {
   filters: {
     location: string[];
@@ -56,6 +57,7 @@ const FilterCard = ({
   };
   onFilterChange: (type: string, value: string) => void;
   onResetFilters: () => void;
+  onSearchChange: (text: string) => void;
 }) => {
   return (
     <div className="w-full bg-white p-4 rounded-lg shadow-sm border border-gray-300">
@@ -68,6 +70,15 @@ const FilterCard = ({
           <Trash2 size={14} />
           Xóa bộ lọc
         </button>
+      </div>
+
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Tìm theo tên công việc..."
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+          onChange={(e) => onSearchChange(e.target.value)}
+        />
       </div>
 
       {filteredData.map((section, index) => (

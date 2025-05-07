@@ -1,17 +1,35 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import type { Job } from "@/types/job";
-import { Bookmark, MapPin } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Bookmark, BookmarkCheck, MapPin } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
-import { vi } from "date-fns/locale"; // dùng locale tiếng Việt nếu muốn
+import { vi } from "date-fns/locale"; // Dùng locale tiếng Việt nếu muốn
+import type { Job } from "@/types/job";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import toast from "react-hot-toast";
 
 interface JobProps {
   job: Job;
+  savedJobs: string[]; // Danh sách job đã lưu (jobId)
+  onJobSaveChange: (jobId: string, saved: boolean) => void; // Callback để cập nhật job saved
 }
 
-const Job = ({ job }: JobProps) => {
+const Job = ({ job, savedJobs, onJobSaveChange }: JobProps) => {
+  const { user } = useSelector((store: RootState) => store.auth);
+  const isSaved = savedJobs.includes(job._id);
+
+  const navigate = useNavigate();
+
+  const handleSaveClick = () => {
+    if (!user) {
+      navigate("/login");
+      toast.error("Vui lòng đăng nhập để lưu công việc!");
+    }
+    onJobSaveChange(job._id, !isSaved);
+  };
+
   return (
     <div className="p-6 rounded-lg shadow-sm bg-white border border-gray-200 hover:shadow-md transition-shadow duration-200">
       <div className="flex items-center justify-between mb-4">
@@ -25,10 +43,15 @@ const Job = ({ job }: JobProps) => {
         <Button
           variant="ghost"
           size="sm"
-          className="text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-full cursor-pointer"
+          className="text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-full"
           aria-label="Save job"
+          onClick={handleSaveClick}
         >
-          <Bookmark className="size-4" />
+          {isSaved ? (
+            <BookmarkCheck className="size-4 text-green-600" />
+          ) : (
+            <Bookmark className="size-4" />
+          )}
         </Button>
       </div>
 
@@ -88,8 +111,27 @@ const Job = ({ job }: JobProps) => {
             Xem chi tiết
           </Button>
         </Link>
-        <Button className="flex-1 w-full py-1 px-4 border border-gray-300 hover:bg-gray-50 cursor-pointer">
-          Lưu lại sau
+
+        <Button
+          className={`flex-1 cursor-pointer w-full py-2 px-6
+              ${
+                isSaved
+                  ? "bg-blue-500 text-white hover:bg-blue-600"
+                  : "flex-1 w-full py-1 px-4 border border-gray-300 hover:bg-gray-50"
+              }`}
+          onClick={handleSaveClick}
+        >
+          {isSaved ? (
+            <span className="flex items-center space-x-2">
+              <BookmarkCheck className="size-4 text-white" />
+              <span>Đã lưu</span>
+            </span>
+          ) : (
+            <span className="flex items-center space-x-2">
+              <Bookmark className="size-4" />
+              <span>Lưu lại sau</span>
+            </span>
+          )}
         </Button>
       </div>
     </div>

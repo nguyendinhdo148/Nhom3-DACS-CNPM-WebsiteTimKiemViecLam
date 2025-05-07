@@ -10,7 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -46,6 +46,13 @@ const RecruiterLayout = () => {
       icon: Users,
     },
   ];
+
+  // protect route recruiter
+  useEffect(() => {
+    if (!user || user.role !== "recruiter") {
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   const handleLogout = async () => {
     try {

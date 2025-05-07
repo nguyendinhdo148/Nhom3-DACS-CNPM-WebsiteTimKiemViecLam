@@ -1,7 +1,7 @@
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { User2, LogOut, BriefcaseBusiness } from "lucide-react";
+import { User2, LogOut, BriefcaseBusiness, Heart } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
@@ -48,36 +48,32 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="sticky top-0 z-50 w-full bg-white shadow">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16">
-        <div>
-          <Link to="/">
-            <h1 className="text-3xl font-bold">
-              Vie<span className="text-[#f83002]">Jobs</span>
-            </h1>
+        <div className="mb-1">
+          <Link to="/" className="block">
+            <div className="flex flex-col items-start space-y-1">
+              <h1 className="text-3xl font-extrabold tracking-tight text-black">
+                Vie<span className="text-[#f83002]">Jobs</span>
+              </h1>
+              <p className="text-sm text-gray-600 italic font-medium leading-tight">
+                Kết nối nhanh – Phát triển bền
+              </p>
+            </div>
           </Link>
         </div>
         <div className="flex items-center gap-12">
           <ul className="flex font-medium items-center gap-5 cursor-pointer">
-            {user && user?.role === "student" && (
-              <>
-                <li>
-                  <Link to="/" className={navItemClass("/")}>
-                    Trang chủ
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/jobs" className={navItemClass("/jobs")}>
-                    Việc làm
-                  </Link>
-                </li>
-                {/* <li>
-                  <Link to="/browse" className={navItemClass("/browse")}>
-                    Browse
-                  </Link>
-                </li> */}
-              </>
-            )}
+            <li>
+              <Link to="/" className={navItemClass("/")}>
+                Trang chủ
+              </Link>
+            </li>
+            <li>
+              <Link to="/jobs" className={navItemClass("/jobs")}>
+                Việc làm
+              </Link>
+            </li>
           </ul>
 
           {!user ? (
@@ -150,6 +146,17 @@ const Navbar = () => {
                       <Link to="/profile">
                         <User2 className="h-4 w-4 text-gray-500" />
                         <span>Xem hồ sơ</span>
+                      </Link>
+                    </Button>
+
+                    <Button
+                      variant="default"
+                      className="w-full justify-start gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50"
+                      asChild
+                    >
+                      <Link to="/saved-jobs">
+                        <Heart className="h-4 w-4 text-gray-500" />
+                        <span>Việc làm đã lưu</span>
                       </Link>
                     </Button>
 
