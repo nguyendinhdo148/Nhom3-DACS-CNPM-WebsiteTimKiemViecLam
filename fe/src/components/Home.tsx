@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion"
 
 const Home = () => {
   const { user } = useSelector((state: RootState) => state.auth);
@@ -22,13 +23,20 @@ const Home = () => {
   useGetAllJobs();
 
   return (
-    <div>
-      <Navbar />
-      <HeroSection />
-      <CategoryCarousel />
-      <LatestJobs />
-      <Footer />
-    </div>
+     <AnimatePresence mode="wait">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Navbar />
+        <HeroSection />
+        <CategoryCarousel />
+        <LatestJobs />
+        <Footer />
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

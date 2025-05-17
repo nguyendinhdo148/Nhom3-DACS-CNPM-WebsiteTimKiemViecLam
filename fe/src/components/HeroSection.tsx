@@ -93,21 +93,23 @@ const HeroSection = () => {
           số 1
         </span>
 
-        <h1 className="text-5xl font-bold">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center leading-tight">
           Tìm kiếm, Nộp đơn & <br /> Nhận công việc{" "}
-          <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 animate-gradient">
             mơ ước của bạn
           </span>
         </h1>
 
-        <p className="text-gray-600 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed">
+        <p className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto text-center leading-relaxed">
           Khám phá hơn{" "}
-          <span className="font-medium text-gray-800">10,000+</span> cơ hội từ
-          các công ty hàng đầu.
+          <span className="font-semibold text-gray-800 bg-yellow-100 px-2 rounded-md">
+            10,000+
+          </span>{" "}
+          cơ hội từ các công ty hàng đầu.
         </p>
 
         <div className="relative w-[46%] mx-auto">
-          <div className="flex shadow-lg border-0 border-gray-200 rounded-full items-center h-12">
+          <div className="flex items-center h-16 bg-white rounded-full shadow-xl border border-gray-100 transition-all duration-300 hover:shadow-2xl">
             <input
               ref={inputRef}
               onChange={(e) => setQuery(e.target.value)}
@@ -135,12 +137,12 @@ const HeroSection = () => {
               value={query}
               type="text"
               placeholder="Vị trí tuyển dụng, tên công ty, tên thành phố..."
-              className="outline-none border-none w-full rounded-l-full px-6 h-full py-3"
+              className="outline-none border-none w-full rounded-l-full px-8 h-full py-3 text-lg placeholder:text-gray-400"
             />
             <Button
               onClick={() => searchJobHandler()}
               variant="default"
-              className="rounded-r-full bg-[#6a38c2] hover:opacity-90 cursor-pointer transition-all duration-200 h-12 w-12 p-3 flex items-center justify-center"
+              className="rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:opacity-90 cursor-pointer transition-all duration-300 h-12 w-12 mr-2 flex items-center justify-center shadow-md hover:shadow-lg"
               disabled={isSearching || !query.trim()}
             >
               {isSearching ? (

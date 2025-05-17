@@ -9,6 +9,14 @@ import LatestJobsSkeleton from "./skeletons/LatestJobsSkeleton";
 import { useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import NoJobFound from "./helpers/NoJobFound";
+import { motion } from "framer-motion";
+import {
+  fadeIn,
+  buttonHover,
+  buttonTap,
+  slideInLeft,
+  slideInRight,
+} from "./../framer-motion-config";
 
 const LatestJobs = () => {
   const { allJobs } = useSelector((store: RootState) => store.job);
@@ -86,30 +94,37 @@ const LatestJobs = () => {
       ref={jobsRef}
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6"
     >
-      <h1 className="text-4xl font-bold">
+      <h2 className="text-3xl md:text-4xl font-bold mb-4">
         Việc làm{" "}
-        <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">
           mới nhất và hàng đầu
         </span>
-      </h1>
+      </h2>
 
       {/* Bộ lọc ngành */}
-      <div className="flex gap-2 flex-wrap">
-        {categories.map((category) => (
-          <Button
+      <motion.div variants={fadeIn} className="flex gap-3 flex-wrap">
+        {categories.map((category, index) => (
+          <motion.div
             key={category}
-            className={`px-4 py-2 rounded-full border text-sm cursor-pointer transition duration-300 ease-in-out
-              ${
-                filterCategory === category
-                  ? "bg-blue-600 text-white border-blue-600 hover:bg-blue-700 hover:border-blue-700"
-                  : "text-gray-700 border-gray-300 hover:text-blue-600 hover:border-blue-600"
-              }`}
-            onClick={() => handleCategoryChange(category)}
+            variants={index % 2 === 0 ? slideInLeft : slideInRight}
+            custom={index}
+            whileHover={buttonHover}
+            whileTap={buttonTap}
           >
-            {category === "all" ? "Tất cả" : category.toUpperCase()}
-          </Button>
+            <Button
+              className={`px-6 py-2 rounded-full text-sm font-medium cursor-pointer transition-all duration-300 ease-in-out shadow-sm
+                  ${
+                    filterCategory === category
+                      ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-transparent hover:shadow-md"
+                      : "bg-white text-gray-700 border border-gray-200 hover:border-purple-300 hover:text-purple-700 hover:shadow-md"
+                  }`}
+              onClick={() => handleCategoryChange(category)}
+            >
+              {category === "all" ? "Tất cả" : category.toUpperCase()}
+            </Button>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Hiển thị công việc */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

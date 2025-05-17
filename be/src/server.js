@@ -8,7 +8,8 @@ import companyRoute from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
 import aiRoute from "./routes/ai.route.js";
-import saveJob from "./routes/saveJob.route.js";
+import saveJobRoute from "./routes/saveJob.route.js";
+import resumeRoute from "./routes/resume.route.js";
 
 dotenv.config({});
 
@@ -33,7 +34,8 @@ app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);
 app.use("/api/v1/application", applicationRoute);
 app.use("/api/v1/ai", aiRoute);
-app.use("/api/v1/save-job", saveJob);
+app.use("/api/v1/save-job", saveJobRoute);
+app.use("/api/v1/resume", resumeRoute);
 
 // error handler
 app.use((err, req, res, next) => {

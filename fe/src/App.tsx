@@ -17,12 +17,16 @@ import JobManager from "./components/recruiter/screeens/JobManager";
 import Candidates from "./components/recruiter/screeens/Candidates";
 import AppliedJob from "./components/pages/AppliedJob";
 import SavedJobs from "./components/pages/SavedJobs";
+import LandingPage from "./components/resume/LandingPage";
+import EditResume from "./components/resume/ResumeUpdate/EditResume";
+import DashboardResume from "./components/resume/Home/DashboardResume";
 
 function App() {
   return (
     <>
       <ScrollRestoration />
       <Routes>
+        {/* User routes */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -35,12 +39,18 @@ function App() {
         <Route path="/saved-jobs" element={<SavedJobs />} />
         <Route path="/jobs/description/:id" element={<JobDescription />} />
 
+        {/* Recruiter routes */}
         <Route path="/recruiter" element={<RecruiterLayout />}>
           <Route index element={<Recruiter />} />
           <Route path="/recruiter/company" element={<Company />} />
           <Route path="/recruiter/jobs" element={<JobManager />} />
           <Route path="/recruiter/candidates" element={<Candidates />} />
         </Route>
+
+        {/* Resume routes */}
+        <Route path="/resume" element={<LandingPage />} />
+        <Route path="/resume/dashboard-resume" element={<DashboardResume />} />
+        <Route path="/resume/edit/:resumeId" element={<EditResume />} />
       </Routes>
       <Toaster
         position="top-center"
