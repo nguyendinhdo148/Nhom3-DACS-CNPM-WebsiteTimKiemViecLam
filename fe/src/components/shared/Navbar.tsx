@@ -1,31 +1,27 @@
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { User2, LogOut, BriefcaseBusiness, Heart } from "lucide-react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  User2,
+  LogOut,
+  BriefcaseBusiness,
+  Heart,
+  Layers,
+  ChevronDown,
+} from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import axios from "axios";
 import { API } from "@/utils/constant";
 import { setUser } from "@/redux/authSlice";
 import toast from "react-hot-toast";
-// import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   const { user } = useSelector((store: RootState) => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const location = useLocation();
-
-  const isActive = (path: string) => location.pathname === path;
-
-  const navItemClass = (path: string) =>
-    `pb-1 border-b-2 ${
-      isActive(path)
-        ? "text-blue-600 border-blue-600 font-semibold"
-        : "text-gray-700 border-transparent hover:text-blue-500 hover:border-blue-500 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
-    }`;
 
   const logoutHandler = async () => {
     try {
@@ -52,63 +48,98 @@ const Navbar = () => {
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16">
         <div className="mb-1">
           <Link to="/" className="block">
-            <div className="flex flex-col items-start space-y-1">
-              <h1 className="text-3xl font-extrabold tracking-tight text-black">
-                Vie<span className="text-[#f83002]">Jobs</span>
-              </h1>
-              <p className="text-sm text-gray-600 italic font-medium leading-tight">
-                Kết nối nhanh – Phát triển bền
-              </p>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex items-center"
+            >
+              <div className="flex flex-col items-start space-y-1">
+                <div className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-600 to-purple-500 bg-clip-text text-transparent">
+                  VieJobs
+                </div>
+                <p className="text-sm text-gray-600 italic font-medium leading-tight">
+                  Kết nối nhanh – Phát triển bền
+                </p>
+              </div>
+            </motion.div>
           </Link>
         </div>
         <div className="flex items-center gap-12">
-          <ul className="flex font-medium items-center gap-5 cursor-pointer">
-            <li>
-              <Link to="/" className={navItemClass("/")}>
-                Trang chủ
-              </Link>
-            </li>
-            <li>
-              <Link to="/jobs" className={navItemClass("/jobs")}>
-                Việc làm
-              </Link>
-            </li>
-          </ul>
+          <motion.nav
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="hidden md:flex items-center space-x-8"
+          >
+            <Link
+              to="/"
+              className="text-gray-700 hover:text-indigo-600 font-medium transition-colors relative group"
+            >
+              Trang chủ
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+            <Link
+              to={"/jobs"}
+              className="text-gray-700 hover:text-indigo-600 font-medium transition-colors relative group"
+            >
+              Việc làm
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+            <Link
+              to={"/resume"}
+              className="text-gray-700 hover:text-indigo-600 font-medium transition-colors relative group"
+            >
+              Tạo CV
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+          </motion.nav>
 
           {!user ? (
             <div className="flex items-center gap-2">
-              <Link to="/login">
-                <Button
-                  variant="outline"
-                  className="cursor-pointer border-[1px] border-gray-300 bg-white text-black hover:bg-gray-100 rounded-md"
-                >
-                  Đăng nhập
-                </Button>
-              </Link>
-              <Link to="/signup">
-                <Button className="cursor-pointer bg-black text-white hover:bg-gray-800 transition-colors duration-200 rounded-md">
-                  Đăng ký
-                </Button>
-              </Link>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="hidden md:flex items-center space-x-4"
+              >
+                <Link to="/login">
+                  <Button
+                    variant="outline"
+                    className="font-medium rounded-xl px-6 border-indigo-200 text-indigo-600 hover:bg-indigo-50 hover:text-indigo-700 hover:border-indigo-300 cursor-pointer"
+                  >
+                    Đăng Nhập
+                  </Button>
+                </Link>
+                <Link to="/signup">
+                  <Button className="bg-gradient-to-r from-indigo-600 to-purple-500 hover:from-indigo-700 hover:to-purple-600 text-white font-medium rounded-xl px-6 shadow-md shadow-indigo-200/50 cursor-pointer">
+                    Đăng Ký
+                  </Button>
+                </Link>
+              </motion.div>
             </div>
           ) : (
             user?.role === "student" && (
               <Popover>
                 <PopoverTrigger asChild>
-                  <Avatar className="cursor-pointer">
-                    <AvatarImage
-                      src={user.profile?.profilePhoto}
-                      alt={user.fullname}
-                      className="object-cover hover:scale-105 transition-transform duration-200"
-                    />
-                    <AvatarFallback className="bg-gray-100 text-gray-700">
-                      {user.fullname
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
-                    </AvatarFallback>
-                  </Avatar>
+                  <div className="relative cursor-pointer size-10">
+                    <Avatar className="w-full h-full">
+                      <AvatarImage
+                        src={user.profile?.profilePhoto}
+                        alt={user.fullname}
+                        className="object-cover hover:scale-105 transition-transform duration-200"
+                      />
+                      <AvatarFallback className="bg-gray-100 text-gray-700">
+                        {user.fullname
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="absolute bottom-0 right-0 bg-white rounded-full p-1 shadow">
+                      <ChevronDown className="size-2 text-gray-600" />
+                    </div>
+                  </div>
                 </PopoverTrigger>
                 <PopoverContent className="w-80 p-4 bg-white rounded-lg shadow-lg border border-gray-100">
                   {/* User Profile Section */}
@@ -146,6 +177,17 @@ const Navbar = () => {
                       <Link to="/profile">
                         <User2 className="h-4 w-4 text-gray-500" />
                         <span>Xem hồ sơ</span>
+                      </Link>
+                    </Button>
+
+                    <Button
+                      variant="default"
+                      className="w-full justify-start gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50"
+                      asChild
+                    >
+                      <Link to="/resume/dashboard-resume">
+                        <Layers className="h-4 w-4 text-gray-500" />
+                        <span>CV của tôi</span>
                       </Link>
                     </Button>
 

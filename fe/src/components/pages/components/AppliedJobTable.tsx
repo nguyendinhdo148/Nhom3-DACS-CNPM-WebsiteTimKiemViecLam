@@ -15,6 +15,7 @@ import {
   Briefcase,
   MapPin,
   Building2,
+  AlertTriangle,
 } from "lucide-react";
 import { RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -130,52 +131,86 @@ const AppliedJobTable = () => {
         </TableHeader>
         <TableBody>
           {appliedJobs.length > 0 ? (
-            appliedJobs.map((application) => (
-              <TableRow
-                key={application._id}
-                className="hover:bg-gray-50 transition"
-              >
-                <TableCell className="text-gray-700 font-medium text-center">
-                  {new Date(application.createdAt).toLocaleDateString("vi-VN")}
-                </TableCell>
+            appliedJobs.map((application) => {
+              const job = application.job;
 
-                <TableCell>
-                  <div className="flex items-center gap-2 truncate max-w-[200px]">
-                    <Briefcase className="w-4 h-4 text-gray-400 shrink-0" />
-                    <CustomTooltip content={application.job.title}>
-                      <span className="truncate">{application.job.title}</span>
-                    </CustomTooltip>
-                  </div>
-                </TableCell>
+              // Nếu job không còn tồn tại (null/undefined)
+              if (!job) {
+                return (
+                  <TableRow
+                    key={application._id}
+                    className="hover:bg-gray-50 transition"
+                  >
+                    <TableCell className="text-gray-700 font-medium text-center">
+                      {new Date(application.createdAt).toLocaleDateString(
+                        "vi-VN"
+                      )}
+                    </TableCell>
 
-                <TableCell>
-                  <div className="flex items-center gap-2 truncate max-w-[140px]">
-                    <Building2 className="w-4 h-4 text-gray-400 shrink-0" />
-                    <CustomTooltip content={application.job.company.name}>
-                      <span className="truncate">
-                        {application.job.company.name}
-                      </span>
-                    </CustomTooltip>
-                  </div>
-                </TableCell>
+                    <TableCell
+                      colSpan={3}
+                      className="text-gray-400 text-center italic"
+                    >
+                      <div className="flex justify-center items-center gap-2 text-red-500 italic">
+                        <AlertTriangle className="w-4 h-4" />
+                        Công việc này đã bị xóa hoặc không còn khả dụng
+                      </div>
+                    </TableCell>
 
-                <TableCell>
-                  <div className="flex items-center gap-2 truncate max-w-[220px]">
-                    <MapPin className="w-4 h-4 text-gray-400 shrink-0" />
-                    <CustomTooltip content={application.job.location}>
-                      <span className="truncate">
-                        {application.job.location}
-                      </span>
-                    </CustomTooltip>
-                  </div>
-                </TableCell>
+                    <TableCell className="text-left">
+                      {getStatusBadge(application.status)}
+                    </TableCell>
+                  </TableRow>
+                );
+              }
 
-                <TableCell className="text-left">
-                  {getStatusBadge(application.status)}
-                </TableCell>
-              </TableRow>
-            ))
+              // Nếu job còn tồn tại
+              return (
+                <TableRow
+                  key={application._id}
+                  className="hover:bg-gray-50 transition"
+                >
+                  <TableCell className="text-gray-700 font-medium text-center">
+                    {new Date(application.createdAt).toLocaleDateString(
+                      "vi-VN"
+                    )}
+                  </TableCell>
+
+                  <TableCell>
+                    <div className="flex items-center gap-2 truncate max-w-[200px]">
+                      <Briefcase className="w-4 h-4 text-gray-400 shrink-0" />
+                      <CustomTooltip content={job.title}>
+                        <span className="truncate">{job.title}</span>
+                      </CustomTooltip>
+                    </div>
+                  </TableCell>
+
+                  <TableCell>
+                    <div className="flex items-center gap-2 truncate max-w-[140px]">
+                      <Building2 className="w-4 h-4 text-gray-400 shrink-0" />
+                      <CustomTooltip content={job.company.name}>
+                        <span className="truncate">{job.company.name}</span>
+                      </CustomTooltip>
+                    </div>
+                  </TableCell>
+
+                  <TableCell>
+                    <div className="flex items-center gap-2 truncate max-w-[220px]">
+                      <MapPin className="w-4 h-4 text-gray-400 shrink-0" />
+                      <CustomTooltip content={job.location}>
+                        <span className="truncate">{job.location}</span>
+                      </CustomTooltip>
+                    </div>
+                  </TableCell>
+
+                  <TableCell className="text-left">
+                    {getStatusBadge(application.status)}
+                  </TableCell>
+                </TableRow>
+              );
+            })
           ) : (
+            // Khi chưa ứng tuyển công việc nào
             <TableRow>
               <TableCell
                 colSpan={5}

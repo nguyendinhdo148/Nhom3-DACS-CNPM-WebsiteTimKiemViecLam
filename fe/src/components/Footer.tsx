@@ -1,7 +1,11 @@
-import { Link } from "react-router-dom";
+"use client"
+
+import { Link } from "react-router-dom"
+import { motion } from "framer-motion"
+import { fadeIn, fadeInUp, staggerContainer } from "./../framer-motion-config"
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear()
 
   const footerLinks = [
     {
@@ -22,15 +26,6 @@ const Footer = () => {
         { name: "Việc làm bán thời gian", href: "#" },
       ],
     },
-    // {
-    //   title: "For Employers",
-    //   links: [
-    //     { name: "Post a Job", href: "#" },
-    //     { name: "Browse Candidates", href: "#" },
-    //     { name: "Employer Dashboard", href: "#" },
-    //     { name: "Pricing Plans", href: "#" },
-    //   ],
-    // },
     {
       title: "Khám phá",
       links: [
@@ -56,7 +51,7 @@ const Footer = () => {
         { name: "Chính sách bảo mật", href: "#" },
       ],
     },
-  ];
+  ]
 
   const socialMedia = [
     {
@@ -83,110 +78,132 @@ const Footer = () => {
       color: "text-[#E1306C] hover:text-[#C13584]",
       href: "https://www.instagram.com/",
     },
-  ];
+  ]
 
   return (
-    <footer className="bg-gradient-to-b from-gray-50 to-white border-t border-gray-200">
-      <div className="container mx-auto px-6 py-18">
+    <motion.footer
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
+      variants={staggerContainer}
+      className="bg-gradient-to-b from-white to-gray-50 border-t border-gray-200"
+    >
+      <div className="container mx-auto px-6 py-16">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12">
           {/* Brand Column */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center mb-6">
+          <motion.div variants={fadeInUp} className="lg:col-span-2">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex items-center mb-6"
+            >
               <h2 className="text-3xl font-bold tracking-tight">
                 <span className="text-gray-900">Vie</span>
-                <span className="text-[#FF3C00]">Jobs</span>
+                <motion.span
+                  animate={{
+                    color: ["#FF3C00", "#FF5E00", "#FF7F00", "#FF5E00", "#FF3C00"],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Number.POSITIVE_INFINITY,
+                    repeatType: "reverse",
+                  }}
+                  className="text-[#FF3C00]"
+                >
+                  Jobs
+                </motion.span>
               </h2>
-            </div>
-            <p className="text-gray-600 mb-8 leading-relaxed">
-              Kết nối những tài năng hàng đầu với các công ty đẳng cấp thế giới.
-              Nền tảng của chúng tôi giúp hàng triệu người tìm được công việc mơ
-              ước và xây dựng sự nghiệp có ý nghĩa.
-            </p>
+            </motion.div>
+            <motion.p variants={fadeInUp} className="text-gray-600 mb-8 leading-relaxed">
+              Kết nối những tài năng hàng đầu với các công ty đẳng cấp thế giới. Nền tảng của chúng tôi giúp hàng triệu
+              người tìm được công việc mơ ước và xây dựng sự nghiệp có ý nghĩa.
+            </motion.p>
 
             {/* Social Media */}
-            <div>
-              <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">
+            <motion.div variants={fadeInUp}>
+              <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
                 Kết nối với chúng tôi
               </h4>
-              <div className="flex space-x-4">
+              <div className="flex space-x-5">
                 {socialMedia.map((social, index) => (
-                  <Link
-                    to={social.href}
+                  <motion.div
                     key={index}
-                    className={`${social.color} transition-colors duration-300 hover:scale-110`}
-                    aria-label={social.name}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 + 0.5 }}
+                    whileHover={{ scale: 1.2, rotate: 5 }}
+                    whileTap={{ scale: 0.9 }}
                   >
-                    <svg
-                      className="w-6 h-6"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
+                    <Link
+                      to={social.href}
+                      className={`${social.color} transition-all duration-300`}
+                      aria-label={social.name}
                     >
-                      <path d={social.icon} />
-                    </svg>
-                  </Link>
+                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d={social.icon} />
+                      </svg>
+                    </Link>
+                  </motion.div>
                 ))}
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Link Columns */}
-          {footerLinks.map((column) => (
-            <div key={column.title}>
-              <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
-                {column.title}
-              </h3>
+          {footerLinks.map((column, colIndex) => (
+            <motion.div key={column.title} variants={fadeInUp} custom={colIndex} transition={{ delay: colIndex * 0.1 }}>
+              <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-5">{column.title}</h3>
               <ul className="space-y-3">
-                {column.links.map((link) => (
-                  <li key={link.name}>
-                    <a
+                {column.links.map((link, linkIndex) => (
+                  <motion.li
+                    key={link.name}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: colIndex * 0.1 + linkIndex * 0.05 }}
+                  >
+                    <motion.a
                       href={link.href}
-                      className="text-gray-600 hover:text-[#FF3C00] transition-colors duration-300 text-sm leading-6 flex items-center group"
+                      className="text-gray-600 hover:text-[#FF3C00] transition-all duration-300 text-sm leading-6 flex items-center group"
+                      whileHover={{ x: 5 }}
                     >
-                      <span className="group-hover:translate-x-1 transition-transform duration-200">
-                        {link.name}
-                      </span>
-                    </a>
-                  </li>
+                      <span>{link.name}</span>
+                    </motion.a>
+                  </motion.li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Divider */}
-        <div className="border-t border-gray-200 my-8"></div>
+        <motion.div variants={fadeIn} className="border-t border-gray-200 my-10"></motion.div>
 
         {/* Bottom Footer */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <p className="text-sm text-gray-500 order-2 md:order-1">
+        <motion.div variants={fadeInUp} className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <motion.p variants={fadeInUp} className="text-sm text-gray-500 order-2 md:order-1">
             &copy; {currentYear} VieJobs, Inc. All rights reserved.
-          </p>
-          <div className="flex flex-wrap gap-4 order-1 md:order-2">
-            <a
-              href="#"
-              className="text-gray-500 hover:text-gray-900 text-sm transition-colors duration-200"
-            >
-              Privacy Policy
-            </a>
-            <a
-              href="#"
-              className="text-gray-500 hover:text-gray-900 text-sm transition-colors duration-200"
-            >
-              Terms of Service
-            </a>
-            <a
-              href="#"
-              className="text-gray-500 hover:text-gray-900 text-sm transition-colors duration-200"
-            >
-              Cookie Policy
-            </a>
+          </motion.p>
+          <div className="flex flex-wrap gap-6 order-1 md:order-2">
+            {["Privacy Policy", "Terms of Service", "Cookie Policy"].map((item, index) => (
+              <motion.a
+                key={item}
+                href="#"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: index * 0.1 + 0.2 }}
+                whileHover={{ y: -2 }}
+                className="text-gray-500 hover:text-gray-900 text-sm transition-colors duration-200"
+              >
+                {item}
+              </motion.a>
+            ))}
           </div>
-        </div>
+        </motion.div>
       </div>
-    </footer>
-  );
-};
+    </motion.footer>
+  )
+}
 
-export default Footer;
+export default Footer

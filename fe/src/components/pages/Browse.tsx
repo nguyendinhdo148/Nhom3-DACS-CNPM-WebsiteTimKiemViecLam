@@ -2,7 +2,7 @@ import Navbar from "../shared/Navbar";
 import Job from "./components/Job";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { setSearchedQuery } from "@/redux/jobSlice";
+import { setAllJobs, setSearchedQuery } from "@/redux/jobSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -59,6 +59,20 @@ const Browse = () => {
       console.error("Lỗi khi thao tác với công việc đã lưu:", error);
     }
   };
+
+  // fetch all jobs
+  useEffect(() => {
+  const fetchAllJobs = async () => {
+    try {
+      const res = await axios.get(`${API}/job/all-jobs`);
+      dispatch(setAllJobs(res.data.jobs));
+    } catch (err) {
+      console.error("Lỗi khi fetch jobs:", err);
+    }
+  };
+
+  fetchAllJobs();
+}, [dispatch]);
 
   // Lấy query từ URL và set lại searchedQuery trong Redux (chỉ 1 lần khi component mount)
   useEffect(() => {

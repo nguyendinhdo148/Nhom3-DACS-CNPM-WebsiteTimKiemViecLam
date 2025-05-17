@@ -81,7 +81,7 @@ export const PaginationButtons = ({
       <Button
         size="sm"
         variant="outline"
-        className="cursor-pointer"
+        className="cursor-pointer bg-white text-gray-700 hover:bg-gray-100 border-gray-300"
         disabled={currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
       >
@@ -93,7 +93,7 @@ export const PaginationButtons = ({
       <Button
         size="sm"
         variant="outline"
-        className="cursor-pointer"
+        className="cursor-pointer bg-white text-gray-700 hover:bg-gray-100 border-gray-300"
         disabled={currentPage === totalPages}
         onClick={() => onPageChange(currentPage + 1)}
       >
