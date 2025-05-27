@@ -51,6 +51,15 @@ const jobSchema = new mongoose.Schema(
       required: true,
       default: "active",
     },
+    approval: {
+      type: String,
+      enum: ["pending", "approved", "rejected"],
+      default: "pending",
+    },
+    approvalNote: {
+      type: String,
+      default: "",
+    },
     category: {
       type: String,
       required: true,

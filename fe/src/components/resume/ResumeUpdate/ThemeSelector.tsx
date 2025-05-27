@@ -82,7 +82,7 @@ const ThemeSelector = ({
 
       <div className="grid grid-cols-12 gap-5">
         <div className="col-span-12 md:col-span-5 bg-white min-w-0 overflow-hidden">
-          <div className="grid grid-cols-2 gap-5 max-h-[80vh] overflow-y-auto pr-3 custom-scrollbar">
+          <div className="grid grid-cols-2 gap-5 max-h-[100vh] overflow-y-auto pr-3 custom-scrollbar">
             {tabValue === "Bản mẫu" &&
               resumeTemplates.map((template, index) => (
                 <TemplateCard

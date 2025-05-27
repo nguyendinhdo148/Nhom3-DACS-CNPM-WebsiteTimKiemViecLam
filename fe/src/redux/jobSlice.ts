@@ -5,6 +5,7 @@ interface JobState {
   allJobs: Job[];
   singleJob: Job | undefined;
   jobsForRecruiter: Job[];
+  jobsForAdmin: Job[];
   selectedJob: Job | null;
   searchedQuery: string | "";
   isLoading: boolean;
@@ -15,6 +16,7 @@ const initialState: JobState = {
   allJobs: [],
   singleJob: undefined,
   jobsForRecruiter: [],
+  jobsForAdmin: [],
   selectedJob: null,
   searchedQuery: "",
   isLoading: false,
@@ -33,6 +35,9 @@ const jobSlice = createSlice({
     },
     setJobsForRecruiter: (state, action) => {
       state.jobsForRecruiter = action.payload;
+    },
+    setJobsForAdmin: (state, action) => {
+      state.jobsForAdmin = action.payload;
     },
     setSelectedJob: (state, action) => {
       state.selectedJob = action.payload;
@@ -59,6 +64,7 @@ export const {
   setAllJobs,
   setSingleJob,
   setJobsForRecruiter,
+  setJobsForAdmin,
   setSelectedJob,
   setSearchedQuery,
   setLoading,

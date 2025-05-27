@@ -255,7 +255,7 @@ export const suggestions = async (req, res, next) => {
     const regexKeyword = new RegExp(keyword, "i");
 
     // Truy vấn cơ bản (không truy vấn nested field trong $or trước populate)
-    const jobs = await Job.find({ status: "active" })
+    const jobs = await Job.find({ status: "active", approval: "approved" })
       .populate({
         path: "company",
         select: "name logo",

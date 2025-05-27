@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion";
 
 const Home = () => {
   const { user } = useSelector((state: RootState) => state.auth);
@@ -17,13 +17,15 @@ const Home = () => {
   useEffect(() => {
     if (user?.role === "recruiter") {
       navigate("/recruiter");
+    } else if (user?.role === "admin") {
+      navigate("/admin");
     }
   }, [user, navigate]);
 
   useGetAllJobs();
 
   return (
-     <AnimatePresence mode="wait">
+    <AnimatePresence mode="wait">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

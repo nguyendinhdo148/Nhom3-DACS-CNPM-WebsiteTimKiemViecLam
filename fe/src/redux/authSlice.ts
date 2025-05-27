@@ -4,11 +4,13 @@ import { User } from "../types/user";
 interface AuthState {
   loading: boolean;
   user: User | null;
+  usersForAdmin: User[] | null;
 }
 
 const initialState: AuthState = {
   loading: false,
   user: null,
+  usersForAdmin: null,
 };
 
 const authSlice = createSlice({
@@ -21,8 +23,11 @@ const authSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    setUsersForAdmin: (state, action) => {
+      state.usersForAdmin = action.payload;
+    },
   },
 });
 
-export const { setLoading, setUser } = authSlice.actions;
+export const { setLoading, setUser, setUsersForAdmin } = authSlice.actions;
 export default authSlice.reducer;

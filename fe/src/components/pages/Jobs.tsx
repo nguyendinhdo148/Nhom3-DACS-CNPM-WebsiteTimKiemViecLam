@@ -170,6 +170,7 @@ const Jobs = () => {
       normalize(job.jobType || "").includes(normalizedSearchText);
 
     return (
+      job.approval === "approved" &&
       job.status === "active" &&
       matchLocation &&
       matchJobType &&

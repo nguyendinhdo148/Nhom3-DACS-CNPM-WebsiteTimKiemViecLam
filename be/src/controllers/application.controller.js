@@ -138,7 +138,7 @@ export const getApplicantsForRecruiter = async (req, res, next) => {
         populate: {
           path: "applicant",
           select:
-            "id fullname email profile.skills profile.bio profile.profilePhoto profile.resume profile.resumeOriginalName",
+            "id fullname email phoneNumber profile.skills profile.bio profile.profilePhoto profile.resume profile.resumeOriginalName",
         },
       })
       .populate({

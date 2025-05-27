@@ -12,6 +12,7 @@ import { formatDistanceToNow } from "date-fns";
 import { vi } from "date-fns/locale";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import toast from "react-hot-toast";
 
 const DashboardResume = () => {
   const { user } = useSelector((store: RootState) => store.auth);
@@ -33,8 +34,11 @@ const DashboardResume = () => {
   useEffect(() => {
     if (!user) {
       navigate("/login");
+      toast.error("Vui lòng đăng nhập để truy cập trang này.");
     } else if (user.role === "recruiter") {
       navigate("/recruiter");
+    } else if (user.role === "admin") {
+      navigate("/admin");
     }
     fetchAllResume();
   }, [user, navigate]);

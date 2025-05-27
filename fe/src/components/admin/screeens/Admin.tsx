@@ -1,6 +1,10 @@
+"use client";
+
+import type React from "react";
+
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import type { RootState } from "@/redux/store";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
@@ -11,7 +15,7 @@ import {
   TrendingDown,
   TrendingUp,
   Minus,
-  UserCheck,
+  ClipboardList,
 } from "lucide-react";
 import { API } from "@/utils/constant";
 import { Badge } from "@/components/ui/badge";
@@ -26,10 +30,9 @@ import {
 } from "@/components/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import DashboardSkeleton from "../components/Skeleton/DashboardSkeleton";
-import type { Application } from "@/types/application";
 import type { Job } from "@/types/job";
 
-const Recruiter = () => {
+const Admin = () => {
   const { user } = useSelector((store: RootState) => store.auth);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -39,29 +42,43 @@ const Recruiter = () => {
     activeJobs: number;
     pendingApplications: number;
     upcomingInterviews: number;
-    recentApplications: Application[];
+    recentUsers: {
+      _id: string;
+      fullname: string;
+      email: string;
+      profile?: {
+        profilePhoto?: string;
+      };
+      createdAt: string;
+    }[];
     popularJobs: Job[];
     yesterdayApplications: number;
     yesterdayActiveJobs: number;
     yesterdayPendingApplications: number;
     yesterdayUpcomingInterviews: number;
+    totalUsers: number;
+    totalCompanies: number;
+    totalJobs: number;
   }>({
     todayApplications: 0,
     activeJobs: 0,
     pendingApplications: 0,
     upcomingInterviews: 0,
-    recentApplications: [],
+    recentUsers: [],
     popularJobs: [],
     yesterdayApplications: 0,
     yesterdayActiveJobs: 0,
     yesterdayPendingApplications: 0,
     yesterdayUpcomingInterviews: 0,
+    totalUsers: 0,
+    totalCompanies: 0,
+    totalJobs: 0,
   });
 
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const res = await axios.get(`${API}/application/overview`, {
+        const res = await axios.get(`${API}/admin/overview`, {
           withCredentials: true,
         });
         if (res.data.success) {
@@ -83,25 +100,6 @@ const Recruiter = () => {
     return `${change >= 0 ? "+" : ""}${change.toFixed(1)}%`;
   };
 
-  const getStatusBadge = (status: Application["status"]) => {
-    const config = {
-      pending: {
-        label: "Chờ xem xét",
-        className: "bg-yellow-100 text-yellow-800",
-      },
-      reviewing: {
-        label: "Đang xem xét",
-        className: "bg-blue-100 text-blue-800",
-      },
-      accepted: {
-        label: "Đã chấp nhận",
-        className: "bg-green-100 text-green-800",
-      },
-      rejected: { label: "Đã từ chối", className: "bg-red-100 text-red-800" },
-    }[status];
-    return <Badge className={config.className}>{config.label}</Badge>;
-  };
-
   if (isLoading) return <DashboardSkeleton />;
 
   return (
@@ -110,7 +108,7 @@ const Recruiter = () => {
       <div className="bg-gradient-to-r from-violet-500 to-indigo-600 rounded-2xl p-8 shadow-lg text-white">
         <h1 className="text-3xl font-bold">👋 Xin chào, {user?.fullname}</h1>
         <p className="mt-2 text-indigo-100 font-medium">
-          Chào mừng bạn quay trở lại với trang quản lý tuyển dụng
+          Chào mừng bạn quay trở lại với trang quản trị
         </p>
       </div>
 
@@ -119,56 +117,59 @@ const Recruiter = () => {
         <StatsCard
           icon={<Users2 className="size-8 text-white" />}
           iconBg="bg-gradient-to-br from-indigo-500 to-purple-600"
-          label="Ứng viên mới"
-          value={dashboardData.todayApplications}
-          badge="Hôm nay"
+          label="Tổng người dùng"
+          value={dashboardData.totalUsers}
+          badge="Hệ thống"
           trend={getPercentChange(
-            dashboardData.todayApplications,
-            dashboardData.yesterdayApplications
+            dashboardData.totalUsers,
+            dashboardData.totalUsers - 5
           )}
         />
+
         <StatsCard
           icon={<BriefcaseIcon className="size-8 text-white" />}
-          iconBg="bg-gradient-to-br from-green-500 to-emerald-600"
-          label="Vị trí đang tuyển"
-          value={dashboardData.activeJobs}
-          badge="Đang mở"
+          iconBg="bg-gradient-to-br from-cyan-500 to-blue-600"
+          label="Tổng công ty"
+          value={dashboardData.totalCompanies}
+          badge="Hệ thống"
           trend={getPercentChange(
-            dashboardData.activeJobs,
-            dashboardData.yesterdayActiveJobs
+            dashboardData.totalCompanies,
+            dashboardData.totalCompanies - 2
           )}
         />
+
         <StatsCard
-          icon={<UserCheck className="size-8 text-white" />}
-          iconBg="bg-gradient-to-br from-amber-400 to-amber-600"
-          label="Đang chờ duyệt"
-          value={dashboardData.pendingApplications}
-          badge="Cần xem xét"
+          icon={<ClipboardList className="size-8 text-white" />}
+          iconBg="bg-gradient-to-br from-sky-500 to-teal-600"
+          label="Tổng tin tuyển dụng"
+          value={dashboardData.totalJobs}
+          badge="Hệ thống"
           trend={getPercentChange(
-            dashboardData.pendingApplications,
-            dashboardData.yesterdayPendingApplications
+            dashboardData.totalJobs,
+            dashboardData.totalJobs - 3
           )}
         />
       </div>
 
       {/* Main content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Recent Applications */}
+        {/* Recent Users */}
         <Card className="lg:col-span-2 rounded-xl border-none shadow-lg overflow-hidden">
           <div className="bg-gradient-to-r from-gray-50 to-slate-100 p-6 border-b">
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-xl font-semibold text-gray-800">
-                  Ứng viên gần đây
+                  Người dùng mới
                 </h2>
                 <p className="text-sm text-gray-500 mt-1">
-                  {dashboardData.recentApplications.length} ứng viên gần đây
+                  Tổng: {dashboardData.recentUsers.length} người dùng gần đây /{" "}
+                  {dashboardData.totalUsers} tổng cộng
                 </p>
               </div>
               <Badge
                 variant="outline"
                 className="cursor-pointer hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-colors"
-                onClick={() => navigate("/recruiter/candidates")}
+                onClick={() => navigate("/admin/users")}
               >
                 Xem tất cả <ChevronRight className="ml-1 h-4 w-4" />
               </Badge>
@@ -177,64 +178,60 @@ const Recruiter = () => {
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
-                <TableRow>
+                <TableRow className="bg-gray-50">
                   <TableHead className="font-semibold text-gray-700 pl-6">
-                    Ứng viên
+                    Họ tên
                   </TableHead>
                   <TableHead className="font-semibold text-gray-700">
-                    Vị trí ứng tuyển
+                    Email
                   </TableHead>
                   <TableHead className="font-semibold text-gray-700">
-                    Ngày ứng tuyển
-                  </TableHead>
-                  <TableHead className="font-semibold text-gray-700">
-                    Trạng thái
+                    Ngày tạo
                   </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {dashboardData.recentApplications.map((app) => (
-                  <TableRow
-                    key={app._id}
-                    className="hover:bg-indigo-50/30 transition-all duration-200"
-                  >
-                    <TableCell className="pl-6">
-                      <div className="flex items-center gap-3">
-                        <Avatar className="h-10 w-10 border">
-                          <AvatarImage
-                            src={app.applicant?.profile?.profilePhoto}
-                          />
-                          <AvatarFallback className="bg-blue-100 text-blue-600">
-                            {app.applicant?.fullname?.charAt(0)}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <div className="font-semibold">
-                            {app.applicant?.fullname}
+                {dashboardData.recentUsers.length > 0 ? (
+                  dashboardData.recentUsers.map((user) => (
+                    <TableRow
+                      key={user._id}
+                      className="hover:bg-indigo-50/30 transition-all duration-200"
+                    >
+                      <TableCell className="pl-6">
+                        <div className="flex items-center gap-3">
+                          <Avatar className="h-10 w-10 border shadow-sm">
+                            <AvatarImage
+                              src={
+                                user.profile?.profilePhoto || "/placeholder.svg"
+                              }
+                            />
+                            <AvatarFallback className="bg-gradient-to-br from-indigo-100 to-blue-100 text-indigo-600 font-medium">
+                              {user.fullname.charAt(0)}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="font-semibold text-gray-800">
+                            {user.fullname}
                           </div>
-                          <div className="text-sm text-gray-500">
-                            {app.applicant?.email}
-                          </div>
                         </div>
-                      </div>
+                      </TableCell>
+                      <TableCell className="text-gray-600 font-medium">
+                        {user.email}
+                      </TableCell>
+                      <TableCell className="text-sm text-gray-500 font-medium">
+                        {new Date(user.createdAt).toLocaleDateString("vi-VN")}
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell
+                      colSpan={3}
+                      className="text-center py-10 text-gray-500"
+                    >
+                      Chưa có người dùng nào gần đây
                     </TableCell>
-                    <TableCell className="max-w-[200px] truncate">
-                      <div>
-                        <div className="font-medium text-ellipsis overflow-hidden whitespace-nowrap">
-                          {app.job?.title}
-                        </div>
-                        <div className="text-gray-500">
-                          {app.job?.company?.name}
-                        </div>
-                      </div>
-                    </TableCell>
-
-                    <TableCell className="text-sm text-gray-600">
-                      {new Date(app.createdAt).toLocaleDateString("vi-VN")}
-                    </TableCell>
-                    <TableCell>{getStatusBadge(app.status)}</TableCell>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </div>
@@ -309,7 +306,7 @@ const Recruiter = () => {
   );
 };
 
-// StatsCard làm đẹp hơn
+// StatsCard
 const StatsCard = ({
   icon,
   iconBg,
@@ -382,4 +379,4 @@ const StatsCard = ({
   );
 };
 
-export default Recruiter;
+export default Admin;

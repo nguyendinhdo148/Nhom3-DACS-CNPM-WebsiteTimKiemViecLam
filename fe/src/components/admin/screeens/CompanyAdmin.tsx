@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import {
   Table,
@@ -19,11 +19,12 @@ import Swal from "sweetalert2";
 import { setCompanies, setSelectedCompany } from "@/redux/companySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import type { Company } from "@/types/company";
 import CommonSkeleton from "../components/Skeleton/CommonSkeleton";
 import { CustomTooltip } from "@/components/helpers/CustomTooltip";
+import { paginate } from "@/components/helpers/pagination";
+import { PaginationButtons } from "@/components/helpers/PaginationButtons";
 
-const Company = () => {
+const CompanyAdmin = () => {
   const { companies, selectedCompany } = useSelector(
     (store: RootState) => store.company
   );
@@ -32,10 +33,26 @@ const Company = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const dispatch = useDispatch();
 
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const jobsPerPage = 6; // Number of jobs per page
+
+  const companiesRef = useRef<HTMLDivElement | null>(null);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    companiesRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const { paginatedData: paginatedCompanies, totalPages } = paginate(
+    companies,
+    currentPage,
+    jobsPerPage
+  );
+
   const fetchCompanies = useCallback(async () => {
     try {
       setIsLoading(true);
-      const res = await axios.get(`${API}/company`, {
+      const res = await axios.get(`${API}/admin/all-companies`, {
         withCredentials: true,
       });
       if (res.data.success) {
@@ -54,14 +71,19 @@ const Company = () => {
   }, [fetchCompanies]);
 
   // handleAddCompany function
+  /*
   const handleAddCompany = async (formData: FormData) => {
     try {
-      const response = await axios.post(`${API}/company/create`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        withCredentials: true,
-      });
+      const response = await axios.post(
+        `${API}/admin/company/create`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        }
+      );
 
       console.log(response);
 
@@ -79,12 +101,13 @@ const Company = () => {
       );
     }
   };
+  */
 
   // handleEditCompany function
   const handleEditCompany = async (formData: FormData) => {
     try {
       const response = await axios.put(
-        `${API}/company/update-company/${selectedCompany?._id}`,
+        `${API}/admin/company/${selectedCompany?._id}`,
         formData,
         {
           headers: {
@@ -125,9 +148,12 @@ const Company = () => {
     if (!result.isConfirmed) return;
 
     try {
-      const response = await axios.delete(`${API}/company/${company_id}`, {
-        withCredentials: true,
-      });
+      const response = await axios.delete(
+        `${API}/admin/company/${company_id}`,
+        {
+          withCredentials: true,
+        }
+      );
       if (response.data.success) {
         toast.success("Xóa công ty thành công!");
         fetchCompanies();
@@ -143,7 +169,7 @@ const Company = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div ref={companiesRef} className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
@@ -155,11 +181,11 @@ const Company = () => {
               Quản lý công ty
             </h1>
             <p className="mt-1 text-gray-500">
-              Quản lý thông tin, giấy tờ và trạng thái hoạt động của công ty
+              Xem và quản lý danh sách công ty trong hệ thống
             </p>
           </div>
         </div>
-        <Button
+        {/* <Button
           size="lg"
           className="cursor-pointer bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-md hover:shadow-lg transition"
           onClick={() => {
@@ -171,13 +197,13 @@ const Company = () => {
             <Plus className="mr-2 size-4" />
             <span>Thêm công ty mới</span>
           </div>
-        </Button>
+        </Button> */}
       </div>
 
       {/* Company List */}
       <Card>
         <div className="p-6">
-          {companies.length > 0 ? (
+          {paginatedCompanies.length > 0 ? (
             <Table>
               <TableHeader>
                 <TableRow className="hover:bg-gray-50 transition">
@@ -194,7 +220,7 @@ const Company = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {companies.map((company) => (
+                {paginatedCompanies.map((company) => (
                   <TableRow key={company._id}>
                     <TableCell>
                       <div className="flex items-center gap-3">
@@ -310,6 +336,13 @@ const Company = () => {
         </div>
       </Card>
 
+      {/* Pagination Buttons */}
+      <PaginationButtons
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
+
       <CompanyFormDialog
         open={isDialogOpen}
         onClose={() => {
@@ -320,13 +353,14 @@ const Company = () => {
         onSuccess={(formData: FormData) => {
           if (selectedCompany) {
             handleEditCompany(formData);
-          } else {
-            handleAddCompany(formData);
           }
+          //  else {
+          //   handleAddCompany(formData);
+          // }
         }}
       />
     </div>
   );
 };
 
-export default Company;
+export default CompanyAdmin;

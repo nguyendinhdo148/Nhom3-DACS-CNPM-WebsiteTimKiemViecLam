@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Search } from "lucide-react";
+import { Search, Users } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import axios from "axios";
@@ -129,13 +129,18 @@ const Candidates = () => {
   return (
     <div ref={candidatesRef} className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-semibold text-gray-800 flex items-center gap-2">
-          📋 Quản lý ứng viên
-        </h1>
-        <p className="mt-1 text-gray-500">
-          Xem và quản lý danh sách ứng viên ứng tuyển vào các vị trí công việc
-        </p>
+      <div className="flex items-center gap-4">
+        <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl shadow-lg">
+          <Users className="w-8 h-8 text-white" />
+        </div>
+        <div>
+          <h1 className="text-3xl font-semibold text-gray-800">
+            Quản lý ứng viên
+          </h1>
+          <p className="mt-1 text-gray-500">
+            Xem và quản lý danh sách ứng viên ứng tuyển vào các vị trí công việc
+          </p>
+        </div>
       </div>
 
       {/* Filters */}
@@ -193,16 +198,19 @@ const Candidates = () => {
                 <TableHead className="w-[300px] text-gray-700 font-semibold">
                   Ứng viên
                 </TableHead>
-                <TableHead className="text-gray-700 font-semibold">
+                <TableHead className="w-[300px] text-gray-700 font-semibold">
                   Vị trí ứng tuyển
                 </TableHead>
-                <TableHead className="text-gray-700 font-semibold">
+                <TableHead className="text-gray-700 font-semibold text-center">
+                  Số điện thoại
+                </TableHead>
+                <TableHead className="text-gray-700 font-semibold text-center">
                   Ngày ứng tuyển
                 </TableHead>
-                <TableHead className="text-gray-700 font-semibold">
+                <TableHead className="text-gray-700 font-semibold text-center">
                   Trạng thái
                 </TableHead>
-                <TableHead className="text-right text-gray-700 font-semibold">
+                <TableHead className="w-[100px] text-center text-gray-700 font-semibold">
                   Thao tác
                 </TableHead>
               </TableRow>
@@ -234,18 +242,21 @@ const Candidates = () => {
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell>
-                      <div>
-                        <div className="font-medium">{app.job?.title}</div>
-                        <div className="text-sm text-gray-500">
-                          {app.job?.company.name}
-                        </div>
+                    <TableCell className="max-w-[300px]">
+                      <div className="font-medium truncate">{app.job?.title}</div>
+                      <div className="text-sm text-gray-500">
+                        {app.job?.company.name}
                       </div>
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="text-center">
+                      <div className="font-medium text-gray-800">
+                        0{app.applicant?.phoneNumber}
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-center">
                       {new Date(app.createdAt).toLocaleDateString("vi-VN")}
                     </TableCell>
-                    <TableCell>{getStatusBadge(app.status)}</TableCell>
+                    <TableCell className="text-center">{getStatusBadge(app.status)}</TableCell>
                     <TableCell className="text-right">
                       <ActionButtons
                         applicant={app.applicant}
