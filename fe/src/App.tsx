@@ -20,6 +20,11 @@ import SavedJobs from "./components/pages/SavedJobs";
 import LandingPage from "./components/resume/LandingPage";
 import EditResume from "./components/resume/ResumeUpdate/EditResume";
 import DashboardResume from "./components/resume/Home/DashboardResume";
+import AdminLayout from "./components/admin/AdminLayout";
+import Admin from "./components/admin/screeens/Admin";
+import CompanyAdmin from "./components/admin/screeens/CompanyAdmin";
+import JobManagerAdmin from "./components/admin/screeens/JobManagerAdmin";
+import UserManagerAdmin from "./components/admin/screeens/UserManagerAdmin";
 
 function App() {
   return (
@@ -45,6 +50,14 @@ function App() {
           <Route path="/recruiter/company" element={<Company />} />
           <Route path="/recruiter/jobs" element={<JobManager />} />
           <Route path="/recruiter/candidates" element={<Candidates />} />
+        </Route>
+
+        {/* Admin routes */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<Admin />} />
+          <Route path="/admin/company" element={<CompanyAdmin />} />
+          <Route path="/admin/jobs" element={<JobManagerAdmin />} />
+          <Route path="/admin/user" element={<UserManagerAdmin />} />
         </Route>
 
         {/* Resume routes */}

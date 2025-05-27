@@ -74,3 +74,25 @@ export const isRecruiter = async (req, res, next) => {
     next(error);
   }
 };
+
+export const isAdmin = async (req, res, next) => {
+  try {
+    if (!req.id) {
+      return res.status(401).json({
+        message: "You are not authenticated",
+        success: false,
+      });
+    }
+
+    const user = await User.findById(req.id);
+    if (user.role !== "admin") {
+      return res.status(401).json({
+        message: "You are not a admin",
+        success: false,
+      });
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
+};

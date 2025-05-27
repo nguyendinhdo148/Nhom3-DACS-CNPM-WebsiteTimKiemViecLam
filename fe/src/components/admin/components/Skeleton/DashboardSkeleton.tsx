@@ -1,13 +1,6 @@
-import { Skeleton } from "@/components/ui/skeleton";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Skeleton } from "@/components/ui/skeleton"
+import { Card, CardContent } from "@/components/ui/card"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 export default function DashboardSkeleton() {
   return (
@@ -24,22 +17,13 @@ export default function DashboardSkeleton() {
       {/* Stats Cards Skeleton - Enhanced with better colors and animation */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* First card with indigo gradient */}
-        <StatsCardSkeleton
-          gradientFrom="from-indigo-500/50"
-          gradientTo="to-purple-600/50"
-        />
+        <StatsCardSkeleton gradientFrom="from-indigo-500/50" gradientTo="to-purple-600/50" />
 
         {/* Second card with cyan gradient */}
-        <StatsCardSkeleton
-          gradientFrom="from-cyan-500/50"
-          gradientTo="to-blue-600/50"
-        />
+        <StatsCardSkeleton gradientFrom="from-cyan-500/50" gradientTo="to-blue-600/50" />
 
         {/* Third card with sky gradient */}
-        <StatsCardSkeleton
-          gradientFrom="from-sky-500/50"
-          gradientTo="to-teal-600/50"
-        />
+        <StatsCardSkeleton gradientFrom="from-sky-500/50" gradientTo="to-teal-600/50" />
       </div>
 
       {/* Main content */}
@@ -75,10 +59,7 @@ export default function DashboardSkeleton() {
               </TableHeader>
               <TableBody>
                 {[1, 2, 3, 4, 5].map((i) => (
-                  <TableRow
-                    key={i}
-                    className="hover:bg-gray-50/50 transition-colors"
-                  >
+                  <TableRow key={i} className="hover:bg-gray-50/50 transition-colors">
                     <TableCell className="pl-6">
                       <div className="flex items-center gap-3">
                         <div className="relative">
@@ -142,24 +123,16 @@ export default function DashboardSkeleton() {
         </Card>
       </div>
     </div>
-  );
+  )
 }
 
 // Helper component for stats cards
-function StatsCardSkeleton({
-  gradientFrom,
-  gradientTo,
-}: {
-  gradientFrom: string;
-  gradientTo: string;
-}) {
+function StatsCardSkeleton({ gradientFrom, gradientTo }: { gradientFrom: string; gradientTo: string }) {
   return (
     <Card className="border-none shadow-lg overflow-hidden rounded-xl hover:shadow-xl transition-all duration-300">
       <CardContent className="p-0">
         <div className="flex flex-col h-full">
-          <div
-            className={`bg-gradient-to-br ${gradientFrom} ${gradientTo} p-5 relative overflow-hidden`}
-          >
+          <div className={`bg-gradient-to-br ${gradientFrom} ${gradientTo} p-5 relative overflow-hidden`}>
             {/* Animated gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 animate-[shimmer_2s_infinite] -translate-x-full" />
 
@@ -178,5 +151,5 @@ function StatsCardSkeleton({
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }

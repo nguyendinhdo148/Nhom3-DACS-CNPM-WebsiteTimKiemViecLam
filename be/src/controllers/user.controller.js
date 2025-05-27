@@ -106,12 +106,20 @@ export const login = async (req, res, next) => {
       });
     }
 
-    // const tokenData = {
-    //   userId: user._id,
-    // };
-    // const token = await jwt.sign(tokenData, process.env.SECRET_KEY, {
-    //   expiresIn: "1d",
-    // });
+    // check if user is admin
+    // if user is admin, no need to check password
+    // if user is not admin, check password
+    const isAdmin = user.role === "admin";
+
+    if (!isAdmin) {
+      const isPasswordMatch = await bcrypt.compare(password, user.password);
+      if (!isPasswordMatch) {
+        return res.status(400).json({
+          message: "Email hoặc mật khẩu không đúng",
+          success: false,
+        });
+      }
+    }
 
     user = {
       _id: user._id,

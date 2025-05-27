@@ -35,7 +35,10 @@ const LatestJobs = () => {
   const categories = ["all", "it", "marketing", "design", "sales", "abc"];
 
   const activeJobs = useMemo(
-    () => allJobs.filter((job) => job.status === "active"),
+    () =>
+      allJobs.filter(
+        (job) => job.status === "active" && job.approval === "approved"
+      ),
     [allJobs]
   );
 

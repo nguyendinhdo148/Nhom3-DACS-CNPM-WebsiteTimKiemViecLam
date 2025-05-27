@@ -16,12 +16,13 @@ import { setLoading, setUser } from "@/redux/authSlice";
 type FormData = {
   email: string;
   password: string;
-  role: "student" | "recruiter";
+  role: "student" | "recruiter" | "admin";
 };
 
 type FormErrors = {
   email?: string;
   password?: string;
+  role?: string;
   server?: string;
 };
 
@@ -36,7 +37,11 @@ const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, user } = useSelector((store: RootState) => store.auth); // Access loading state from Redux store
+  const { loading, user } = useSelector((store: RootState) => store.auth);
+
+  // Kiểm tra email có phải admin không
+  const emailNamePart = formData.email.split("@")[0].toLowerCase();
+  const isAdmin = emailNamePart.includes("admin");
 
   useEffect(() => {
     if (user) {
@@ -47,12 +52,20 @@ const Login = () => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => {
+      const updatedData = { ...prev, [name]: value };
 
-    // Clear error when user types
+      // Nếu đổi email thành admin, reset role
+      if (name === "email") {
+        const emailPart = value.split("@")[0].toLowerCase();
+        if (emailPart.includes("admin")) {
+          updatedData.role = "admin";
+        }
+      }
+      return updatedData;
+    });
+
+    // Xóa lỗi tương ứng khi sửa input
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => ({
         ...prev,
@@ -71,27 +84,34 @@ const Login = () => {
       newErrors.email = "Email không hợp lệ";
     }
 
-    if (!formData.password) {
-      newErrors.password = "Mật khẩu là bắt buộc";
-    } else if (formData.password.length < 8) {
-      newErrors.password =
-        "Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ và số";
+    // Nếu không phải admin thì role là bắt buộc
+    if (!isAdmin && !formData.role) {
+      newErrors.role = "Vui lòng chọn vai trò";
+    }
+
+    // Mật khẩu bắt buộc với user không phải admin
+    if (!isAdmin) {
+      if (!formData.password) {
+        newErrors.password = "Mật khẩu là bắt buộc";
+      } else if (formData.password.length < 8) {
+        newErrors.password =
+          "Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ và số";
+      }
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) return;
 
     setIsSubmitting(true);
+    dispatch(setLoading(true));
 
     try {
-      dispatch(setLoading(true));
       const res = await axios.post(`${API}/user/login`, formData, {
         headers: {
           "Content-Type": "application/json",
@@ -100,12 +120,9 @@ const Login = () => {
       });
 
       if (res.data.success) {
-        const userData = res.data.user;
-        // Lưu user data vào localStorage
-        // localStorage.setItem("user", JSON.stringify(userData));
-        dispatch(setUser(userData));
-        navigate("/");
+        dispatch(setUser(res.data.user));
         toast.success("Đăng nhập thành công!");
+        navigate("/");
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -143,7 +160,7 @@ const Login = () => {
             )}
           </div>
 
-          {/* email */}
+          {/* Email */}
           <div className="my-3">
             <Label className="mb-2">Email</Label>
             <Input
@@ -161,7 +178,7 @@ const Login = () => {
             )}
           </div>
 
-          {/* password */}
+          {/* Password */}
           <div className="my-3">
             <Label className="mb-2">Mật khẩu</Label>
             <div className="relative">
@@ -192,34 +209,40 @@ const Login = () => {
             )}
           </div>
 
-          <div className="flex items-center justify-between">
-            <RadioGroup className="flex items-center gap-4 my-5">
-              <div className="flex items-center space-x-2">
-                <Input
-                  type="radio"
-                  id="student"
-                  name="role"
-                  value="student"
-                  checked={formData.role === "student"}
-                  onChange={handleChange}
-                  className="cursor-pointer"
-                />
-                <Label htmlFor="student">Student</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Input
-                  type="radio"
-                  id="recruiter"
-                  name="role"
-                  value="recruiter"
-                  checked={formData.role === "recruiter"}
-                  onChange={handleChange}
-                  className="cursor-pointer"
-                />
-                <Label htmlFor="recruiter">Recruiter</Label>
-              </div>
-            </RadioGroup>
-          </div>
+          {/* Chọn role (ẩn nếu admin) */}
+          {!isAdmin && (
+            <div className="flex items-center justify-between">
+              <RadioGroup className="flex items-center gap-4 my-5">
+                <div className="flex items-center space-x-2">
+                  <Input
+                    type="radio"
+                    id="student"
+                    name="role"
+                    value="student"
+                    checked={formData.role === "student"}
+                    onChange={handleChange}
+                    className="cursor-pointer"
+                  />
+                  <Label htmlFor="student">Student</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Input
+                    type="radio"
+                    id="recruiter"
+                    name="role"
+                    value="recruiter"
+                    checked={formData.role === "recruiter"}
+                    onChange={handleChange}
+                    className="cursor-pointer"
+                  />
+                  <Label htmlFor="recruiter">Recruiter</Label>
+                </div>
+              </RadioGroup>
+              {errors.role && (
+                <div className="text-red-500 text-sm mt-1">{errors.role}</div>
+              )}
+            </div>
+          )}
 
           {/* Forgot password link */}
           <div className="text-right mb-4">
@@ -239,18 +262,13 @@ const Login = () => {
               isSubmitting ? "opacity-70 cursor-not-allowed" : ""
             }`}
           >
-            {isSubmitting ? (
-              "Đang đăng nhập..."
-            ) : loading ? (
-              <Button className="w-full my-4">
-                {" "}
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Vui lòng
-                đợi...{" "}
-              </Button>
+            {isSubmitting || loading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin inline-block" />{" "}
+                Đang đăng nhập...
+              </>
             ) : (
-              <Button type="submit" className="w-full my-4 cursor-pointer">
-                Đăng nhập
-              </Button>
+              "Đăng nhập"
             )}
           </Button>
 

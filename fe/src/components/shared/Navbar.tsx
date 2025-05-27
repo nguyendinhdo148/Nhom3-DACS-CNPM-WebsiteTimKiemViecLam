@@ -6,8 +6,8 @@ import {
   LogOut,
   BriefcaseBusiness,
   Heart,
-  Layers,
   ChevronDown,
+  FileText,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -186,7 +186,7 @@ const Navbar = () => {
                       asChild
                     >
                       <Link to="/resume/dashboard-resume">
-                        <Layers className="h-4 w-4 text-gray-500" />
+                        <FileText className="h-4 w-4 text-gray-500" />
                         <span>CV của tôi</span>
                       </Link>
                     </Button>

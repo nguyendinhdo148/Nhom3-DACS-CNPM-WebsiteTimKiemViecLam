@@ -192,6 +192,8 @@ const EditResume = () => {
       navigate("/login");
     } else if (user.role === "recruiter") {
       navigate("/recruiter");
+    } else if (user.role === "admin") {
+      navigate("/admin");
     }
   }, [user, navigate]);
 
@@ -677,7 +679,7 @@ const EditResume = () => {
   const handleDeleteResume = async () => {
     try {
       const result = await Swal.fire({
-        title: "Bạn có chắc muốn hồ sơ này?",
+        title: "Bạn có chắc muốn xóa hồ sơ này?",
         text: "Hành động này không thể hoàn tác!",
         icon: "warning",
         showCancelButton: true,

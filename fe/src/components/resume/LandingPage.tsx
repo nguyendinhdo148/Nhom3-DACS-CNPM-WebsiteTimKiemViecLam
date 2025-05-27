@@ -13,6 +13,7 @@ import {
   ArrowRight,
   Star,
   ChevronDown,
+  FileText,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
@@ -22,7 +23,7 @@ import axios from "axios";
 import { API } from "@/utils/constant";
 import { setUser } from "@/redux/authSlice";
 import toast from "react-hot-toast";
-import { User2, LogOut, BriefcaseBusiness, Heart, Layers } from "lucide-react";
+import { User2, LogOut, BriefcaseBusiness, Heart } from "lucide-react";
 import {
   Popover,
   PopoverContent,
@@ -54,6 +55,14 @@ const LandingPage = () => {
       toast.error(error instanceof Error ? error.message : "An unknown error");
     }
   };
+
+  useEffect(() => {
+    if (user && user.role === "recruiter") {
+      navigate("/recruiter");
+    } else if (user && user.role === "admin") {
+      navigate("/admin");
+    }
+  }, [user, navigate]);
 
   // Add scroll event listener
   useEffect(() => {
@@ -229,7 +238,7 @@ const LandingPage = () => {
                           asChild
                         >
                           <Link to="/resume/dashboard-resume">
-                            <Layers className="h-4 w-4 text-gray-500" />
+                            <FileText className="h-4 w-4 text-gray-500" />
                             <span>CV của tôi</span>
                           </Link>
                         </Button>
