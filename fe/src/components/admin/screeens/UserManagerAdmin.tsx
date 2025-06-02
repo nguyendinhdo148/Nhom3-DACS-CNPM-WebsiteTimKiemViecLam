@@ -206,6 +206,9 @@ const UserManagerAdmin = () => {
                   Email
                 </TableHead>
                 <TableHead className="text-gray-700 font-semibold text-center">
+                  Vai trò
+                </TableHead>
+                <TableHead className="text-gray-700 font-semibold text-center">
                   Số điện thoại
                 </TableHead>
                 <TableHead className="text-gray-700 font-semibold text-center">
@@ -238,6 +241,7 @@ const UserManagerAdmin = () => {
                       </div>
                     </TableCell>
                     <TableCell>{user.email}</TableCell>
+                    <TableCell className="text-center font-medium text-gray-800">{user.role}</TableCell>
                     <TableCell className="text-center font-medium text-gray-800">
                       {user.phoneNumber}
                     </TableCell>

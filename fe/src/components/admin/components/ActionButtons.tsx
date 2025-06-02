@@ -65,7 +65,7 @@ const ActionButtons = ({
           <DialogContent className="bg-white border-none p-6 rounded-xl shadow-xl max-w-2xl text-gray-800">
             <DialogHeader>
               <DialogTitle className="text-2xl font-bold text-center mb-4">
-                Hồ sơ ứng viên
+                Hồ sơ người dùng
               </DialogTitle>
             </DialogHeader>
 
