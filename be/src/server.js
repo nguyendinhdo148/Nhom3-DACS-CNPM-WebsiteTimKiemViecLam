@@ -12,6 +12,7 @@ import saveJobRoute from "./routes/saveJob.route.js";
 import resumeRoute from "./routes/resume.route.js";
 import adminRoute from "./routes/admin.route.js";
 
+
 dotenv.config({});
 
 const app = express();
