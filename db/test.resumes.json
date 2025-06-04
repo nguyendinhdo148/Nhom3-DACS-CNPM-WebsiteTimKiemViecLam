@@ -1,0 +1,505 @@
+[{
+  "_id": {
+    "$oid": "681ba29874f55fc0392e1bb9"
+  },
+  "userId": {
+    "$oid": "67ff74506c3f483eff3a5ffd"
+  },
+  "title": "My CV",
+  "template": {
+    "colorPalette": [
+      "#FFF8E1",
+      "#FFECB3",
+      "#FFC107",
+      "#FF6F00",
+      "#3E2723"
+    ],
+    "theme": "04"
+  },
+  "profileInfo": {
+    "fullName": "Lý Gia Long",
+    "designation": "Fullstack Developer",
+    "summary": "Lập trình viên Fullstack giàu kinh nghiệm với hơn 2 năm xây dựng các ứng dụng web hiệu suất cao bằng React, Node.js và MongoDB. Tập trung vào trải nghiệm người dùng, bảo mật và hiệu quả hệ thống. Có tinh thần học hỏi cao, yêu thích làm việc nhóm và phát triển sản phẩm có tác động thực tế.",
+    "profilePreviewUrl": "https://res.cloudinary.com/dzbemboti/image/upload/v1746964922/xakl2vpjcht71ynvwxbk.jpg"
+  },
+  "contactInfo": {
+    "email": "lygialong201@gmail.com",
+    "location": "Hồ Chí Minh, Việt Nam",
+    "linkedin": "",
+    "github": "https://github.com/Longnewbie/",
+    "facebook": "https://www.facebook.com/gialong.ly.79",
+    "website": "gialong.io.vn",
+    "phoneNumber": "0988514528"
+  },
+  "workExperience": [
+    {
+      "company": "CodeSphere Technologies",
+      "role": "Fullstack Developer",
+      "startDate": "2022-01",
+      "endDate": "2024-04",
+      "description": "Phát triển nền tảng quản lý dự án tích hợp thời gian thực với socket.io. Thiết kế hệ thống API RESTful cho frontend tiêu thụ, áp dụng JWT và OAuth2. Tối ưu hoá truy vấn MongoDB và Redis để tăng hiệu năng hệ thống 40%.",
+      "_id": {
+        "$oid": "681c53fa99f98bb736fb887f"
+      }
+    },
+    {
+      "company": "AlphaDev Studio",
+      "role": "Junior Fullstack Developer",
+      "startDate": "2020-01",
+      "endDate": "2022-01",
+      "description": "Tham gia phát triển ứng dụng đặt lịch trực tuyến sử dụng React và Firebase. Hỗ trợ phát triển backend bằng Node.js với Express và Firestore. Viết unit test và integration test bằng Jest và Supertest.",
+      "_id": {
+        "$oid": "68288bc0a6fd68cddb548fd1"
+      }
+    }
+  ],
+  "education": [
+    {
+      "degree": "Công nghệ Thông tin",
+      "institution": "Đại học Công Nghệ TP.HCM",
+      "startDate": "2018-09",
+      "endDate": "2022-06",
+      "_id": {
+        "$oid": "681c53fa99f98bb736fb8880"
+      }
+    }
+  ],
+  "skills": [
+    {
+      "name": "NodeJs",
+      "progress": 60,
+      "_id": {
+        "$oid": "6820980c233a9a10439b7a8d"
+      }
+    },
+    {
+      "name": "MongoDB",
+      "progress": 60,
+      "_id": {
+        "$oid": "6820b401233a9a10439b8d35"
+      }
+    },
+    {
+      "name": "Typescript",
+      "progress": 0,
+      "_id": {
+        "$oid": "68288bc0a6fd68cddb548fd5"
+      }
+    },
+    {
+      "name": "Javascript",
+      "progress": 0,
+      "_id": {
+        "$oid": "68288bc0a6fd68cddb548fd6"
+      }
+    },
+    {
+      "name": "Git",
+      "progress": 0,
+      "_id": {
+        "$oid": "68288bc0a6fd68cddb548fd7"
+      }
+    },
+    {
+      "name": "Docker",
+      "progress": 0,
+      "_id": {
+        "$oid": "68288bc0a6fd68cddb548fd8"
+      }
+    }
+  ],
+  "projects": [
+    {
+      "title": "Spotify Clone",
+      "description": "Ứng dụng nghe nhạc trực tuyến lấy cảm hứng từ Spotify. Hỗ trợ phát nhạc, tạo playlist cá nhân, lưu bài hát yêu thích và điều khiển trình phát nhạc. Backend xây dựng với Node.js và MongoDB, frontend dùng React và Tailwind CSS. Hỗ trợ đăng nhập OAuth (Google), streaming realtime và responsive UI.",
+      "github": "https://github.com/Longnewbie/propersol3_spotify",
+      "liveDemo": "propersol3-spotify.onrender.com",
+      "_id": {
+        "$oid": "681c53fa99f98bb736fb8883"
+      }
+    },
+    {
+      "title": "Lochat",
+      "description": "Ứng dụng trò chuyện thời gian thực hỗ trợ nhắn tin 1-1 và chat nhóm. Tích hợp socket.io để đồng bộ tin nhắn tức thời, xác thực bằng JWT, giao diện hiện đại bằng React và quản lý trạng thái bằng Redux Toolkit. Hệ thống backend xây dựng với Express.js, MongoDB và hỗ trợ gửi hình ảnh, thông báo đẩy (push notification).",
+      "github": "https://github.com/Longnewbie/propersol2-lochat",
+      "liveDemo": "propersol2-lochat.onrender.com/",
+      "_id": {
+        "$oid": "6820b0b8233a9a10439b8c94"
+      }
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Chứng chỉ Lập trình viên Fullstack MERN",
+      "issuer": "Udemy",
+      "year": "2023",
+      "_id": {
+        "$oid": "681c53fa99f98bb736fb8884"
+      }
+    },
+    {
+      "name": "Next.js & Serverless Web Apps",
+      "issuer": "Coursera - AWS Academy",
+      "year": "2024",
+      "_id": {
+        "$oid": "6820b0b8233a9a10439b8c96"
+      }
+    }
+  ],
+  "languages": [
+    {
+      "name": "Tiếng Việt",
+      "progress": 100,
+      "_id": {
+        "$oid": "681c53fa99f98bb736fb8885"
+      }
+    },
+    {
+      "name": "Tiếng Anh",
+      "progress": 60,
+      "_id": {
+        "$oid": "681c53fa99f98bb736fb8886"
+      }
+    }
+  ],
+  "interests": [
+    "Lập trình",
+    "Đọc sách",
+    "Du lịch",
+    "Nghe nhạc"
+  ],
+  "createdAt": {
+    "$date": "2025-05-07T18:12:40.845Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-03T08:41:10.106Z"
+  },
+  "__v": 2,
+  "thumbnailLink": "https://res.cloudinary.com/dzbemboti/image/upload/v1748940069/qpdh6nsoqt5zzyjw3wqd.png"
+},
+{
+  "_id": {
+    "$oid": "682593a9d466e25c89b73e33"
+  },
+  "userId": {
+    "$oid": "67ff74506c3f483eff3a5ffd"
+  },
+  "title": "LONG CV",
+  "template": {
+    "colorPalette": [
+      "#E8F5E9",
+      "#A5D6A7",
+      "#66BB6A",
+      "#2E7D32",
+      "#263238"
+    ],
+    "theme": "04"
+  },
+  "profileInfo": {
+    "fullName": "Mohammed Satij",
+    "designation": "Lập trình viên Fullstack",
+    "summary": "Lập trình viên Fullstack năng động và hướng kết quả với hơn 5 năm kinh nghiệm xây dựng các ứng dụng web mở rộng bằng React, Node.js và TypeScript. Thành thạo trong thiết kế giao diện, phát triển backend và quản lý cơ sở dữ liệu. Có khả năng làm việc nhóm tốt, đam mê viết mã sạch, phát triển theo Agile và học hỏi không ngừng.",
+    "profilePreviewUrl": ""
+  },
+  "contactInfo": {
+    "email": "david.nguyen@example.com",
+    "location": "San Francisco, Mỹ",
+    "linkedin": "https://www.linkedin.com/in/davidnguyen",
+    "github": "https://github.com/davidnguyen",
+    "facebook": "https://www.facebook.com/davidnguyen",
+    "website": "https://davidnguyen.dev",
+    "phoneNumber": "+1 (234) 567-8901"
+  },
+  "workExperience": [
+    {
+      "company": "TechWave Solutions",
+      "role": "Senior Fullstack Developer",
+      "startDate": "2020-09",
+      "endDate": "2024-06",
+      "description": "Dẫn dắt phát triển cổng thông tin khách hàng bằng React, Node.js và PostgreSQL. Tích hợp API REST và GraphQL cho trao đổi dữ liệu thời gian thực. Tối ưu hiệu suất ứng dụng tăng 30% thông qua các kỹ thuật tối ưu và refactor mã.",
+      "_id": {
+        "$oid": "682593a9d466e25c89b73e34"
+      }
+    },
+    {
+      "company": "Innovatech Labs",
+      "role": "Fullstack Developer",
+      "startDate": "2018-09",
+      "endDate": "2020-06",
+      "description": "Xây dựng giao diện web phản hồi bằng React và Redux. Thiết kế dịch vụ backend với Express.js và MongoDB. Phối hợp với nhóm QA và DevOps để đảm bảo chất lượng phần mềm và quy trình CI/CD mượt mà.",
+      "_id": {
+        "$oid": "682594fdd466e25c89b73e52"
+      }
+    }
+  ],
+  "education": [
+    {
+      "degree": "Cử nhân Kỹ thuật phần mềm",
+      "institution": "Viện Công nghệ Massachusetts",
+      "startDate": "2014-09",
+      "endDate": "2018-06",
+      "_id": {
+        "$oid": "682593a9d466e25c89b73e35"
+      }
+    }
+  ],
+  "skills": [
+    {
+      "name": "JavaScript",
+      "progress": 80,
+      "_id": {
+        "$oid": "682593a9d466e25c89b73e36"
+      }
+    },
+    {
+      "name": "TypeScript",
+      "progress": 80,
+      "_id": {
+        "$oid": "682594fdd466e25c89b73e55"
+      }
+    },
+    {
+      "name": "React",
+      "progress": 80,
+      "_id": {
+        "$oid": "682594fdd466e25c89b73e56"
+      }
+    },
+    {
+      "name": "Node.js",
+      "progress": 80,
+      "_id": {
+        "$oid": "682594fdd466e25c89b73e57"
+      }
+    },
+    {
+      "name": "MongoDB",
+      "progress": 80,
+      "_id": {
+        "$oid": "682594fdd466e25c89b73e58"
+      }
+    },
+    {
+      "name": "PostgreSQL",
+      "progress": 80,
+      "_id": {
+        "$oid": "682594fdd466e25c89b73e59"
+      }
+    },
+    {
+      "name": "Git",
+      "progress": 80,
+      "_id": {
+        "$oid": "682594fdd466e25c89b73e5a"
+      }
+    }
+  ],
+  "projects": [
+    {
+      "title": "TaskManager Pro",
+      "description": "Một ứng dụng quản lý công việc đầy đủ tính năng với đăng nhập, cập nhật thời gian thực và phân quyền người dùng. Xây dựng với MERN stack.",
+      "github": "https://github.com/davidnguyen/taskmanager-pro",
+      "liveDemo": "https://taskmanager.davidnguyen.dev",
+      "_id": {
+        "$oid": "682593a9d466e25c89b73e37"
+      }
+    },
+    {
+      "title": "DevConnect",
+      "description": "Nền tảng mạng xã hội dành cho lập trình viên để chia sẻ ý tưởng và hợp tác dự án. Bao gồm tính năng chat, bài viết blog và bảng dự án.",
+      "github": "https://github.com/davidnguyen/devconnect",
+      "liveDemo": "https://devconnect.davidnguyen.dev",
+      "_id": {
+        "$oid": "682594fdd466e25c89b73e5c"
+      }
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Phát triển Web Fullstack",
+      "issuer": "freeCodeCamp",
+      "year": "2022",
+      "_id": {
+        "$oid": "682593a9d466e25c89b73e38"
+      }
+    },
+    {
+      "name": "Chứng chỉ React Developer",
+      "issuer": "Coursera - Meta",
+      "year": "2023",
+      "_id": {
+        "$oid": "682594fdd466e25c89b73e5e"
+      }
+    }
+  ],
+  "languages": [
+    {
+      "name": "Tiếng Anh",
+      "progress": 100,
+      "_id": {
+        "$oid": "682593a9d466e25c89b73e39"
+      }
+    },
+    {
+      "name": "Tiếng Nhật",
+      "progress": 60,
+      "_id": {
+        "$oid": "682594fdd466e25c89b73e60"
+      }
+    }
+  ],
+  "interests": [
+    "Mã nguồn mở",
+    "Viết blog",
+    "Chơi game",
+    "Nghe nhạc"
+  ],
+  "createdAt": {
+    "$date": "2025-05-15T07:11:37.725Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-25T11:06:02.203Z"
+  },
+  "__v": 0,
+  "thumbnailLink": "https://res.cloudinary.com/dzbemboti/image/upload/v1748171162/dcfncvmoclknv4bpxydp.png"
+},
+{
+  "_id": {
+    "$oid": "682f267583a5e47dc9113cbd"
+  },
+  "userId": {
+    "$oid": "67ff74506c3f483eff3a5ffd"
+  },
+  "title": "Satij CV",
+  "template": {
+    "colorPalette": [
+      "#FFF8E1",
+      "#FFECB3",
+      "#FFC107",
+      "#FF6F00",
+      "#3E2723"
+    ],
+    "theme": "04"
+  },
+  "profileInfo": {
+    "fullName": "Satij Nguyễn",
+    "designation": "Kỹ sư DevOps",
+    "summary": "Kỹ sư DevOps giàu kinh nghiệm với hơn 5 năm triển khai và tối ưu hạ tầng CI/CD, quản lý hệ thống trên đám mây và đảm bảo vận hành ổn định cho các ứng dụng web quy mô lớn. Thành thạo Docker, Kubernetes, AWS và các công cụ giám sát như Prometheus, Grafana. Đam mê tự động hóa quy trình, cải tiến hiệu suất và duy trì chất lượng phần mềm cao nhất.",
+    "profilePreviewUrl": "https://res.cloudinary.com/dzbemboti/image/upload/v1747920860/omgiffloixqx2ipwzofr.jpg"
+  },
+  "contactInfo": {
+    "email": "satij.nguyen@example.com",
+    "location": "San Francisco, Mỹ",
+    "linkedin": "https://www.linkedin.com/in/satijnguyen",
+    "github": "https://github.com/satijnguyen",
+    "facebook": "https://www.facebook.com/satijnguyen",
+    "website": "",
+    "phoneNumber": "0988514528"
+  },
+  "workExperience": [
+    {
+      "company": "TechWave Solutions",
+      "role": "Senior DevOps Engineer",
+      "startDate": "2020-04",
+      "endDate": "2022-04",
+      "description": "Triển khai và quản lý hệ thống CI/CD bằng Jenkins và GitHub Actions. Vận hành hệ thống Kubernetes trên AWS EKS, tối ưu chi phí và hiệu suất. Tích hợp các công cụ giám sát như Prometheus, Grafana để phát hiện và xử lý sự cố nhanh chóng. Hợp tác chặt chẽ với nhóm phát triển để đảm bảo quy trình release tự động, an toàn và nhanh chóng.",
+      "_id": {
+        "$oid": "682f267583a5e47dc9113cbe"
+      }
+    },
+    {
+      "company": "Innovatech Labs",
+      "role": "Devops Developer",
+      "startDate": "2022-04",
+      "endDate": "2024-04",
+      "description": "Thiết lập môi trường Docker hóa cho các dịch vụ microservice. Triển khai hạ tầng bằng Terraform, quản lý trên AWS (EC2, S3, RDS). Phát triển script tự động hóa bằng Bash và Python để giảm thiểu công việc thủ công. Hỗ trợ xử lý sự cố sản phẩm và tối ưu log sử dụng ELK Stack (Elasticsearch, Logstash, Kibana).",
+      "_id": {
+        "$oid": "682f27c883a5e47dc9113d3a"
+      }
+    }
+  ],
+  "education": [
+    {
+      "degree": "Cử nhân Kỹ thuật phần mềm",
+      "institution": "Đại học California, Berkeley",
+      "startDate": "2016-02",
+      "endDate": "2020-12",
+      "_id": {
+        "$oid": "682f267583a5e47dc9113cbf"
+      }
+    }
+  ],
+  "skills": [
+    {
+      "name": "Reacjt",
+      "progress": 80,
+      "_id": {
+        "$oid": "682f267583a5e47dc9113cc0"
+      }
+    },
+    {
+      "name": "Docker",
+      "progress": 60,
+      "_id": {
+        "$oid": "682f27c883a5e47dc9113d3d"
+      }
+    }
+  ],
+  "projects": [
+    {
+      "title": "CI/CD Pipeline Cho Ứng Dụng MERN",
+      "description": "Thiết kế và triển khai pipeline CI/CD tự động sử dụng GitHub Actions, Docker, và AWS ECS. Hệ thống hỗ trợ deploy staging và production tự động.",
+      "github": "https://github.com/satijnguyen/devops-ci-cd",
+      "liveDemo": "https://ci-cd.satijnguyen.dev",
+      "_id": {
+        "$oid": "682f267583a5e47dc9113cc1"
+      }
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Chứng chỉ Microservices",
+      "issuer": "google",
+      "year": "2022",
+      "_id": {
+        "$oid": "682f267583a5e47dc9113cc2"
+      }
+    },
+    {
+      "name": "Chứng chỉ DevOps Engineer",
+      "issuer": "Udemy",
+      "year": "2024",
+      "_id": {
+        "$oid": "682f27c883a5e47dc9113d40"
+      }
+    }
+  ],
+  "languages": [
+    {
+      "name": "Tiếng anh",
+      "progress": 100,
+      "_id": {
+        "$oid": "682f267583a5e47dc9113cc3"
+      }
+    },
+    {
+      "name": "Tiếng việt",
+      "progress": 100,
+      "_id": {
+        "$oid": "682f27c883a5e47dc9113d42"
+      }
+    }
+  ],
+  "interests": [
+    "Đọc sách",
+    "Nghe nhạc"
+  ],
+  "createdAt": {
+    "$date": "2025-05-22T13:28:21.325Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-25T11:05:14.034Z"
+  },
+  "__v": 0,
+  "thumbnailLink": "https://res.cloudinary.com/dzbemboti/image/upload/v1748171114/tlwugqufkak9xgowfpck.png"
+}]

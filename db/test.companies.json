@@ -1,0 +1,154 @@
+[{
+  "_id": {
+    "$oid": "67ed6676faa261b79aad0fe0"
+  },
+  "name": "VNG",
+  "userId": {
+    "$oid": "67ecfaad580a61e5bc4f2a8d"
+  },
+  "createdAt": {
+    "$date": "2025-04-02T16:31:50.116Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-03T08:50:10.226Z"
+  },
+  "__v": 0,
+  "location": "HCM",
+  "logo": "https://res.cloudinary.com/dzbemboti/image/upload/v1744822244/czrisoj3fwaewy1urju8.png",
+  "description": "",
+  "website": "https://www.vng.com.vn/",
+  "taxCode": "2323132320",
+  "businessLicense": "https://res.cloudinary.com/dzbemboti/image/upload/v1748940609/bcxhdorj2sqp678inx4f.jpg"
+},
+{
+  "_id": {
+    "$oid": "67ed67eb3d7409a5cb86e75e"
+  },
+  "name": "Vinfast",
+  "userId": {
+    "$oid": "67ecfaad580a61e5bc4f2a8d"
+  },
+  "createdAt": {
+    "$date": "2025-04-02T16:38:03.270Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-03T08:50:29.529Z"
+  },
+  "__v": 0,
+  "logo": "https://res.cloudinary.com/dzbemboti/image/upload/v1744822912/tovyu9erfxvpj4f0xcov.png",
+  "location": "Hà Nội",
+  "description": "",
+  "website": "https://vinfast.vn/",
+  "taxCode": "2303212327",
+  "businessLicense": "https://res.cloudinary.com/dzbemboti/image/upload/v1748940628/ce6kzxz6ca3eyipjmfzi.jpg"
+},
+{
+  "_id": {
+    "$oid": "67ed68ea2d78839159a2eed5"
+  },
+  "name": "Samsung",
+  "userId": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "createdAt": {
+    "$date": "2025-04-02T16:42:18.413Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-25T10:46:53.423Z"
+  },
+  "__v": 0,
+  "description": "",
+  "location": "Hà Nội",
+  "logo": "https://res.cloudinary.com/dzbemboti/image/upload/v1744821839/mqfknd3q7ptvqlvamkvw.png",
+  "website": "https://www.samsung.com/vn/",
+  "taxCode": "2323232321",
+  "businessLicense": "https://res.cloudinary.com/dzbemboti/image/upload/v1745581837/o1sylxqlv8ttwuhglzsv.jpg"
+},
+{
+  "_id": {
+    "$oid": "67ed68f12d78839159a2eed9"
+  },
+  "name": "Huawei",
+  "userId": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "createdAt": {
+    "$date": "2025-04-02T16:42:25.909Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-25T11:50:16.539Z"
+  },
+  "__v": 0,
+  "logo": "https://res.cloudinary.com/dzbemboti/image/upload/v1744906341/kpzouiovjohrytheg7n1.png",
+  "location": "HCM",
+  "description": "",
+  "website": "https://www.huawei.com/vn/",
+  "businessLicense": "https://res.cloudinary.com/dzbemboti/image/upload/v1745575081/fuatlet2pzbsggfjyds9.jpg",
+  "taxCode": "1231231245"
+},
+{
+  "_id": {
+    "$oid": "6803d6d8120bd7390c9dfa50"
+  },
+  "name": "HUTECH",
+  "userId": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "createdAt": {
+    "$date": "2025-04-19T17:01:12.087Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-25T10:49:43.594Z"
+  },
+  "__v": 0,
+  "description": "",
+  "location": "HCM",
+  "website": "https://www.hutech.edu.vn/",
+  "logo": "https://res.cloudinary.com/dzbemboti/image/upload/v1745082207/m7kvlr4ccv2f0qxjktqy.png",
+  "businessLicense": "https://res.cloudinary.com/dzbemboti/image/upload/v1745517485/uxyabo5m1wfxd7xfyxjp.jpg",
+  "taxCode": "2323232323"
+},
+{
+  "_id": {
+    "$oid": "680678a1d14a580f0b661760"
+  },
+  "name": "Văn Lang",
+  "description": "",
+  "website": "https://www.vlu.edu.vn/",
+  "location": "HCM",
+  "logo": "https://res.cloudinary.com/dzbemboti/image/upload/v1745254561/pql5jvs6bdk8hagvhzhn.png",
+  "userId": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "createdAt": {
+    "$date": "2025-04-21T16:56:01.465Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-25T08:01:08.654Z"
+  },
+  "__v": 0,
+  "businessLicense": "https://res.cloudinary.com/dzbemboti/image/upload/v1745513766/uayqt8bvjrf108owr2uu.jpg",
+  "taxCode": "2323232328"
+},
+{
+  "_id": {
+    "$oid": "680b723622911c6c5f66f285"
+  },
+  "name": "Samsung",
+  "description": "",
+  "website": "https://www.samsung.com/vn/offer/megasale/?cid=vn_pd_ppc_google_mx-multiple_always-on_alon-imce-d2c-awo-apr2025-gl_search-performance-max_pla-performancemax-21444289854-gl_none_pfm_3rd-Party-Targeting_conversion_custom-intent&gbraid=0AAAAADi7fTg6qxRRmIonU7_R1vqvAkDyW&gclid=CjwKCAjwk43ABhBIEiwAvvMEB2QmU2uCoPXNjLxXP1lBWIs8tyNnMqpgBHeN2IcggTnlWbk7xdYDXxoCoPYQAvD_BwE",
+  "location": "Bắc Ninh",
+  "logo": "https://res.cloudinary.com/dzbemboti/image/upload/v1745580594/qbvnyxk62nidzkvuza1b.png",
+  "businessLicense": "https://res.cloudinary.com/dzbemboti/image/upload/v1745580598/dyd9vickpotsiyqsmaup.jpg",
+  "taxCode": "2323212320",
+  "userId": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "createdAt": {
+    "$date": "2025-04-25T11:29:58.517Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-03T08:42:39.435Z"
+  },
+  "__v": 0
+}]

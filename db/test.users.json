@@ -1,0 +1,293 @@
+[{
+  "_id": {
+    "$oid": "67ecfaad580a61e5bc4f2a8d"
+  },
+  "fullname": "Gia Long",
+  "email": "lygialong201@gmail.com",
+  "phoneNumber": 988514528,
+  "password": "$2b$10$9Hwk5WN77Qc9POM2dI8J5uZGe9IbGkl.ce3.rQg5nEghU09w7yhHO",
+  "role": "recruiter",
+  "profile": {
+    "skills": [],
+    "profilePhoto": "https://res.cloudinary.com/dzbemboti/image/upload/v1744822037/o3ws3suj43sfuyhalipt.jpg"
+  },
+  "createdAt": {
+    "$date": "2025-04-02T08:51:57.242Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-05T16:47:06.504Z"
+  },
+  "__v": 0,
+  "refreshToken": null,
+  "refreshTokenExpiry": null
+},
+{
+  "_id": {
+    "$oid": "67ed07537433c149bb9a1289"
+  },
+  "fullname": "Gia Long Ly",
+  "email": "lygialong202@gmail.com",
+  "phoneNumber": 364124058,
+  "password": "$2b$10$YNnvvBt4WTt24oafwA.xxObrkGHcAKb4.Xfo9SqNvNz7PpTg6w.B2",
+  "role": "student",
+  "profile": {
+    "profilePhoto": "https://res.cloudinary.com/dzbemboti/image/upload/v1746286709/z4qnzrdzsw6abfpnvkc8.jpg",
+    "bio": "",
+    "resume": "https://res.cloudinary.com/dzbemboti/image/upload/v1748869367/nshko8gnfpxatdntyub7.pdf",
+    "resumeOriginalName": "My CV.pdf",
+    "skills": [
+      "flutter",
+      "dart",
+      "nodejs",
+      "docker",
+      "jenkins"
+    ]
+  },
+  "createdAt": {
+    "$date": "2025-04-02T09:45:55.095Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-02T16:20:52.238Z"
+  },
+  "__v": 6,
+  "refreshToken": null,
+  "refreshTokenExpiry": null
+},
+{
+  "_id": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "fullname": "Gia Long",
+  "email": "gialong24k@gmail.com",
+  "phoneNumber": 988514528,
+  "password": "$2b$10$kh5AlszeST6e3r2G0ZaDIue1ubzabC7f320PN5YWateTeHPmwVSmy",
+  "role": "recruiter",
+  "profile": {
+    "skills": [
+      "Javascript",
+      "NodeJs",
+      "TailwindCSS",
+      "ReactJS"
+    ],
+    "profilePhoto": "https://res.cloudinary.com/dzbemboti/image/upload/v1744983904/pjtwwrl52hjevxw1s9pd.jpg",
+    "bio": "FIFA luôn chống lại tôi",
+    "resume": "https://res.cloudinary.com/dzbemboti/image/upload/v1744736875/waqmvw7pxwi9x6hitbt1.pdf",
+    "resumeOriginalName": "CV Long Sama - CV Long-TopCV.vn.pdf"
+  },
+  "createdAt": {
+    "$date": "2025-04-02T09:48:22.891Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-03T10:53:22.272Z"
+  },
+  "__v": 1,
+  "refreshToken": null,
+  "refreshTokenExpiry": null
+},
+{
+  "_id": {
+    "$oid": "67ed6dc37549ff188c7022ec"
+  },
+  "fullname": "Gia Long",
+  "email": "gialong203k@gmail.com",
+  "phoneNumber": 988514528,
+  "password": "$2b$10$VjYkdN.VP.avXQKsuqKVAOTOVl8gR/L0oMkTxDxN5RBtG2lhiT47e",
+  "role": "student",
+  "profile": {
+    "skills": [],
+    "profilePhoto": ""
+  },
+  "createdAt": {
+    "$date": "2025-04-02T17:02:59.047Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-02T13:08:36.054Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ee4f88d3cbac16ac1cb651"
+  },
+  "fullname": "Gia Long",
+  "email": "lygialong204@gmail.com",
+  "phoneNumber": 988514528,
+  "password": "$2b$10$8.FyDEJJMPfSobW0doK4rOhl09OV6nnJfEi9WNCNgWwyCjYJZwshi",
+  "role": "student",
+  "profile": {
+    "skills": [],
+    "profilePhoto": ""
+  },
+  "createdAt": {
+    "$date": "2025-04-03T09:06:16.038Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-02T13:08:40.197Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67fd432b2573af3adfd365d5"
+  },
+  "fullname": "Salah",
+  "email": "lygialong2012@gmail.com",
+  "phoneNumber": 988424956,
+  "password": "$2b$10$j3j15DM83KcQauOpnPsqBuwiUqP50NK6NmhG1l1csNQa7sZZlH0ga",
+  "role": "student",
+  "profile": {
+    "profilePhoto": "https://res.cloudinary.com/dzbemboti/image/upload/v1744651051/vikhjjmkmdfxybqyc19h.jpg",
+    "skills": []
+  },
+  "createdAt": {
+    "$date": "2025-04-14T17:17:31.622Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-25T08:51:18.478Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67fd43b12573af3adfd365da"
+  },
+  "fullname": "Gia Long",
+  "email": "test5@gmail.com",
+  "phoneNumber": 988424956,
+  "password": "$2b$10$GN3xebUDhFZR.eqeY6ACfuyJ6YB6wf4MowtzqqfN00BHNG2EXLMyy",
+  "role": "student",
+  "profile": {
+    "profilePhoto": "https://res.cloudinary.com/dzbemboti/image/upload/v1745237547/zcebqvg9w7qci1bga8g7.jpg",
+    "skills": [
+      "flutter",
+      "dart"
+    ],
+    "bio": "02 năm kinh nghiệm tư vấn sản phẩm và khoá học tại các trung tâm tiếng Anh và cửa hàng công nghệ. Có thế mạnh trong việc tìm kiếm khách hàng mới, cung cấp thông tin và thuyết phục khách hàng. Là người nhanh nhạy, chịu áp lực tốt và thích làm việc trong môi trường áp lực cao. Hiện đang tìm kiếm công việc tư vấn khách hàng để giúp công ty tăng doanh thu và có thêm nhiều khách hàng mới.",
+    "resume": "https://res.cloudinary.com/dzbemboti/image/upload/v1744997572/khaqgw7z3fga1qadmf44.pdf",
+    "resumeOriginalName": "CV LÃ½ Gia Long - 1-TopCV.vn.pdf"
+  },
+  "createdAt": {
+    "$date": "2025-04-14T17:19:45.594Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-22T16:04:37.726Z"
+  },
+  "__v": 7,
+  "refreshToken": null,
+  "refreshTokenExpiry": null
+},
+{
+  "_id": {
+    "$oid": "67ff74506c3f483eff3a5ffd"
+  },
+  "fullname": "Gia Long",
+  "email": "test55@gmail.com",
+  "phoneNumber": 988514528,
+  "password": "$2b$10$Ae3qRNF2SAt2LrA4ynOFTeURKZGT2IRjZsd7p7OmYNWUtVVNBmvoC",
+  "role": "student",
+  "profile": {
+    "profilePhoto": "https://res.cloudinary.com/dzbemboti/image/upload/v1745153384/dnkfvvqbw7mrxdykuehz.jpg",
+    "skills": [
+      "flutter",
+      "dart",
+      "nodejs",
+      "docker",
+      "jenkins"
+    ],
+    "bio": "",
+    "resume": "https://res.cloudinary.com/dzbemboti/image/upload/v1748794035/mirehh6vpwavpizbmbcp.pdf",
+    "resumeOriginalName": "My CV.pdf"
+  },
+  "createdAt": {
+    "$date": "2025-04-16T09:11:44.996Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-03T13:34:30.014Z"
+  },
+  "__v": 3,
+  "refreshToken": null,
+  "refreshTokenExpiry": null
+},
+{
+  "_id": {
+    "$oid": "67ffc2fa5647e58dc3766aab"
+  },
+  "fullname": "Gia Long",
+  "email": "test555@gmail.com",
+  "phoneNumber": 988424956,
+  "password": "$2b$10$7VhNYhy92PwsWrqjean7a.s2kOl4Euv1wGqbOb8UiNdoTPMnO21zm",
+  "role": "student",
+  "profile": {
+    "profilePhoto": "https://res.cloudinary.com/dzbemboti/image/upload/v1744996481/ju1sf2smqwn9qmwqwkru.jpg",
+    "skills": [
+      "javascript",
+      "typescript",
+      "python"
+    ],
+    "bio": "proplayer",
+    "resume": "https://res.cloudinary.com/dzbemboti/image/upload/v1744997401/kpyicix8bdfe7aw8rwzm.pdf",
+    "resumeOriginalName": "CV LÃ½ Gia Long - 1-TopCV.vn.pdf"
+  },
+  "createdAt": {
+    "$date": "2025-04-16T14:47:22.880Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-08T16:01:45.997Z"
+  },
+  "__v": 1,
+  "refreshToken": null,
+  "refreshTokenExpiry": null
+},
+{
+  "_id": {
+    "$oid": "680258708a25baeb945009aa"
+  },
+  "fullname": "Gia Long Ly",
+  "email": "test5555@gmail.com",
+  "phoneNumber": 988424956,
+  "password": "$2b$10$imPDzT03x7gFwsuAaqFPu.q0IwdB3rV6OxmtifscxtYOcRvgZ5gvy",
+  "role": "student",
+  "profile": {
+    "profilePhoto": "https://res.cloudinary.com/dzbemboti/image/upload/v1744993612/wuv1lmapiakivlygaldo.jpg",
+    "skills": [
+      "NodeJs",
+      "TailwindCSS",
+      "ReactJS"
+    ],
+    "bio": "lazada, shoppe",
+    "resume": "https://res.cloudinary.com/dzbemboti/image/upload/v1744993483/zyokbjncr4ldbhibvmqt.pdf",
+    "resumeOriginalName": "CV Long Sama - CV Long-TopCV.vn.pdf"
+  },
+  "createdAt": {
+    "$date": "2025-04-18T13:49:36.882Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-30T16:38:15.035Z"
+  },
+  "__v": 1,
+  "refreshToken": null,
+  "refreshTokenExpiry": null
+},
+{
+  "_id": {
+    "$oid": "682df422e38d2f97dee7a5d7"
+  },
+  "fullname": "Admin",
+  "email": "admin@gmail.com",
+  "phoneNumber": 988514528,
+  "password": "$2b$10$uVZPVr8Tbj76thaIGf24U.gtED4750BCAN02USeLjr4WPDXTicPDa",
+  "role": "admin",
+  "profile": {
+    "profilePhoto": null,
+    "skills": []
+  },
+  "createdAt": {
+    "$date": "2025-05-21T15:41:22.747Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-03T08:50:58.469Z"
+  },
+  "__v": 0,
+  "refreshToken": null,
+  "refreshTokenExpiry": null
+}]

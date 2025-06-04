@@ -1,0 +1,944 @@
+[{
+  "_id": {
+    "$oid": "67ee2b7080fc6f0ad55b739a"
+  },
+  "title": "Frontend Developer (ReactJS)",
+  "description": "Trao đổi, phân tích và tiếp nhận các yêu cầu của người dùng. Thiết kế, xây dựng kế hoạch, triển khai hệ thống nội bộ theo yêu cầu của Phòng ban. Thường xuyên kiểm tra, giám sát và đề xuất các giải pháp tối ưu hệ thống. Đảm bảo tính bảo mật và thường xuyên cập nhật phần mềm hệ thống. Báo cáo kết quả công việc theo yêu cầu của cấp trên",
+  "requirements": [
+    "Ưu tiên 1-3 năm làm việc trong lĩnh vực lập trình. Thành thạo tiếng Trung (4 kỹ năng). Nắm vững và thành thạo ít nhất một trong các framework php (Zend, CodeIgniter, Laravel). Nắm vững và thành thạo các nền tảng cơ sở dữ liệu (MYSQL,MS SQL, Oracle ...). Có kinh nghiệm quản lý source code bằng các công cụ (git, bitbucket....). Giao tiếp tốt. Có kinh nghiệm quản lý team và quản lý project là một lợi thế"
+  ],
+  "salary": 15,
+  "experienceLevel": 1,
+  "location": "HCM",
+  "jobType": "Full-Time",
+  "position": 3,
+  "company": {
+    "$oid": "67ed6676faa261b79aad0fe0"
+  },
+  "created_by": {
+    "$oid": "67ecfaad580a61e5bc4f2a8d"
+  },
+  "applications": [
+    {
+      "$oid": "67ee4fa6d3cbac16ac1cb656"
+    },
+    {
+      "$oid": "68021b7d531d21e3fd807b03"
+    },
+    {
+      "$oid": "6804ed5746bb48eb30954f09"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-03T06:32:16.930Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-27T15:20:55.703Z"
+  },
+  "__v": 3,
+  "benefits": [
+    "Các thành viên trong nhóm của chúng tôi thật tuyệt vời, vui vẻ và trên hết là cực kỳ tài năng.",
+    "Lương 13 tháng một năm.",
+    "Tiếp xúc với các tiêu chuẩn của ngành thiết kế quốc tế.",
+    "Thưởng sinh nhật: 500K.",
+    "Tiệc công ty hàng tháng.",
+    "Chuyến đi công ty."
+  ],
+  "status": "active",
+  "category": "IT",
+  "approval": "approved",
+  "approvalNote": ""
+},
+{
+  "_id": {
+    "$oid": "67ee2f8514baea992181e13a"
+  },
+  "title": "Senior Backend Developer (.Net & Oracle Database)",
+  "description": "Trực tiếp phát triển và tối ưu hệ thống backend, đảm bảo kiến trúc vững chắc và hiệu suất cao. Viết, triển khai và duy trì các hệ thống Gateway để đảm bảo hoạt động ổn định và bảo mật. Thiết kế, phát triển và tối ưu API (RESTful), Webservices để tích hợp với hệ thống ngân hàng, ví điện tử, nhà mạng. Xây dựng và tối ưu hóa hệ thống microservices trên nền tảng .NET. Làm việc với Oracle Database, viết và tối ưu PL/SQL Stored Procedures, Functions, Triggers. Trực tiếp thực hiện code review để đảm bảo chất lượng codebase và hướng dẫn junior backend trong quá trình phát triển. Mentoring và đào tạo Junior Backend, hỗ trợ họ nâng cao kỹ năng lập trình và kiến thức về kiến trúc hệ thống. Phối hợp với các nhóm Frontend, DevOps, QA để triển khai sản phẩm hiệu quả.",
+  "requirements": [
+    "Kinh nghiệm: Tối thiểu 5-7 năm làm việc với backend, trong đó ít nhất 3 năm làm với .NET Core / .NET Framework và Oracle Database. Thành thạo C#, có khả năng tối ưu hiệu suất ứng dụng .NET. Kinh nghiệm làm việc với Oracle Database, bao gồm PL/SQL, tối ưu truy vấn, quản lý transaction. Hiểu biết về design patterns (Factory, Repository, Dependency Injection, Microservices Architecture, DDD, Event-Driven Architecture, Clean Architecture). Kinh nghiệm xây dựng và tối ưu hệ thống caching (Redis, MemoryCache). Có kinh nghiệm làm việc với message queue (RabbitMQ, Kafka) là lợi thế. Thành thạo bảo mật API (OAuth2, JWT, mã hóa dữ liệu). Kinh nghiệm triển khai ứng dụng trên Windows Server hoặc containerized environment (Docker, Kubernetes) là lợi thế. Có khả năng mentoring, training junior backend thông qua việc hướng dẫn trực tiếp và thực hiện code review. Tư duy logic, chủ động, có khả năng xử lý sự cố nhanh chóng"
+  ],
+  "salary": 28,
+  "experienceLevel": 5,
+  "location": "Tầng 9, tòa Hội nhà báo Việt Nam, đường Dương Đình Nghệ, Cầu Giấy, Hà Nội.",
+  "jobType": "Full-Time",
+  "position": 2,
+  "company": {
+    "$oid": "67ed68ea2d78839159a2eed5"
+  },
+  "created_by": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "applications": [
+    {
+      "$oid": "67ee50abd3cbac16ac1cb66b"
+    },
+    {
+      "$oid": "6804afc206024d459e5b2f93"
+    },
+    {
+      "$oid": "680c70eb3465a1f254ef67f7"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-03T06:49:41.043Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-27T15:20:55.699Z"
+  },
+  "__v": 3,
+  "status": "active",
+  "benefits": [
+    "Mức lương: 21 - 27 triệu đồng/tháng. Môi trường làm việc năng động, cơ hội phát triển nghề nghiệp. Được tham gia vào các dự án lớn, có tính ứng dụng thực tế cao. Hỗ trợ đào tạo nội bộ, cập nhật công nghệ mới. Chế độ bảo hiểm, phúc lợi theo quy định của công ty."
+  ],
+  "category": "IT",
+  "approval": "approved",
+  "approvalNote": ""
+},
+{
+  "_id": {
+    "$oid": "67ee30c07e05c7f7844d0aad"
+  },
+  "title": "Senior Backend Developer (Python)",
+  "description": "Chúng tôi đang tìm kiếm một Senior Backend Developer có kinh nghiệm với Python để gia nhập đội ngũ phát triển của chúng tôi. Ứng viên lý tưởng sẽ có khả năng thiết kế và tối ưu hóa kiến trúc backend cho các ứng dụng quy mô lớn. Bạn sẽ chịu trách nhiệm phát triển và duy trì các API hiệu suất cao, đồng thời đảm bảo tính bảo mật và hiệu quả trong quá trình xử lý dữ liệu. Kỹ năng làm việc nhóm và giao tiếp tốt là rất cần thiết để hợp tác với các bộ phận khác trong dự án. Chúng tôi ưu tiên những ứng viên có kinh nghiệm làm việc với các công nghệ như Django, Flask hoặc FastAPI. Nếu bạn đam mê công nghệ và muốn đóng góp vào sự phát triển của sản phẩm, hãy ứng tuyển ngay hôm nay. Chúng tôi cung cấp môi trường làm việc thân thiện và cơ hội phát triển nghề nghiệp hấp dẫn.",
+  "requirements": [
+    "Đã từng làm product thực tế với Python, ít nhất 5 năm kinh nghiệm, và sử dụng Python như ngôn ngữ chính. Có kỹ năng system design tốt, hiểu cách xây dựng hệ thống từ A-Z. Thành thạo xử lý performance tuning, multi-threading, và xử lý song song hiệu quả. Có kinh nghiệm với SaaS product (cực kỳ lợi thế). Đam mê AI, chủ động tìm tòi và muốn làm sản phẩm thực tế, không phải kiểu “làm cho có”. Cam kết full-time, không nhận thêm job nào khác trong thời gian tham gia dự án. Sẵn sàng lên văn phòng full-time, vì teamwork là then chốt trong giai đoạn này."
+  ],
+  "salary": 42,
+  "experienceLevel": 5,
+  "location": "Hồ Chí Minh: 137 Lê Quang Định, Bình Thạnh.",
+  "jobType": "Full-Time",
+  "position": 2,
+  "company": {
+    "$oid": "67ed68f12d78839159a2eed9"
+  },
+  "created_by": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "applications": [
+    {
+      "$oid": "680a7c6dcf02ea5f1232ccbf"
+    },
+    {
+      "$oid": "680c7e08a425222148dbc6a8"
+    },
+    {
+      "$oid": "680cfd66275d8049109ed6e1"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-03T06:54:56.227Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-27T15:20:55.696Z"
+  },
+  "__v": 3,
+  "benefits": [
+    "Môi trường làm việc mở, chuyên nghiệp, tốc độ cao. Có cơ hội trực tiếp làm việc với team AI giàu kinh nghiệm, được học hỏi từ sản phẩm thật. Lương/thưởng theo thỏa thuận, xứng đáng với năng lực (bên mình không ngại trả cho người xứng đáng). Dự án thực tế, không lý thuyết suông – mọi thứ bạn build ra đều có impact thật."
+  ],
+  "status": "active",
+  "category": "IT",
+  "approval": "approved",
+  "approvalNote": ""
+},
+{
+  "_id": {
+    "$oid": "67ee31057e05c7f7844d0ab5"
+  },
+  "title": "AWS Cloud Engineer",
+  "description": "Hỗ trợ triển khai và cấu hình công cụ để hỗ trợ tích hợp liên tục và đường ống phân phối. Tham gia vào các dự án khi cần, làm việc cộng tác với các thành viên khác trong nhóm, giao tiếp hiệu quả và đóng góp vào thành công của nhóm. Hỗ trợ giải quyết các vấn đề với các nhóm dự án. Thiết kế, triển khai và quản lý cơ sở hạ tầng của các dự án. Trách nhiệm bao gồm triển khai và quản lý một số dịch vụ AWS. Giám sát và kiểm tra các sự cố tiềm ẩn trong hệ thống, cung cấp tài liệu cho các bên liên quan có liên quan để khắc phục những sự cố đó. Phân tích các sự cố liên quan đến lỗi ứng dụng đám mây hoặc lỗ hổng bảo mật. Tối ưu hóa hiệu suất và chi phí của nhiều dịch vụ. Quản lý và kiểm soát luồng yêu cầu và triển khai, chuẩn hóa cấu hình để theo dõi thêm nếu cần. Góp phần vào tính liên tục của doanh nghiệp bằng cách đảm bảo tính liên tục của hệ thống và dịch vụ.",
+  "requirements": [
+    "Từ 3+ năm kinh nghiệm làm Kỹ sư quản trị hệ thống/ DevOps/ Kỹ sư SRE hoặc các vai trò tương tự. Kinh nghiệm với các công cụ quản lý triển khai và cấu hình. Có chứng chỉ AWS là một lợi thế lớn. Kinh nghiệm với Cơ sở hạ tầng dưới dạng Mã. Kinh nghiệm với các ngôn ngữ lập trình: Go, JS Kinh nghiệm thực tế với các hệ thống giám sát, kiến ​​thức rộng về ưu và nhược điểm của các công cụ giám sát được chỉ định. Thực tế và hiểu biết về các công cụ DevOps chính (thậm chí cả các công cụ khác có liên quan): Docker, Kubernetes, công cụ CI/CD, Terraform, Công cụ giám sát và ghi nhật ký. Kinh nghiệm với cơ sở dữ liệu: PostgreSQL và/hoặc MYSQL, MongoDB. Kinh nghiệm với tập lệnh bash. Kinh nghiệm trong RUST, lập trình Python là một lợi thế. Kinh nghiệm trong dàn dựng Kubernetes là một lợi thế. Khả năng giao tiếp bằng tiếng Anh. Khả năng tư duy logic mạnh mẽ, tự chủ, chủ động và làm việc nhóm"
+  ],
+  "salary": 40,
+  "experienceLevel": 1,
+  "location": "Hồ Chí Minh: Sài Gòn Paragon, Số 3 Nguyễn Lương Bằng, P. Tân Phú, Quận 7.",
+  "jobType": "Full-Time",
+  "position": 2,
+  "company": {
+    "$oid": "67ed68f12d78839159a2eed9"
+  },
+  "created_by": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "applications": [
+    {
+      "$oid": "67ee478a3654ead2d4c47b1f"
+    },
+    {
+      "$oid": "67ee48033654ead2d4c47b29"
+    },
+    {
+      "$oid": "680216ed531d21e3fd8077a5"
+    },
+    {
+      "$oid": "680c72badcbd9bfbab123a0f"
+    },
+    {
+      "$oid": "680cfb7952705cedd9894602"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-03T06:56:05.704Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-27T15:20:55.714Z"
+  },
+  "__v": 5,
+  "benefits": [
+    "Cơ hội học hỏi và làm việc với các công nghệ mới nhất và hiện đại nhất. Cấu trúc tổ chức phẳng, ý tưởng và quan điểm của bạn sẽ luôn được chào đón và tôn trọng. Bắt đầu dự án của riêng bạn và được ITR tài trợ",
+    "công ty trả tiền cho chứng chỉ"
+  ],
+  "status": "active",
+  "category": "IT",
+  "approval": "approved",
+  "approvalNote": ""
+},
+{
+  "_id": {
+    "$oid": "67f7c6a55b4fa0b33a11d181"
+  },
+  "title": "AI Engineer (Middle Level)",
+  "description": "Chúng tôi đang tìm kiếm một Kỹ Sư AI cấp trung để tham gia vào đội ngũ phát triển các giải pháp trí tuệ nhân tạo. Ứng viên sẽ chịu trách nhiệm thiết kế, phát triển và triển khai các mô hình học máy và học sâu. Bạn cần có khả năng phân tích và xử lý dữ liệu lớn để tối ưu hóa hiệu suất mô hình. Kỹ năng lập trình vững vàng, đặc biệt là với Python và các thư viện AI như TensorFlow hoặc PyTorch là yêu cầu bắt buộc. Bạn sẽ làm việc chặt chẽ với các nhóm kỹ thuật và sản phẩm để đảm bảo tích hợp hiệu quả các giải pháp AI. Chúng tôi tìm kiếm những cá nhân đam mê công nghệ và có khả năng học hỏi nhanh. Nếu bạn muốn đóng góp vào các dự án sáng tạo và tiên tiến, hãy gia nhập chúng tôi ngay hôm nay.",
+  "requirements": [
+    "Có kinh nghiệm liên quan đến Machine Learning, Deep Learning, NLP, LLM,.... Thành thạo Python (C/C++, v.v.). Hiểu biết về các công nghệ LLM, RAG và các công cụ như LangChain, LangGraph, LlamaIndex,... và vector databases. Có kỹ năng về FastAPI, Docker,.. và các công cụ quản lý mã nguồn như GIT,... Khả năng nghiên cứu và thích ứng mạnh mẽ với những tiến bộ mới nhất trong Trí tuệ nhân tạo và các lĩnh vực liên quan. Có khả năng trao đổi với đồng nghiệp và các nhóm liên quan. Có khả năng đọc hiểu tài liệu bằng tiếng Anh."
+  ],
+  "salary": 20,
+  "experienceLevel": 1,
+  "location": "Hà Nội: Tòa nhà Tasco, Nam Từ Liêm",
+  "jobType": "Remote",
+  "position": 2,
+  "company": {
+    "$oid": "67ed68ea2d78839159a2eed5"
+  },
+  "created_by": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "applications": [
+    {
+      "$oid": "68020cb2531d21e3fd807708"
+    },
+    {
+      "$oid": "68027e72e1adddd7f06960da"
+    },
+    {
+      "$oid": "68037b2879bdf7f197fe2027"
+    },
+    {
+      "$oid": "680911894703dc9504b9ca8b"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-10T13:24:53.108Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-27T15:20:55.692Z"
+  },
+  "__v": 4,
+  "benefits": [
+    "Thu nhập hấp dẫn, cơ hội thăng tiến nhanh chóng.",
+    "Được tham gia vào các dự án lớn, thử thách và mang tính chiến lược.",
+    "Làm việc trong môi trường công nghệ năng động."
+  ],
+  "status": "active",
+  "category": "IT",
+  "approval": "approved",
+  "approvalNote": ""
+},
+{
+  "_id": {
+    "$oid": "67ffe0eb4b65e9c3701b3893"
+  },
+  "title": "Hardware Engineer",
+  "description": "Thiết kế và phát triển phần cứng cứng mạch điện, điện tử cho các thiết bị điện, điện lạnh thông minh (bếp từ, điều hòa, quạt, tủ lạnh), IoT.... Hỗ trợ các hoạt động của nhóm dự án liên quan đến đặc tả yêu cầu, triển khai phần cứng, phát triển trường hợp kiểm thử, thực hiện kiểm tra xác minh và hỗ trợ chứng nhận. Phân tích yêu cầu, xác định công việc cần thiết và ước tính nhiệm vụ phát triển về phần cứng. Làm việc cùng với nhóm kỹ thuật phần mềm để đảm bảo giải pháp đáp ứng yêu cầu vận hành. Tạo tài liệu sản phẩm như bomlist, các file kỹ thuật cho sản xuất SMT. Làm việc với tổ chức sản xuất để đảm bảo phần cứng và tính năng của sản phẩm mới được tích hợp suôn sẻ vào sản xuất.",
+  "requirements": [
+    "Tốt nghiệp đại học chuyên ngành Điện tử, Viễn thông, Cơ điện tử hoặc các chuyên ngành liên quan. Tối thiểu 5-6 năm kinh nghiệm thiết kế Sơ đồ & PCB. Có hiểu biết tốt về các Tiêu chuẩn khác nhau như CE, FCC, RoHS và MIL-461 từ điểm EMI-EMC và có thể thúc đẩy các sản phẩm đạt tiêu chuẩn và dẫn đầu việc xác nhận sản phẩm tương tự. Có hiểu biết tốt về cách quản lý vòng đời của sản phẩm và các vấn đề liên quan đến lão hóa cũng như cách xử lý ngay từ đầu. Nền tảng cơ bản vững chắc trong Thiết kế Điện tử công suất,Điện tử Kỹ thuật số, vi điều khiển(ESP, STM, Renasas, MSP). Có kinh nghiệm thực tế thiết kế BLE, WIFI, Switching (flyback, buck, boost..), Bộ điều khiển công suất trong dân dụng,. Kinh nghiệm lâu năm sử dụng một trong các công cụ thiết kế PCB: Altium, Orcad, Allegro, PAD,.. Thành thạo một trong các phần mềm thiết kế chuyên dụng như Solidwork, SketchUp, Autocad,... Năng động, kỷ luật tốt, giải quyết vấn đề tốt bằng tư duy phân tích và logic. Đam mê kỹ thuật, thái độ tốt, khả năng học hỏi công nghệ và quy trình mới."
+  ],
+  "salary": 20,
+  "experienceLevel": 5,
+  "location": "Hà Nội: Thanh Trì.",
+  "jobType": "Full-Time",
+  "position": 1,
+  "company": {
+    "$oid": "67ed67eb3d7409a5cb86e75e"
+  },
+  "created_by": {
+    "$oid": "67ecfaad580a61e5bc4f2a8d"
+  },
+  "applications": [
+    {
+      "$oid": "68021651531d21e3fd80776d"
+    },
+    {
+      "$oid": "68024578e08728254913763f"
+    },
+    {
+      "$oid": "6802579d8a25baeb94500971"
+    },
+    {
+      "$oid": "680258848a25baeb945009c3"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-16T16:55:07.581Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-27T15:20:55.678Z"
+  },
+  "__v": 4,
+  "benefits": [
+    "Thu nhập cao hơn mức chung của thị trường 20% => 50%.",
+    "Được hưởng đầy đủ các chính sách BHXH, BHYT, các phúc lợi khác theo đúng quy định của Luật lao động và các chế độ đãi ngộ của Công ty.",
+    "Được làm việc trong môi trường năng động, chuyên nghiệp, sáng tạo, trẻ trung với những nhân tố 8x, 9x đầy năng lượng và luôn tràn đầy tinh thần startup.",
+    "Làm việc thứ 2 tới thứ 6.",
+    "Tăng lương định kỳ hàng năm"
+  ],
+  "status": "active",
+  "category": "IT",
+  "approval": "approved",
+  "approvalNote": ""
+},
+{
+  "_id": {
+    "$oid": "68011b5f58a51eb7e35eab0f"
+  },
+  "title": "Lập Trình Viên Backend Developer",
+  "description": "Phát triển và duy trì các hệ thống backend sử dụng Go (Golang).\nTối ưu hiệu suất của các ứng dụng và dịch vụ hiện có.\nLàm việc chặt chẽ với các nhóm phát triển khác để đảm bảo tích hợp và vận hành các tính năng mới.\nXử lý các sự cố, lỗi và cải tiến mã nguồn hiện tại.\nĐảm bảo chất lượng mã nguồn, hiệu suất và tính ổn định của hệ thống.\nViết tài liệu kỹ thuật và hướng dẫn sử dụng cho các tính năng mới",
+  "requirements": [
+    "Lập trình viên Go (Golang) từ 2 năm kinh nghiệm trở lên",
+    "Kiến thức vững về hệ thống phân tán, cơ sở dữ liệu (SQL và NoSQL).",
+    "Hiểu biết về API RESTful, Microservices.",
+    "Kinh nghiệm làm việc với các công cụ quản lý phiên bản (Git).",
+    "Kinh nghiệm phát triển ứng dụng trên môi trường Cloud.",
+    "Kỹ năng giải quyết vấn đề và tư duy logic tốt.",
+    "Khả năng làm việc độc lập và phối hợp đội nhóm tốt, quản lý thời gian tốt, tác phong làm việc chủ động, linh hoạt"
+  ],
+  "salary": 26,
+  "experienceLevel": 2,
+  "location": "HCM",
+  "jobType": "Full-Time",
+  "position": 1,
+  "company": {
+    "$oid": "67ed6676faa261b79aad0fe0"
+  },
+  "created_by": {
+    "$oid": "67ecfaad580a61e5bc4f2a8d"
+  },
+  "applications": [
+    {
+      "$oid": "6802087401a278607872c0c1"
+    },
+    {
+      "$oid": "6804ed4e46bb48eb30954ee0"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-17T15:16:47.306Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-27T15:20:51.244Z"
+  },
+  "__v": 2,
+  "benefits": [
+    "Hỗ trợ chi phí xăng xe, chi phí điện thoại - Môi trường làm việc sáng tạo, năng động và chuyên nghiệp.",
+    "Tham gia đóng BHXH và hưởng các chế độ phúc lợi theo quy định như lễ, tết, lương tháng 13, thưởng hiệu quả công việc"
+  ],
+  "status": "active",
+  "category": "IT",
+  "approval": "approved",
+  "approvalNote": ""
+},
+{
+  "_id": {
+    "$oid": "68050548ee40d11da6c64597"
+  },
+  "title": "Nhân viên văn phòng",
+  "description": "Chúng tôi đang tìm kiếm một nhân viên văn phòng năng động và có trách nhiệm để hỗ trợ các hoạt động hàng ngày trong môi trường IT. Ứng viên sẽ thực hiện các nhiệm vụ quản lý tài liệu, sắp xếp lịch làm việc và hỗ trợ đội ngũ kỹ thuật trong việc tổ chức các dự án. Kỹ năng giao tiếp tốt và khả năng làm việc nhóm là yêu cầu quan trọng. Nếu bạn đam mê công nghệ và muốn phát triển sự nghiệp trong lĩnh vực này, hãy gia nhập đội ngũ của chúng tôi.",
+  "requirements": [
+    "123123123sdasd. asdasd"
+  ],
+  "salary": 20,
+  "experienceLevel": 4,
+  "benefits": [
+    "123123. asdasd"
+  ],
+  "location": "475A Điện Biên Phủ, P.25, Q.Bình Thạnh, TP.HCM",
+  "jobType": "Internship",
+  "position": 2,
+  "company": {
+    "$oid": "6803d6d8120bd7390c9dfa50"
+  },
+  "status": "active",
+  "created_by": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "applications": [
+    {
+      "$oid": "68051bda500bdd1d23c2b684"
+    },
+    {
+      "$oid": "68060da1758c756680b8fffe"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-20T14:31:36.210Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-27T15:20:50.716Z"
+  },
+  "__v": 2,
+  "category": "IT",
+  "approval": "approved",
+  "approvalNote": ""
+},
+{
+  "_id": {
+    "$oid": "680678b3d14a580f0b661767"
+  },
+  "title": "Tuyển giảng viên chính quy",
+  "description": "Chúng tôi đang tìm kiếm giảng viên chính quy có trình độ chuyên môn cao và kinh nghiệm giảng dạy trong lĩnh vực giáo dục. Ứng viên lý tưởng cần có khả năng thiết kế chương trình học hấp dẫn và phương pháp giảng dạy sáng tạo. Bạn sẽ tham gia vào quá trình phát triển và cải tiến chất lượng đào tạo, đồng thời hỗ trợ sinh viên trong việc phát triển kỹ năng và kiến thức. Nếu bạn đam mê giáo dục và muốn góp phần vào sự phát triển của thế hệ tương lai, hãy gia nhập đội ngũ của chúng tôi.",
+  "requirements": [
+    "asd"
+  ],
+  "salary": 4,
+  "experienceLevel": 1,
+  "benefits": [
+    "asdasd"
+  ],
+  "location": "45 Nguyễn Khắc Nhu, Phường Cô Giang, Quận 1, Hồ Chí Minh",
+  "jobType": "Internship",
+  "position": 1,
+  "company": {
+    "$oid": "680678a1d14a580f0b661760"
+  },
+  "status": "closed",
+  "created_by": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "applications": [
+    {
+      "$oid": "680847e84be9159dd3a927fb"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-21T16:56:19.054Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-27T15:27:30.245Z"
+  },
+  "__v": 1,
+  "category": "Giáo dục",
+  "approval": "rejected",
+  "approvalNote": "không đúng nội quy"
+},
+{
+  "_id": {
+    "$oid": "6809a4d91f35c6f46154bb0c"
+  },
+  "title": "Sales Executive B2B",
+  "description": "Xác định đối tác tiềm năng phù hợp với sứ mệnh và giá trị của KidZania.\nPhát triển và duy trì mối quan hệ với các đối tác\nĐàm phán và thực hiện các thỏa thuận hợp tác.\nPhối hợp với các bộ phận vận hành để vận hành các cơ sở trải nghiệm có quan hệ đối tác.\nBáo cáo theo yêu cầu của quản lý.",
+  "requirements": [
+    "Bằng cử nhân về Kinh doanh, Tiếp thị, Truyền thông hoặc lĩnh vực liên quan.",
+    "Hơn 2 năm kinh nghiệm trong phát triển quan hệ đối tác, quản lý tài khoản, tiếp thị liên kết, công ty tiếp thị thương hiệu hoặc lĩnh vực liên quan.",
+    "Kỹ năng giao tiếp và đàm phán.",
+    "Khả năng tiếp thị và bán hàng.",
+    "Kỹ năng tổ chức và quản lý dự án.",
+    "Khả năng làm việc độc lập và là một phần của nhóm.",
+    "Trình độ tiếng Anh/tiếng Nhật.",
+    "Có kinh nghiệm với cộng ngành giải trí hoặc giáo dục."
+  ],
+  "salary": 30,
+  "experienceLevel": 5,
+  "benefits": [
+    "Thu nhập: Cạnh tranh theo năng lực.",
+    "05 ngày làm việc/tuần với thời gian làm việc linh hoạt (check-in:7:30- 9:00), 8h/ngày.",
+    "Xét lương hàng năm.",
+    "100% lương thử việc.",
+    "12 ngày phép năm + 01 ngày nghỉ lễ công ty + 0.5 ngày nghỉ sinh nhật.",
+    "Được tham gia đóng BHXH, BHYT theo quy định của nhà nước.",
+    "Môi trường làm việc trẻ trung, năng động.",
+    "Hoạt động team building, du lịch."
+  ],
+  "location": "Hà Nội: Tầng 5 Lotte Mall Võ Chí Công, Tây Hồ",
+  "jobType": "Full-Time",
+  "position": 1,
+  "company": {
+    "$oid": "67ed68ea2d78839159a2eed5"
+  },
+  "status": "active",
+  "category": "Sales",
+  "created_by": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "applications": [
+    {
+      "$oid": "6809a6fd1f35c6f46154bb4e"
+    },
+    {
+      "$oid": "680c72b2dcbd9bfbab1239f2"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-24T02:41:29.604Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-27T15:20:50.740Z"
+  },
+  "__v": 2,
+  "approval": "approved",
+  "approvalNote": ""
+},
+{
+  "_id": {
+    "$oid": "6809ab3f1f35c6f46154bc38"
+  },
+  "title": "Graphic Designer",
+  "description": "Thiết kế sản phẩm thương mại theo các chủ đề được giao.\nTìm hiểu, sưu tập và sáng tạo các mẫu hình ảnh theo các chủ đề.\nChỉnh sửa hình ảnh, tạo mock-up hình ảnh lên các sản phẩm thực tế.\nThiết kế bao bì sản phẩm, tờ rơi, brochure, backdrop... theo sự sắp xếp của trưởng bộ phận và ban giám đốc.\nPhối hợp, hỗ trợ các bộ phận khác trong công ty để hoàn thành mục tiêu chung.",
+  "requirements": [
+    "Đam mê sáng tạo.",
+    "Chăm chỉ, trách nhiệm, chịu được áp lực cao.",
+    "Sử dụng thành tạo tối thiểu 2 phần mềm Photoshop và Illustrator."
+  ],
+  "salary": 20,
+  "experienceLevel": 1,
+  "benefits": [
+    "Lương cứng: Theo năng lực lên đến 20.0000.000.",
+    "Thử việc 2 tháng, hưởng nguyên lương.",
+    "Được trang bị máy tính cấu hình cao và các thiết bị hỗ trợ công việc.",
+    "Được đào tạo kỹ năng và kiến thức giúp phát triển chuyên môn.",
+    "Môi trường trẻ trung, năng động & linh hoạt.",
+    "Có cơ hội thử sức trong các dự án lớn, global.",
+    "Trả lương vào mùng 5 hàng tháng.",
+    "Bảo hiểm theo quy đinh.",
+    "Các chế độ khác theo quy định luật lao động Việt Nam."
+  ],
+  "location": "Z06, đường số 13, P. Tân Thuận Đông, Quận 7, TP. Hồ Chí Minh",
+  "jobType": "Full-Time",
+  "position": 1,
+  "company": {
+    "$oid": "67ed6676faa261b79aad0fe0"
+  },
+  "status": "active",
+  "category": "Design",
+  "created_by": {
+    "$oid": "67ecfaad580a61e5bc4f2a8d"
+  },
+  "applications": [],
+  "createdAt": {
+    "$date": "2025-04-24T03:08:47.685Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-27T15:20:50.709Z"
+  },
+  "__v": 0,
+  "approval": "approved",
+  "approvalNote": ""
+},
+{
+  "_id": {
+    "$oid": "6809ac111f35c6f46154bc50"
+  },
+  "title": "Nhân Viên Tư Vấn Bán Hàng Ô Tô",
+  "description": "Tìm kiếm, quản lý và khai thác khách hàng mới, khách hàng tiềm năng.\nGiới thiệu sản phẩm, giá cả, dịch vụ và các chương trình khuyến mãi để đáp ứng nhu cầu của khách hàng.\nLập kế hoạch và bán hàng, hoàn thành chỉ tiêu bán hàng được giao.\nPhối hợp marketing để thực hiện các chiến lược chung của Công ty: Giới thiệu sản phẩm, chăm sóc khách hàng, phát triển thị trường...\nBán xe mới và các gói sản phẩm đi kèm.\nKhai thác các dịch vụ liên quan (phụ kiện, bảo hiểm...)\nChăm sóc và hỗ trợ khách hàng, liên hệ khách hàng sau bán hàng.\nTham gia các khóa đào tạo về quy trình, kiến thức sản phẩm và kỹ năng bán hàng.",
+  "requirements": [
+    "Tốt nghiệp Trung cấp/ Cao đẳng/ Đại học chuyên ngành Kinh tế/ Marketing/ Quản trị Kinh doanh/ Ô tô.....",
+    "Không yêu cầu kinh nghiệm, được đào tạo từ đầu, ưu tiên sinh viên vừa ra trường hoặc đang chờ bằng.",
+    "Kỹ năng giao tiếp, diễn đạt, xử lý tình huống và thương lượng tốt.",
+    "Ngoại hình ưa nhìn, lịch sự.",
+    "Kỹ năng sử dụng vi tính văn phòng cơ bản.",
+    "Có laptop cá nhân.",
+    "Vui lòng đọc kỹ địa chỉ, thời gian làm việc và phúc lợi trước khi ứng tuyển."
+  ],
+  "salary": 20,
+  "experienceLevel": 1,
+  "benefits": [
+    "Thu nhập không giới hạn từ 10,000,000 VNĐ đến 50,000,000 VNĐ/ tháng theo năng lực bán hàng.",
+    "Bảo hiểm đầy đủ & khám sức khỏe theo quy định.",
+    "Phụ cấp thẻ điện thoại hàng tháng, đồng phục (khi vào chính thức) & phụ cấp tiền cơm hàng ngày.",
+    "Các chế độ thưởng nhân dịp Lễ, Tết, du lịch hàng năm.",
+    "Môi trường làm việc chuyên nghiệp, thăng tiến.",
+    "Được tham gia các khóa đào tạo theo tiêu chuẩn Toyota Việt Nam"
+  ],
+  "location": "Hồ Chí Minh: 188 Lê Trọng Tấn, P. Tây Thạnh, Tân Phú",
+  "jobType": "Full-Time",
+  "position": 5,
+  "company": {
+    "$oid": "67ed67eb3d7409a5cb86e75e"
+  },
+  "status": "active",
+  "category": "Sales",
+  "created_by": {
+    "$oid": "67ecfaad580a61e5bc4f2a8d"
+  },
+  "applications": [
+    {
+      "$oid": "681cee8646cc64cd3be56557"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-24T03:12:17.796Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-27T15:20:50.703Z"
+  },
+  "__v": 1,
+  "approval": "approved",
+  "approvalNote": ""
+},
+{
+  "_id": {
+    "$oid": "680a2c8867657542a58c88f3"
+  },
+  "title": "Nữ Nhân Viên Kinh Doanh/ Sales",
+  "description": "Chúng tôi đang tìm kiếm một Nữ Nhân Viên Kinh Doanh năng động và nhiệt huyết. Ứng viên sẽ chịu trách nhiệm phát triển và duy trì mối quan hệ với khách hàng. Bạn sẽ thực hiện các cuộc gọi bán hàng, giới thiệu sản phẩm và dịch vụ của công ty. Kỹ năng giao tiếp tốt và khả năng thuyết phục là điều cần thiết. Ứng viên cần có khả năng làm việc độc lập cũng như trong nhóm. Chúng tôi ưu tiên những người có kinh nghiệm trong lĩnh vực sales. Nếu bạn muốn tham gia vào một môi trường làm việc chuyên nghiệp và đầy thử thách, hãy gửi hồ sơ ngay hôm nay.",
+  "requirements": [
+    "Tốt nghiệp CĐ, Đại Học chuyên ngành XNK, Ngoại Thương , Quản trị kinh doanh.",
+    "Ưu tiên có kinh nghiệm trong lĩnh vực Sales.",
+    "Thành thạo vi tính, MS office.",
+    "Trung thực, chịu khó & trách nhiệm, có kỹ năng giao tiếp tốt, có khả năng làm việc độc lập cũng như làm việc nhóm , đàm phán và marketing"
+  ],
+  "salary": 16,
+  "experienceLevel": 2,
+  "benefits": [
+    "Lương 9 tr/ tháng.",
+    "Thử việc 2 tháng, 90% lương chính thức, hoa hồng mỗi quý. Không chạy KPI.",
+    "Lương tháng 13, thưởng, sinh nhật.",
+    "Được tham gia đào tạo nội bộ/ bên ngoài (nhà máy).",
+    "Được hưởng mọi quyền lợi theo luật lao động hiện hành qui định."
+  ],
+  "location": "475A Điện Biên Phủ, P.25, Q.Bình Thạnh, TP.HCM",
+  "jobType": "Full-Time",
+  "position": 3,
+  "company": {
+    "$oid": "6803d6d8120bd7390c9dfa50"
+  },
+  "status": "closed",
+  "category": "Sales",
+  "created_by": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "applications": [
+    {
+      "$oid": "680a2cdf67657542a58c891f"
+    },
+    {
+      "$oid": "680c72acdcbd9bfbab1239e1"
+    },
+    {
+      "$oid": "680cfd60275d8049109ed6c4"
+    },
+    {
+      "$oid": "681261a145db133950ad4049"
+    },
+    {
+      "$oid": "6812629119de0bab4ffef319"
+    },
+    {
+      "$oid": "68126460c8a7d56f8a354867"
+    },
+    {
+      "$oid": "68162fe713278bb736edc1f8"
+    },
+    {
+      "$oid": "68163058128920d47a654fe7"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-24T12:20:24.434Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-27T15:27:30.220Z"
+  },
+  "__v": 8,
+  "approval": "rejected",
+  "approvalNote": "không đúng nội quy"
+},
+{
+  "_id": {
+    "$oid": "68108ac9ac17a19d7c9c8f5d"
+  },
+  "title": "Giảng viên khoa CNTT",
+  "description": "Chúng tôi đang tìm kiếm một giảng viên năng động và đam mê trong lĩnh vực Công nghệ Thông tin. Ứng viên sẽ có trách nhiệm giảng dạy các môn học liên quan đến CNTT và hướng dẫn sinh viên trong các dự án thực tế. Bạn cần có kiến thức vững vàng về các ngôn ngữ lập trình, hệ thống mạng và cơ sở dữ liệu. Kỹ năng giao tiếp tốt và khả năng truyền đạt thông tin một cách hiệu quả là điều cần thiết. Ứng viên cũng sẽ tham gia vào các hoạt động nghiên cứu và phát triển chương trình giảng dạy. Chúng tôi ưu tiên những ứng viên có kinh nghiệm thực tiễn và khả năng làm việc nhóm. Hãy gia nhập đội ngũ của chúng tôi để cùng phát triển và truyền cảm hứng cho thế hệ tương lai trong lĩnh vực CNTT.",
+  "requirements": [
+    "Bằng Thạc sĩ hoặc Tiến sĩ chuyên ngành Công nghệ Thông tin hoặc lĩnh vực liên quan.",
+    "Có tối thiểu 2 năm kinh nghiệm giảng dạy hoặc làm việc trong lĩnh vực CNTT.",
+    "Thành thạo các môn học cốt lõi như lập trình, cơ sở dữ liệu, mạng máy tính hoặc trí tuệ nhân tạo.",
+    "Có khả năng xây dựng giáo án, thiết kế bài giảng sáng tạo và ứng dụng công nghệ vào giảng dạy.",
+    "Kỹ năng giao tiếp tốt, tương tác hiệu quả với sinh viên và đồng nghiệp.",
+    "Đam mê nghiên cứu khoa học, có công bố hoặc dự án nghiên cứu liên quan đến CNTT là một lợi thế.",
+    "Có tinh thần trách nhiệm, nhiệt huyết và sẵn sàng hỗ trợ sinh viên trong học tập và nghiên cứu.",
+    "Ưu tiên ứng viên có chứng chỉ sư phạm hoặc chứng nhận kỹ năng giảng dạy.",
+    "Khả năng sử dụng tiếng Anh trong giảng dạy và nghiên cứu là điểm cộng."
+  ],
+  "salary": 18,
+  "experienceLevel": 2,
+  "benefits": [
+    "Mức lương cạnh tranh, thưởng theo hiệu suất và thành tích nghiên cứu.",
+    "Môi trường làm việc chuyên nghiệp, năng động, hỗ trợ phát triển sự nghiệp giảng dạy và nghiên cứu.",
+    "Cơ hội tham gia các dự án nghiên cứu khoa học, hợp tác với doanh nghiệp và tổ chức giáo dục trong và ngoài nước.",
+    "Được cấp kinh phí hỗ trợ tham dự hội thảo, khóa đào tạo nâng cao chuyên môn.",
+    "Chế độ bảo hiểm sức khỏe, phúc lợi y tế theo quy định của nhà nước và chính sách riêng của trường.",
+    "Thời gian làm việc linh hoạt, nghỉ phép năm và các ngày lễ theo quy định.",
+    "Ưu đãi học phí cho con cái (nếu có) khi theo học tại HUTECH.",
+    "Cơ hội thăng tiến lên các vị trí quản lý, trưởng bộ môn hoặc lãnh đạo khoa.",
+    "Không gian làm việc hiện đại, trang thiết bị giảng dạy và nghiên cứu tiên tiến."
+  ],
+  "location": "475A Điện Biên Phủ, P.25, Q.Bình Thạnh, TP.HCM",
+  "jobType": "Internship",
+  "position": 2,
+  "company": {
+    "$oid": "6803d6d8120bd7390c9dfa50"
+  },
+  "status": "draft",
+  "category": "IT",
+  "created_by": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "applications": [
+    {
+      "$oid": "681252834b34e4ae114957df"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-29T08:16:09.836Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-27T15:20:43.320Z"
+  },
+  "__v": 1,
+  "approval": "approved",
+  "approvalNote": ""
+},
+{
+  "_id": {
+    "$oid": "6815a196dd83b2f2082d48bf"
+  },
+  "title": "Mobile Developer",
+  "description": "Chúng tôi đang tìm kiếm một Mobile Developer tài năng để gia nhập đội ngũ phát triển ứng dụng di động của chúng tôi. Ứng viên lý tưởng sẽ có kinh nghiệm phát triển ứng dụng trên nền tảng iOS và Android. Bạn sẽ chịu trách nhiệm thiết kế, phát triển và bảo trì các ứng dụng di động chất lượng cao. Kỹ năng lập trình vững chắc với Swift, Kotlin hoặc Flutter là điều kiện cần thiết. Bạn cũng sẽ phối hợp chặt chẽ với các nhà thiết kế và nhà phát triển khác để đảm bảo trải nghiệm người dùng tối ưu. Chúng tôi mong muốn bạn có khả năng giải quyết vấn đề tốt và làm việc trong môi trường nhóm. Nếu bạn đam mê công nghệ và muốn tham gia vào những dự án thú vị, hãy nộp đơn ngay hôm nay.",
+  "requirements": [
+    "Tốt nghiệp Đại học chuyên ngành Công nghệ thông tin các trường HUST, UET, PTIT.",
+    "Có từ 2 năm kinh nghiệm ở vị trí tương đương.",
+    "Có kinh nghiệm phát triển ứng dụng mobile app sử dụng lập trình React Native.",
+    "Có kinh nghiệm thiết kế UI/UX.",
+    "Có hiểu biết về kiến trúc ứng dụng IoT trong smart home, smart building phục vụ phát triển app cho hệ thống.",
+    "Sáng tạo, nhanh nhẹn, trung thực.",
+    "Sử dụng tiếng Anh tốt là một lợi thế."
+  ],
+  "salary": 20,
+  "experienceLevel": 2,
+  "benefits": [
+    "Lương/thưởng theo chế độ của công ty.",
+    "Thưởng upto 3 tháng lương/năm.",
+    "Môi trường chuyên nghiệp, năng động, thân thiện, cơ hội thăng tiến.",
+    "Chế độ BHYT, BHXH theo Luật Lao động.",
+    "Khám sức khỏe định kỳ hàng năm.",
+    "Tham gia các hoạt động, sự kiện của công ty.",
+    "Tham gia các khóa đào tạo trong và ngoài nước.",
+    "Thời gian làm việc: Thứ 2 đến hết sáng thứ 7 (8h30-12h00; 13h00-17h30)."
+  ],
+  "location": "475A Điện Biên Phủ, P.25, Q.Bình Thạnh, TP.HCM",
+  "jobType": "Remote",
+  "position": 4,
+  "company": {
+    "$oid": "680678a1d14a580f0b661760"
+  },
+  "status": "active",
+  "category": "IT",
+  "created_by": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "applications": [
+    {
+      "$oid": "6815a28bdd83b2f2082d497b"
+    },
+    {
+      "$oid": "681cd52a46cc64cd3be56342"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-05-03T04:54:46.063Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-27T15:20:43.293Z"
+  },
+  "__v": 2,
+  "approval": "approved",
+  "approvalNote": ""
+},
+{
+  "_id": {
+    "$oid": "681643578a64cf2564556585"
+  },
+  "title": "Network Technical Support Specialist",
+  "description": "Chúng tôi đang tìm kiếm một chuyên gia hỗ trợ kỹ thuật mạng để gia nhập đội ngũ của mình. Ứng viên sẽ chịu trách nhiệm giải quyết các sự cố mạng và cung cấp hỗ trợ kỹ thuật cho người dùng. Bạn sẽ phối hợp với các bộ phận khác để đảm bảo hệ thống mạng hoạt động ổn định và hiệu quả. Công việc bao gồm việc kiểm tra, phân tích và khắc phục sự cố mạng, đồng thời duy trì tài liệu kỹ thuật đầy đủ. Ứng viên lý tưởng cần có kiến thức sâu rộng về các giao thức mạng và thiết bị mạng. Kỹ năng giao tiếp tốt và khả năng làm việc dưới áp lực là rất quan trọng. Chúng tôi mong muốn tìm kiếm những cá nhân đam mê công nghệ và có tinh thần làm việc nhóm cao.",
+  "requirements": [
+    "Bằng cử nhân hoặc liên kết về các kiến ​​thức cơ bản về mạng hoặc chuyên ngành liên quan, hoặc kinh nghiệm làm việc tương đương.",
+    "Hơn 3 năm kinh nghiệm hỗ trợ kỹ thuật và triển khai trong lĩnh vực liên quan đến mạng (Switch, Router, VPN và Wireless, v.v.) Ưu tiên có kinh nghiệm với Cisco, HPE, Aruba, Ruckus, Huawei và Juniper Networks.",
+    "Kinh nghiệm về cấu hình và quản trị các sản phẩm không dây (Bộ điều khiển mạng LAN không dây và Điểm truy cập), Bảo mật mạng LAN không dây (Kỹ thuật xác thực): WEP, WPA2/WPA3, LEAP, PEAP,...",
+    "Ưu tiên người có chứng chỉ chuyên môn, chẳng hạn như CCNP/CCIE, HCNP/HCNE, JNCIS/JNCIP HPE ASE và Aruba ACMP,...",
+    "Kinh nghiệm tương tác với khách hàng hoặc trong vai trò đối mặt với khách hàng, và kỹ năng thuyết trình, giao tiếp và điều phối tuyệt vời.",
+    "Có khả năng làm việc độc lập và là người làm việc nhóm, năng lực cao trong đa nhiệm và khả năng quản lý nhiều cam kết song song.",
+    "Kỹ năng giao tiếp bằng văn bản và lời nói bằng tiếng Anh tuyệt vời, Ưu tiên người nói tiếng Trung Quốc",
+    "Sẵn sàng đi công tác ngắn ngày thường xuyên"
+  ],
+  "salary": 30,
+  "experienceLevel": 3,
+  "benefits": [
+    "Lương tháng thứ 13 như một khoản thưởng cuối năm.",
+    "Đánh giá hiệu suất hàng năm để tăng lương và phát triển sự nghiệp.",
+    "Môi trường làm việc năng động với nhiều cơ hội phát triển.",
+    "Chế độ làm việc linh hoạt.",
+    "Tiếp xúc với các công nghệ tiên tiến và đổi mới.",
+    "Hỗ trợ phát triển chuyên môn và các chương trình học tập."
+  ],
+  "location": "Số 126 Nguyễn Đăng Đạo, Phường Đại Phúc, TP Bắc Ninh",
+  "jobType": "Full-Time",
+  "position": 1,
+  "company": {
+    "$oid": "680b723622911c6c5f66f285"
+  },
+  "status": "active",
+  "category": "IT",
+  "created_by": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "applications": [
+    {
+      "$oid": "68174fef08bb83e32daedd55"
+    },
+    {
+      "$oid": "683eb548b64b4650f7311d00"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-05-03T16:24:55.591Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-03T08:41:44.738Z"
+  },
+  "__v": 2,
+  "approval": "approved",
+  "approvalNote": ""
+},
+{
+  "_id": {
+    "$oid": "681f4833ceb136ec45bb4a97"
+  },
+  "title": "Tech Lead",
+  "description": "Chúng tôi đang tìm kiếm một Tech Lead tận tâm và giàu kinh nghiệm để lãnh đạo nhóm phát triển phần mềm. Ứng viên lý tưởng sẽ có khả năng thiết kế kiến trúc hệ thống và đưa ra các giải pháp kỹ thuật hiệu quả. Bạn sẽ chịu trách nhiệm hướng dẫn và hỗ trợ các thành viên trong nhóm, đảm bảo tiến độ và chất lượng sản phẩm. Kỹ năng giao tiếp tốt là rất quan trọng để phối hợp với các bộ phận liên quan. Bạn sẽ tham gia vào việc phân tích yêu cầu và xác định các công nghệ phù hợp cho dự án. Yêu cầu ứng viên có ít nhất 5 năm kinh nghiệm trong lĩnh vực phát triển phần mềm và kiến thức vững về các ngôn ngữ lập trình hiện đại. Nếu bạn đam mê công nghệ và mong muốn phát triển sự nghiệp trong môi trường năng động, hãy gia nhập đội ngũ của chúng tôi.",
+  "requirements": [
+    "asd"
+  ],
+  "salary": 42,
+  "experienceLevel": 2,
+  "benefits": [
+    "szxc"
+  ],
+  "location": "475A Điện Biên Phủ, P.25, Q.Bình Thạnh, TP.HCM",
+  "jobType": "Full-Time",
+  "position": 1,
+  "company": {
+    "$oid": "680b723622911c6c5f66f285"
+  },
+  "status": "active",
+  "category": "IT",
+  "created_by": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "applications": [
+    {
+      "$oid": "68283d976ed18f829850ec9a"
+    },
+    {
+      "$oid": "682ca66f23e0a1e58c9974fc"
+    },
+    {
+      "$oid": "682ef1ff171754158146ecb1"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-05-10T12:36:03.228Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-29T16:04:26.423Z"
+  },
+  "__v": 3,
+  "approval": "pending",
+  "approvalNote": ""
+},
+{
+  "_id": {
+    "$oid": "6835ca5f4193b73b88b2df3f"
+  },
+  "title": "Giảng viên khoa Luật",
+  "description": "Chúng tôi đang tìm kiếm một Giảng viên Khoa Luật có đam mê giảng dạy và nghiên cứu. Ứng viên lý tưởng sẽ có bằng cấp tiến sĩ trong lĩnh vực Luật hoặc chuyên ngành liên quan. Nhiệm vụ chính bao gồm giảng dạy các môn học luật, hướng dẫn sinh viên nghiên cứu và tham gia vào các hoạt động học thuật. Ứng viên cũng cần có khả năng phát triển chương trình giảng dạy và tham gia vào các dự án nghiên cứu khoa học. Kỹ năng giao tiếp tốt và khả năng làm việc nhóm là rất quan trọng. Ưu tiên những ứng viên có kinh nghiệm giảng dạy tại các cơ sở giáo dục đại học. Hãy gia nhập đội ngũ chúng tôi để cùng nâng cao chất lượng giáo dục và nghiên cứu trong lĩnh vực Luật.",
+  "requirements": [
+    "asd"
+  ],
+  "salary": 3,
+  "experienceLevel": 2,
+  "benefits": [
+    "asd"
+  ],
+  "location": "475A Điện Biên Phủ, P.25, Q.Bình Thạnh, TP.HCM",
+  "jobType": "Full-Time",
+  "position": 2,
+  "company": {
+    "$oid": "6803d6d8120bd7390c9dfa50"
+  },
+  "status": "active",
+  "approval": "rejected",
+  "approvalNote": "Không đúng quy định",
+  "category": "Luật",
+  "created_by": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "applications": [
+    {
+      "$oid": "6835d73d24825b8315029b68"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-05-27T14:21:19.169Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-01T15:59:29.930Z"
+  },
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6835daf124825b8315029d23"
+  },
+  "title": "Nhân viên tư vấn khách hàng",
+  "description": "Chúng tôi đang tìm kiếm một Nhân viên Tư vấn Khách hàng nhiệt huyết và chuyên nghiệp. Ứng viên sẽ chịu trách nhiệm tiếp nhận và xử lý yêu cầu của khách hàng một cách nhanh chóng và hiệu quả. Bạn sẽ tư vấn về sản phẩm, dịch vụ và giải pháp phù hợp để đáp ứng nhu cầu của khách hàng. Kỹ năng giao tiếp tốt là yếu tố cần thiết để xây dựng mối quan hệ bền vững với khách hàng. Bạn cũng sẽ tham gia vào việc thu thập phản hồi và ý kiến từ khách hàng nhằm cải thiện dịch vụ. Hãy gia nhập đội ngũ của chúng tôi và cùng nhau phát triển trong lĩnh vực Sales. Chúng tôi chào đón những ứng viên có đam mê và khát khao thành công.",
+  "requirements": [
+    "asd"
+  ],
+  "salary": 6,
+  "experienceLevel": 1,
+  "benefits": [
+    "asd"
+  ],
+  "location": "475A Điện Biên Phủ, P.25, Q.Bình Thạnh, TP.HCM",
+  "jobType": "Internship",
+  "position": 6,
+  "company": {
+    "$oid": "67ed68f12d78839159a2eed9"
+  },
+  "status": "active",
+  "approval": "pending",
+  "approvalNote": "",
+  "category": "Sales",
+  "created_by": {
+    "$oid": "67ed07e6113072696e00b963"
+  },
+  "applications": [],
+  "createdAt": {
+    "$date": "2025-05-27T15:32:01.073Z"
+  },
+  "updatedAt": {
+    "$date": "2025-06-03T08:49:11.533Z"
+  },
+  "__v": 0
+}]
