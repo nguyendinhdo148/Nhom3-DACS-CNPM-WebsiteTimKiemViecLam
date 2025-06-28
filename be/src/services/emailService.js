@@ -21,7 +21,7 @@ export const sendMail = async ({ to, subject, html, replyTo }) => {
     await transporter.sendMail(mailOptions);
   } catch (error) {
     console.error("Lỗi gửi email:", error);
-    throw error;
+    throw new Error("Gửi email thất bại");
   }
 };
 
