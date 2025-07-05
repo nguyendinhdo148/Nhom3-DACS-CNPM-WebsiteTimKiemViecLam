@@ -203,33 +203,40 @@ setSocket(newSocket);
     if (typeof msg.conversation === "string") return msg.conversation;
     if (msg.conversation && "_id" in msg.conversation) return msg.conversation._id;
     if ("conversationId" in msg && typeof msg.conversationId === "string") {
-    return msg.conversationId;
-  }
+      return msg.conversationId;
+    }
     return undefined;
   };
 
   // Nhận tin nhắn mới (tạm thời hoặc thật)
   const handleReceiveMessage = (msg: Message) => {
   const msgConvId = getConvId(msg);
-
-  // Nếu không đúng hội thoại đang xem → bỏ qua
   if (msgConvId !== selectedConv?._id) return;
 
-  // Kiểm tra trùng lặp - ưu tiên kiểm tra tempId trước
-  const isDuplicate = messages.some(m => 
-    (msg.tempId && m.tempId === msg.tempId) || 
-    (m._id && msg._id && m._id === msg._id)
-  );
+  setMessages((prev) => {
+    const idxById = prev.findIndex((m) => m._id === msg._id);
+    if (idxById !== -1) {
+      // Tin nhắn thật đã tồn tại -> cập nhật
+      const updated = [...prev];
+      updated[idxById] = { ...msg };
+      return updated;
+    }
 
-  if (!isDuplicate) {
-    setMessages(prev => [...prev, msg]);
-  } else if (msg.tempId) {
-    // Nếu là tin nhắn thật thay thế tin nhắn tạm
-    setMessages(prev => prev.map(m => 
-      m.tempId === msg.tempId ? { ...msg, tempId: undefined } : m
-    ));
-  }
+    // Nếu có tempId -> tìm tin nhắn tạm
+    if (msg.tempId) {
+      const idxByTemp = prev.findIndex((m) => m.tempId === msg.tempId);
+      if (idxByTemp !== -1) {
+        const updated = [...prev];
+        updated[idxByTemp] = { ...msg, tempId: undefined };
+        return updated;
+      }
+    }
+
+    // Nếu chưa có thì thêm mới
+    return [...prev, msg];
+  });
 };
+
 
   // Cập nhật tin nhắn từ server (từ tạm -> thật)
   const handleMessageUpdated = (msg: Message) => {

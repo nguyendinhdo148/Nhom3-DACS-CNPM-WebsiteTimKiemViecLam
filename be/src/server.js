@@ -7,6 +7,9 @@ import connectDB from "./utils/db.js";
 import { User } from "./models/user.model.js";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
+import { Message } from "./models/message.model.js";
+import { Conversation } from "./models/conversation.model.js";
+
 
 // Import routes
 import userRoute from "./routes/user.route.js";
@@ -159,44 +162,51 @@ const setupSocketEvents = (socket) => {
 
   // Message handling with optimistic updates
   socket.on("send_message", async ({ conversationId, message, tempId }, callback) => {
-    try {
-      if (!conversationId || !message?.text) {
-        throw new Error("Invalid message format");
-      }
-
-      const messagePayload = {
-        ...message,
-        _id: tempId,
-        sender: socket.user,
-        conversationId,
-        createdAt: new Date(),
-        status: "pending",
-      };
-
-      // Broadcast to all in conversation (including sender)
-      io.to(conversationId).emit("message_received", messagePayload);
-
-      // Here you would typically save to database
-      // const savedMessage = await saveMessageToDB(messagePayload);
-      
-      // Simulate DB save
-      setTimeout(() => {
-        const savedMessage = { 
-          ...messagePayload, 
-          _id: "db_" + Date.now(),
-          status: "delivered" 
-        };
-        io.to(conversationId).emit("message_updated", savedMessage);
-      }, 300);
-
-      if (typeof callback === "function") {
-        callback({ status: "received" });
-      }
-    } catch (error) {
-      console.error("Message send error:", error);
-      socket.emit("message_error", { tempId, error: error.message });
+  try {
+    if (!conversationId || !message?.text) {
+      throw new Error("Thiếu nội dung hoặc ID cuộc trò chuyện.");
     }
-  });
+
+    // 1. Lưu vào DB
+    const newMessage = new Message({
+      conversation: conversationId,
+      sender: socket.user.id,
+      text: message.text,
+    });
+
+    const savedMessage = await newMessage.save();
+
+    // 2. Cập nhật conversation
+    await Conversation.findByIdAndUpdate(conversationId, {
+      lastMessage: savedMessage._id,
+      updatedAt: Date.now(),
+    });
+
+    // 3. Lấy lại đầy đủ thông tin người gửi
+    const populatedMsg = await Message.findById(savedMessage._id)
+      .populate("sender", "fullname profile.profilePhoto role");
+
+    const emitMsg = {
+      ...populatedMsg.toObject(),
+      conversationId,
+      tempId,
+    };
+
+    // 4. Emit message đến room
+    io.to(conversationId).emit("receive_message", emitMsg);
+
+    // 5. Gửi callback nếu có
+    if (typeof callback === "function") {
+      callback({ status: "success" });
+    }
+  } catch (error) {
+    console.error("send_message error:", error);
+    socket.emit("message_error", { tempId, error: error.message });
+    if (typeof callback === "function") {
+      callback({ status: "error", error: { message: error.message } });
+    }
+  }
+});
 
   // Typing indicators
   socket.on("typing", ({ conversationId, isTyping }) => {
