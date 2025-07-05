@@ -25,6 +25,8 @@ import Admin from "./components/admin/screeens/Admin";
 import CompanyAdmin from "./components/admin/screeens/CompanyAdmin";
 import JobManagerAdmin from "./components/admin/screeens/JobManagerAdmin";
 import UserManagerAdmin from "./components/admin/screeens/UserManagerAdmin";
+import Meetings from "./components/recruiter/screeens/meetings";
+import Chat from "./components/pages/Chat";
 
 function App() {
   return (
@@ -43,6 +45,8 @@ function App() {
         <Route path="/applied-jobs" element={<AppliedJob />} />
         <Route path="/saved-jobs" element={<SavedJobs />} />
         <Route path="/jobs/description/:id" element={<JobDescription />} />
+        <Route path="/chat" element={<Chat />} /> 
+
 
         {/* Recruiter routes */}
         <Route path="/recruiter" element={<RecruiterLayout />}>
@@ -50,6 +54,8 @@ function App() {
           <Route path="/recruiter/company" element={<Company />} />
           <Route path="/recruiter/jobs" element={<JobManager />} />
           <Route path="/recruiter/candidates" element={<Candidates />} />
+          <Route path="/recruiter/meetings" element={<Meetings />} />
+          <Route path="/recruiter/chat" element={<Chat />} />
         </Route>
 
         {/* Admin routes */}

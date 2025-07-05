@@ -6,6 +6,8 @@ import {
   LogOut,
   Menu,
   LayoutDashboard,
+  VideoIcon,
+  MessageCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,6 +47,16 @@ const RecruiterLayout = () => {
       href: "/recruiter/candidates",
       icon: Users,
     },
+    {
+      name: "Quản lý cuộc họp",
+      href: "/recruiter/meetings",
+      icon: VideoIcon,
+    },
+    {
+      name: "Quản lý trò chuyện",
+      href: "/recruiter/chat",
+      icon: MessageCircle,
+    }
   ];
 
   // protect route recruiter

@@ -17,6 +17,7 @@ import { API } from "@/utils/constant";
 import { setUser } from "@/redux/authSlice";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
+import { MessageCircle } from "lucide-react";
 
 const Navbar = () => {
   const { user } = useSelector((store: RootState) => store.auth);
@@ -190,6 +191,17 @@ const Navbar = () => {
                         <span>CV của tôi</span>
                       </Link>
                     </Button>
+                    <Button
+                      variant="default"
+                      className="w-full justify-start gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50"
+                      asChild
+                    >
+                      <Link to="/chat">
+                        <MessageCircle className="h-4 w-4 text-gray-500" />
+                        <span>Chat với nhà tuyển dụng</span>
+                      </Link>
+                    </Button>
+
 
                     <Button
                       variant="default"
@@ -221,6 +233,7 @@ const Navbar = () => {
                       <LogOut className="h-4 w-4 text-gray-500" />
                       <span>Đăng xuất</span>
                     </Button>
+
                   </div>
                 </PopoverContent>
               </Popover>
