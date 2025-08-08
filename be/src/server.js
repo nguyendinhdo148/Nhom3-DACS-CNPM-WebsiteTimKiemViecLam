@@ -11,6 +11,7 @@ import { Message } from "./models/message.model.js";
 import { Conversation } from "./models/conversation.model.js";
 
 
+
 // Import routes
 import userRoute from "./routes/user.route.js";
 import companyRoute from "./routes/company.route.js";
@@ -22,6 +23,7 @@ import resumeRoute from "./routes/resume.route.js";
 import adminRoute from "./routes/admin.route.js";
 import meetingRoute from "./routes/meeting.route.js";
 import chatRouter from "./routes/chat.route.js";
+import mbtiRoutes from './routes/mbti.route.js';
 
 import { createServer } from "http";
 import { Server } from "socket.io";
@@ -244,6 +246,7 @@ app.use("/api/v1/resume", resumeRoute);
 app.use("/api/v1/admin", adminRoute);
 app.use("/api/v1/meetings", meetingRoute);
 app.use("/api/v1/chat", chatRouter);
+app.use('/api/mbti', mbtiRoutes);
 
 // Health Check Endpoint
 app.get("/health", (req, res) => {

@@ -8,7 +8,8 @@ import {
   Heart,
   ChevronDown,
   FileText,
-} from "lucide-react";
+  Wrench,
+} from "lucide-react"; // Added Wrench icon
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
@@ -191,6 +192,18 @@ const Navbar = () => {
                         <span>CV của tôi</span>
                       </Link>
                     </Button>
+                    
+                    <Button
+                      variant="default"
+                      className="w-full justify-start gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50"
+                      asChild
+                    >
+                      <Link to="/tools">
+                        <Wrench className="h-4 w-4 text-gray-500" />
+                        <span>Công cụ</span>
+                      </Link>
+                    </Button>
+
                     <Button
                       variant="default"
                       className="w-full justify-start gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50"
@@ -201,7 +214,6 @@ const Navbar = () => {
                         <span>Chat với nhà tuyển dụng</span>
                       </Link>
                     </Button>
-
 
                     <Button
                       variant="default"
@@ -233,7 +245,6 @@ const Navbar = () => {
                       <LogOut className="h-4 w-4 text-gray-500" />
                       <span>Đăng xuất</span>
                     </Button>
-
                   </div>
                 </PopoverContent>
               </Popover>

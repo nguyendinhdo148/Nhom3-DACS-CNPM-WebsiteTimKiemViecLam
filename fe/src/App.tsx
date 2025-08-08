@@ -27,6 +27,35 @@ import JobManagerAdmin from "./components/admin/screeens/JobManagerAdmin";
 import UserManagerAdmin from "./components/admin/screeens/UserManagerAdmin";
 import Meetings from "./components/recruiter/screeens/meetings";
 import Chat from "./components/pages/Chat";
+import ToolsPage from "./components/pages/ToolsPage";
+
+// Tools detail pages
+import MBTIPage from "./components/pages/tools/MBTI/MBTIPage";
+import MBTITest from "./components/pages/tools/MBTI/MBTITest";
+import MBTIResult from "./components/pages/tools/MBTI/MBTIResult";
+import INFPPage from "./components/pages/tools/MBTI/infp";
+import INFJPage from "./components/pages/tools/MBTI/infj";
+import INTJPage from "./components/pages/tools/MBTI/intj";
+import INTPPage from "./components/pages/tools/MBTI/intp";
+import ISTJPage from "./components/pages/tools/MBTI/istj"; 
+import ISFJPage from "./components/pages/tools/MBTI/isfj";
+import ISTPPage from "./components/pages/tools/MBTI/istp"; 
+import ISFPPage from "./components/pages/tools/MBTI/isfp"; 
+import ESTPPage from "./components/pages/tools/MBTI/estp";
+import ESFPPage from "./components/pages/tools/MBTI/esfp"; 
+import ENFPPage from "./components/pages/tools/MBTI/enfp"; 
+import ENTPPage from "./components/pages/tools/MBTI/entp"; 
+import ESTJPage from "./components/pages/tools/MBTI/estj"; 
+import ESFJPage from "./components/pages/tools/MBTI/esfj"; 
+import ENFJPage from "./components/pages/tools/MBTI/enfj"; 
+import ENTJPage from "./components/pages/tools/MBTI/entj"; 
+// import MIPage from "./components/pages/tools/MIPage";
+import SalaryCalculator from "./components/pages/tools/salary-converter";
+// import TaxCalculatorPage from "./components/pages/tools/TaxCalculatorPage";
+// import CompoundInterestPage from "./components/pages/tools/CompoundInterestPage";
+// import UnemploymentInsurancePage from "./components/pages/tools/UnemploymentInsurancePage";
+// import SocialInsurancePage from "./components/pages/tools/SocialInsurancePage";
+// import SavingPlannerPage from "./components/pages/tools/SavingPlannerPage";
 
 function App() {
   return (
@@ -45,8 +74,49 @@ function App() {
         <Route path="/applied-jobs" element={<AppliedJob />} />
         <Route path="/saved-jobs" element={<SavedJobs />} />
         <Route path="/jobs/description/:id" element={<JobDescription />} />
-        <Route path="/chat" element={<Chat />} /> 
+        <Route path="/chat" element={<Chat />} />
 
+        {/* Tools routes */}
+        <Route path="/tools" element={<ToolsPage />} />
+
+        <Route path="/tools/mbti" element={<MBTIPage />} />
+        <Route path="/tools/mbti/test" element={<MBTITest />} />
+        <Route path="/tools/mbti/result" element={<MBTIResult />} />
+        <Route path="/tools/mbti/tinh-cach/infp" element={<INFPPage />} />
+        <Route path="/tools/mbti/tinh-cach/infj" element={<INFJPage />} />
+        <Route path="/tools/mbti/tinh-cach/intj" element={<INTJPage />} />
+        <Route path="/tools/mbti/tinh-cach/intp" element={<INTPPage />} />
+        <Route path="/tools/mbti/tinh-cach/istj" element={<ISTJPage />} />
+        <Route path="/tools/mbti/tinh-cach/isfj" element={<ISFJPage />} />
+        <Route path="/tools/mbti/tinh-cach/istp" element={<ISTPPage />} />
+        <Route path="/tools/mbti/tinh-cach/isfp" element={<ISFPPage />} /> 
+        <Route path="/tools/mbti/tinh-cach/estp" element={<ESTPPage />} /> 
+        <Route path="/tools/mbti/tinh-cach/esfp" element={<ESFPPage />} /> 
+        <Route path="/tools/mbti/tinh-cach/enfp" element={<ENFPPage />} /> 
+        <Route path="/tools/mbti/tinh-cach/entp" element={<ENTPPage />} /> 
+        <Route path="/tools/mbti/tinh-cach/estj" element={<ESTJPage />} /> 
+        <Route path="/tools/mbti/tinh-cach/esfj" element={<ESFJPage />} /> 
+        <Route path="/tools/mbti/tinh-cach/enfj" element={<ENFJPage />} /> 
+        <Route path="/tools/mbti/tinh-cach/entj" element={<ENTJPage />} /> 
+        {/* Uncomment the following line when MIPage is ready */}
+        {/* <Route path="/tools/mi" element={<MIPage />} /> */}
+        {/* Uncomment the following line when MIPage is ready */}
+        {/* <Route path="/tools/mi" element={<MIPage />} /> */}
+        
+        {/* Uncomment the following line when MIPage is ready */}
+        {/* <Route path="/tools/mi" element={<MIPage />} /> */}
+        {/* Uncomment the following line when MIPage is ready */}
+        {/* <Route path="/tools/mi" element={<MIPage />} /> */}
+        <Route path="/tools/salary-converter" element={<SalaryCalculator />} />
+        {/* <Route path="/tools/mi" element={<MIPage />} />
+        {/* <Route path="/tools/mbti" element={<MBTIPage />} />
+        <Route path="/tools/mi" element={<MIPage />} />
+        
+        <Route path="/tools/tax-calculator" element={<TaxCalculatorPage />} />
+        <Route path="/tools/compound-interest" element={<CompoundInterestPage />} />
+        <Route path="/tools/unemployment-insurance" element={<UnemploymentInsurancePage />} />
+        <Route path="/tools/social-insurance" element={<SocialInsurancePage />} />
+        <Route path="/tools/saving-planner" element={<SavingPlannerPage />} /> */}
 
         {/* Recruiter routes */}
         <Route path="/recruiter" element={<RecruiterLayout />}>

@@ -75,7 +75,13 @@ const jobSchema = new mongoose.Schema(
         ref: "Application",
       },
     ],
+    interviewTest: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "InterviewTest",
+      default: null, // không bắt buộc có
+    },
   },
   { timestamps: true }
 );
+
 export const Job = mongoose.model("Job", jobSchema);

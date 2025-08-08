@@ -18,6 +18,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { API } from "@/utils/constant";
 import { setUser } from "@/redux/authSlice";
+import { ClipboardListIcon } from "lucide-react";
 
 const RecruiterLayout = () => {
   const location = useLocation();
@@ -56,7 +57,12 @@ const RecruiterLayout = () => {
       name: "Quản lý trò chuyện",
       href: "/recruiter/chat",
       icon: MessageCircle,
-    }
+    },
+    {
+      name: "Câu hỏi phỏng vấn",
+      href: "/recruiter/interview-sets",
+      icon: ClipboardListIcon, 
+    },
   ];
 
   // protect route recruiter
