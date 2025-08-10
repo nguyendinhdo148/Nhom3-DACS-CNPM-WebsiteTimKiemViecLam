@@ -24,6 +24,7 @@ import adminRoute from "./routes/admin.route.js";
 import meetingRoute from "./routes/meeting.route.js";
 import chatRouter from "./routes/chat.route.js";
 import mbtiRoutes from './routes/mbti.route.js';
+import miRoutes from './routes/mi.route.js';
 
 import { createServer } from "http";
 import { Server } from "socket.io";
@@ -247,6 +248,7 @@ app.use("/api/v1/admin", adminRoute);
 app.use("/api/v1/meetings", meetingRoute);
 app.use("/api/v1/chat", chatRouter);
 app.use('/api/mbti', mbtiRoutes);
+app.use('/api/mi', miRoutes);
 
 // Health Check Endpoint
 app.get("/health", (req, res) => {

@@ -49,7 +49,10 @@ import ESTJPage from "./components/pages/tools/MBTI/estj";
 import ESFJPage from "./components/pages/tools/MBTI/esfj"; 
 import ENFJPage from "./components/pages/tools/MBTI/enfj"; 
 import ENTJPage from "./components/pages/tools/MBTI/entj"; 
-// import MIPage from "./components/pages/tools/MIPage";
+
+import MIPage from "./components/pages/tools/MI/MIPage";
+import MITest from "./components/pages/tools/MI/MITest";
+import MIResult from "./components/pages/tools/MI/MIResult";
 import SalaryCalculator from "./components/pages/tools/salary-converter";
 // import TaxCalculatorPage from "./components/pages/tools/TaxCalculatorPage";
 // import CompoundInterestPage from "./components/pages/tools/CompoundInterestPage";
@@ -98,15 +101,11 @@ function App() {
         <Route path="/tools/mbti/tinh-cach/esfj" element={<ESFJPage />} /> 
         <Route path="/tools/mbti/tinh-cach/enfj" element={<ENFJPage />} /> 
         <Route path="/tools/mbti/tinh-cach/entj" element={<ENTJPage />} /> 
-        {/* Uncomment the following line when MIPage is ready */}
-        {/* <Route path="/tools/mi" element={<MIPage />} /> */}
-        {/* Uncomment the following line when MIPage is ready */}
-        {/* <Route path="/tools/mi" element={<MIPage />} /> */}
         
-        {/* Uncomment the following line when MIPage is ready */}
-        {/* <Route path="/tools/mi" element={<MIPage />} /> */}
-        {/* Uncomment the following line when MIPage is ready */}
-        {/* <Route path="/tools/mi" element={<MIPage />} /> */}
+      
+        <Route path="/tools/mi" element={<MIPage />} />
+        <Route path="/tools/mi/test" element={<MITest />} />
+        <Route path="/tools/mi/result" element={<MIResult />} />
         <Route path="/tools/salary-converter" element={<SalaryCalculator />} />
         {/* <Route path="/tools/mi" element={<MIPage />} />
         {/* <Route path="/tools/mbti" element={<MBTIPage />} />
