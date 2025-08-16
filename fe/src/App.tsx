@@ -54,7 +54,7 @@ import MIPage from "./components/pages/tools/MI/MIPage";
 import MITest from "./components/pages/tools/MI/MITest";
 import MIResult from "./components/pages/tools/MI/MIResult";
 import SalaryCalculator from "./components/pages/tools/salary-converter";
-// import TaxCalculatorPage from "./components/pages/tools/TaxCalculatorPage";
+import TaxCalculatorPage from "./components/pages/tools/TaxCalculator";
 // import CompoundInterestPage from "./components/pages/tools/CompoundInterestPage";
 // import UnemploymentInsurancePage from "./components/pages/tools/UnemploymentInsurancePage";
 // import SocialInsurancePage from "./components/pages/tools/SocialInsurancePage";
@@ -107,11 +107,12 @@ function App() {
         <Route path="/tools/mi/test" element={<MITest />} />
         <Route path="/tools/mi/result" element={<MIResult />} />
         <Route path="/tools/salary-converter" element={<SalaryCalculator />} />
+        <Route path="/tools/tax-calculator" element={<TaxCalculatorPage />} />
         {/* <Route path="/tools/mi" element={<MIPage />} />
         {/* <Route path="/tools/mbti" element={<MBTIPage />} />
         <Route path="/tools/mi" element={<MIPage />} />
         
-        <Route path="/tools/tax-calculator" element={<TaxCalculatorPage />} />
+        
         <Route path="/tools/compound-interest" element={<CompoundInterestPage />} />
         <Route path="/tools/unemployment-insurance" element={<UnemploymentInsurancePage />} />
         <Route path="/tools/social-insurance" element={<SocialInsurancePage />} />
