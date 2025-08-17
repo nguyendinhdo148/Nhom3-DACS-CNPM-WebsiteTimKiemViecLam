@@ -40,8 +40,6 @@ const CompoundInterestPage = () => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
 
-  // Parse formatted string back to number
-
   // Handle input change with formatting
   const handleInputChange = (value: string, setter: React.Dispatch<React.SetStateAction<number>>) => {
     // Remove all non-digit characters
@@ -63,79 +61,79 @@ const CompoundInterestPage = () => {
   };
 
   // Calculate compound interest and generate chart data
-const calculateCompoundInterest = () => {
-  const P = principal;
-  const r = interestRate / 100;
-  const t = years;
-  let n = 1;
-  switch (compoundingFrequency) {
-    case 'daily': n = 365; break;
-    case 'monthly': n = 12; break;
-    case 'quarterly': n = 4; break;
-    case 'yearly': n = 1; break;
-    default: n = 1;
-  }
-  const PMT = monthlyContribution;
-
-  // Calculate values for each year
-  const labels = Array.from({ length: t + 1 }, (_, i) => i);
-
-  let balance = P;
-  const principalData: number[] = [];
-  const contributionData: number[] = [];
-  const totalData: number[] = [];
-
-  const i_month = Math.pow(1 + r / n, n / 12) - 1;
-
-for (let year = 0; year <= t; year++) {
-  if (year > 0) {
-    for (let m = 0; m < 12; m++) {
-      balance = balance * (1 + i_month) + PMT; // lãi + đóng góp cuối kỳ
+  const calculateCompoundInterest = () => {
+    const P = principal;
+    const r = interestRate / 100;
+    const t = years;
+    let n = 1;
+    switch (compoundingFrequency) {
+      case 'daily': n = 365; break;
+      case 'monthly': n = 12; break;
+      case 'quarterly': n = 4; break;
+      case 'yearly': n = 1; break;
+      default: n = 1;
     }
-  }
+    const PMT = monthlyContribution;
 
-  const totalContributions = P + PMT * 12 * year;
+    // Calculate values for each year
+    const labels = Array.from({ length: t + 1 }, (_, i) => i);
 
-  principalData.push(P);
-  contributionData.push(totalContributions - P);
-  totalData.push(balance);
-}
+    let balance = P;
+    const principalData: number[] = [];
+    const contributionData: number[] = [];
+    const totalData: number[] = [];
 
+    const i_month = Math.pow(1 + r / n, n / 12) - 1;
 
-  // Prepare chart data
-  setChartData({
-    labels: labels,
-    datasets: [
-      {
-        label: 'Tiền gốc',
-        data: principalData,
-        borderColor: 'rgb(75, 192, 192)',
-        backgroundColor: 'rgba(75, 192, 192, 0.5)',
-      },
-      {
-        label: 'Tiền lãi',
-        data: contributionData,
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      },
-      {
-        label: 'Tổng giá trị',
-        data: totalData,
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-    ],
-  });
+    for (let year = 0; year <= t; year++) {
+      if (year > 0) {
+        for (let m = 0; m < 12; m++) {
+          balance = balance * (1 + i_month) + PMT; // lãi + đóng góp cuối kỳ
+        }
+      }
 
-  const finalTotal = totalData[totalData.length - 1];
-  const interestEarned = finalTotal - (P + (PMT * 12 * t));
-  
-  return {
-    total: Math.round(finalTotal),
-    interestEarned: Math.round(interestEarned),
-    contributions: P + (PMT * 12 * t)
+      const totalContributions = P + PMT * 12 * year;
+      const interestEarned = balance - totalContributions;
+
+      principalData.push(totalContributions);  // tổng số tiền tự bỏ vào (gốc + PMT)
+      contributionData.push(interestEarned);   // đúng nghĩa là tiền lãi sinh ra
+      totalData.push(balance);                 // tổng giá trị cuối kỳ
+    }
+
+    // Prepare chart data
+    setChartData({
+      labels: labels,
+      datasets: [
+        {
+          label: 'Tổng vốn tự bỏ',
+          data: principalData,
+          borderColor: 'rgb(75, 192, 192)',
+          backgroundColor: 'rgba(75, 192, 192, 0.5)',
+        },
+        {
+          label: 'Tiền lãi',
+          data: contributionData,
+          borderColor: 'rgb(53, 162, 235)',
+          backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        },
+        {
+          label: 'Tổng giá trị',
+          data: totalData,
+          borderColor: 'rgb(255, 99, 132)',
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        },
+      ],
+    });
+
+    const finalTotal = totalData[totalData.length - 1];
+    const interestEarned = finalTotal - (P + (PMT * 12 * t));
+    
+    return {
+      total: Math.round(finalTotal),
+      interestEarned: Math.round(interestEarned),
+      contributions: P + (PMT * 12 * t)
+    };
   };
-};
 
   const [result, setResult] = useState({
     total: 0,
