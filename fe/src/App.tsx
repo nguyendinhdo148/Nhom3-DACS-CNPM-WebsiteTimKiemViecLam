@@ -56,7 +56,7 @@ import MIResult from "./components/pages/tools/MI/MIResult";
 import SalaryCalculator from "./components/pages/tools/salary-converter";
 import TaxCalculatorPage from "./components/pages/tools/TaxCalculator";
 import CompoundInterestPage from "./components/pages/tools/CompoundInterestPage";
-// import UnemploymentInsurancePage from "./components/pages/tools/UnemploymentInsurancePage";
+import UnemploymentInsurancePage from "./components/pages/tools/UnemploymentInsurancePage";
 import SocialInsurancePage from "./components/pages/tools/SocialInsurancePage";
 // import SavingPlannerPage from "./components/pages/tools/SavingPlannerPage";
 
@@ -110,8 +110,9 @@ function App() {
         <Route path="/tools/tax-calculator" element={<TaxCalculatorPage />} />
         <Route path="/tools/social-insurance" element={<SocialInsurancePage />} />
         <Route path="/tools/compound-interest" element={<CompoundInterestPage />} />
-        {/* 
         <Route path="/tools/unemployment-insurance" element={<UnemploymentInsurancePage />} />
+        {/* 
+        
         <Route path="/tools/saving-planner" element={<SavingPlannerPage />} /> */}
 
         {/* Recruiter routes */}
