@@ -58,7 +58,7 @@ import TaxCalculatorPage from "./components/pages/tools/TaxCalculator";
 import CompoundInterestPage from "./components/pages/tools/CompoundInterestPage";
 import UnemploymentInsurancePage from "./components/pages/tools/UnemploymentInsurancePage";
 import SocialInsurancePage from "./components/pages/tools/SocialInsurancePage";
-// import SavingPlannerPage from "./components/pages/tools/SavingPlannerPage";
+import SavingPlannerPage from "./components/pages/tools/SavingPlannerPage";
 
 function App() {
   return (
@@ -111,9 +111,7 @@ function App() {
         <Route path="/tools/social-insurance" element={<SocialInsurancePage />} />
         <Route path="/tools/compound-interest" element={<CompoundInterestPage />} />
         <Route path="/tools/unemployment-insurance" element={<UnemploymentInsurancePage />} />
-        {/* 
-        
-        <Route path="/tools/saving-planner" element={<SavingPlannerPage />} /> */}
+        <Route path="/tools/saving-planner" element={<SavingPlannerPage />} /> 
 
         {/* Recruiter routes */}
         <Route path="/recruiter" element={<RecruiterLayout />}>
