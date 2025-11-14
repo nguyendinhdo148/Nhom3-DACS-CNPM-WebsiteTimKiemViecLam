@@ -1,9 +1,15 @@
 import multer from "multer";
 
-const storage = multer.memoryStorage(); // Store files in memory
-export const singleUpload = multer({ storage }).single("file"); // Use 'file' as the field name for the file input in the form
+// Multer storage chung
+const storage = multer.memoryStorage();
 
-// For company logo and business license
+// Middleware upload avatar mobile
+export const mobileAvatarUpload = multer({ storage }).single("avatar"); // mobile gửi field 'avatar'
+
+// Middleware upload file chung cho web
+export const singleUpload = multer({ storage }).single("file");
+
+// Upload company (logo, businessLicense)
 export const companyUpload = multer({ storage }).fields([
   { name: "logo", maxCount: 1 },
   { name: "businessLicense", maxCount: 1 },

@@ -9,7 +9,9 @@ import {
   updateJob,
   deleteJob,
   suggestions,
+  
 } from "../controllers/job.controller.js";
+import { getJobsByCompany } from "../controllers/admin.controller.js";
 import { isAuthenticated, isRecruiter } from "../middleware/auth.middleware.js";
 
 const router = Router();
@@ -29,6 +31,7 @@ router
   .get("/all-jobs", getAllJobs)
   .get("/recruiter-jobs", isAuthenticated, isRecruiter, getRecruiterJobs)
   .get("/suggestions", suggestionsLimiter, suggestions)
+  .get("/company-jobs", getJobsByCompany)
   .get("/:id", getJobById);
 router.put("/update-job/:id", isAuthenticated, isRecruiter, updateJob);
 router.delete("/delete-job/:id", isAuthenticated, isRecruiter, deleteJob);

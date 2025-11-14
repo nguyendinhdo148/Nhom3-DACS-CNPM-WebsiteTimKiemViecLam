@@ -513,3 +513,16 @@ export const approveJob = async (req, res, next) => {
     next(error);
   }
 };
+// 📍 Lấy danh sách công việc theo công ty
+export const getJobsByCompany = async (req, res, next) => {
+  try {
+    const { companyId } = req.query;
+    if (!companyId) return res.status(400).json({ message: "companyId is required", success: false });
+
+    const jobs = await Job.find({ company: companyId }).populate("company").sort({ createdAt: -1 });
+    res.status(200).json({ success: true, jobs });
+  } catch (error) {
+    next(error);
+  }
+};
+

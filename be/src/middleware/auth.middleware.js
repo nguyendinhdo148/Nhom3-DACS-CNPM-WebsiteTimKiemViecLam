@@ -1,98 +1,120 @@
-import jwt from "jsonwebtoken";
-import { User } from "../models/user.model.js";
+  import jwt from "jsonwebtoken";
+  import { User } from "../models/user.model.js";
 
-export const isAuthenticated = async (req, res, next) => {
-  try {
-    // const token = req.cookies.token;
-    let accessToken = req.cookies.accessToken;
-    /* if (!token) {
-      return res.status(401).json({
-        message: "You are not authenticated",
-        success: false,
-      });
-    }
-    */
+  export const isAuthenticated = async (req, res, next) => {
+    try {
+      let accessToken;
 
-    // Nếu access token hết hạn, thử dùng refresh token
-    if (!accessToken) {
-      const refreshToken = req.cookies.refreshToken;
-      if (!refreshToken) throw new Error("No tokens provided");
-
-      // Tự verify và tạo accessToken mới
-      const user = await User.findOne({ refreshToken });
-      if (!user || user.refreshTokenExpiry < Date.now()) {
-        return res.status(401).json({ message: "Invalid refresh token" });
+      // 1. Ưu tiên lấy token từ header (mobile gửi: Authorization: Bearer <token>)
+      const authHeader = req.headers["authorization"];
+      if (authHeader && authHeader.startsWith("Bearer ")) {
+        accessToken = authHeader.split(" ")[1];
       }
 
-      accessToken = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
-        expiresIn: "15m",
-      });
+      // 2. Nếu không có -> thử lấy từ cookie (web)
+      if (!accessToken) {
+        accessToken = req.cookies?.accessToken;
+      }
 
-      // Set lại cookie accessToken cho client nếu muốn
-      res.cookie("accessToken", accessToken, {
-        httpOnly: true,
-        sameSite: "strict",
-        maxAge: 15 * 60 * 1000,
-      });
-    }
-    // const decoded = await jwt.verify(token, process.env.SECRET_KEY);
-    // if (!decoded) {
-    //   return res.status(401).json({
-    //     message: "Invalid token",
-    //     success: false,
-    //   });
-    // }
-    // req.id = decoded.userId;
+      // 3. Nếu vẫn chưa có -> thử refreshToken (web)
+      if (!accessToken) {
+        const refreshToken = req.cookies?.refreshToken;
+        if (!refreshToken) {
+          return res.status(401).json({ message: "No tokens provided", success: false });
+        }
 
-    // Verify access token
-    const decoded = jwt.verify(accessToken, process.env.SECRET_KEY);
-    req.id = decoded.userId;
-    next();
-  } catch (error) {
-    next(error);
-  }
-};
+        const user = await User.findOne({ refreshToken });
+        if (!user || user.refreshTokenExpiry < Date.now()) {
+          return res.status(401).json({ message: "Invalid refresh token", success: false });
+        }
 
-export const isRecruiter = async (req, res, next) => {
-  try {
-    if (!req.id) {
+        // Tạo accessToken mới
+        accessToken = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
+          expiresIn: "15m",
+        });
+
+        // Trả lại cookie accessToken cho web
+        res.cookie("accessToken", accessToken, {
+          httpOnly: true,
+          sameSite: "strict",
+          maxAge: 15 * 60 * 1000,
+        });
+      }
+
+      // 4. Verify access token
+      const decoded = jwt.verify(accessToken, process.env.SECRET_KEY);
+      req.id = decoded.userId;
+
+      next();
+    } catch (error) {
       return res.status(401).json({
-        message: "You are not authenticated",
+        message: "Invalid or expired token",
         success: false,
       });
     }
+  };
 
-    const user = await User.findById(req.id);
-    if (user.role !== "recruiter") {
+  export const isRecruiter = async (req, res, next) => {
+    try {
+      if (!req.id) {
+        return res.status(401).json({
+          message: "You are not authenticated",
+          success: false,
+        });
+      }
+
+      const user = await User.findById(req.id);
+      if (user.role !== "recruiter") {
+        return res.status(403).json({
+          message: "You are not a recruiter",
+          success: false,
+        });
+      }
+      next();
+    } catch (error) {
       return res.status(401).json({
-        message: "You are not a recruiter",
+        message: "Error verifying recruiter role",
         success: false,
       });
     }
-    next();
-  } catch (error) {
-    next(error);
-  }
-};
+  };
 
-export const isAdmin = async (req, res, next) => {
-  try {
-    if (!req.id) {
+  export const isAdmin = async (req, res, next) => {
+    try {
+      if (!req.id) {
+        return res.status(401).json({
+          message: "You are not authenticated",
+          success: false,
+        });
+      }
+
+      const user = await User.findById(req.id);
+      if (user.role !== "admin") {
+        return res.status(403).json({
+          message: "You are not an admin",
+          success: false,
+        });
+      }
+      next();
+    } catch (error) {
       return res.status(401).json({
-        message: "You are not authenticated",
+        message: "Error verifying admin role",
         success: false,
       });
     }
-
-    const user = await User.findById(req.id);
-    if (user.role !== "admin") {
-      return res.status(401).json({
-        message: "You are not a admin",
-        success: false,
-      });
+  };
+  export const isAuthenticatedMobile = (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ message: "Token missing" });
     }
-    next();
-  } catch (error) {
-    next(error);
-  }
-};
+    const token = authHeader.split(" ")[1];
+    try {
+      const decoded = jwt.verify(token, process.env.SECRET_KEY); // ✅ dùng SECRET_KEY
+      req.user = decoded;
+      next();
+    } catch (error) {
+      return res.status(401).json({ message: "Token is not valid" });
+    }
+  };
+

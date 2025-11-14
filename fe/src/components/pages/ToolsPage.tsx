@@ -84,6 +84,16 @@ const ToolsPage = () => {
       color: "from-teal-600 to-teal-400",
       bgColor: "bg-teal-500",
       iconBg: "bg-teal-700"
+    },
+    {
+      id: 8,
+      name: "Lập kế hoạch tiết kiệm",
+      description: "Lập kế hoạch tiết kiệm để đạt mục tiêu tài chính cá nhân",
+      icon: <PiggyBank className="text-white" size={24} />,
+      path: "/tools/interview-ai",
+      color: "from-teal-600 to-teal-400",
+      bgColor: "bg-teal-500",
+      iconBg: "bg-teal-700"
     }
   ];
 

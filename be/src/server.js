@@ -25,7 +25,7 @@ import meetingRoute from "./routes/meeting.route.js";
 import chatRouter from "./routes/chat.route.js";
 import mbtiRoutes from './routes/mbti.route.js';
 import miRoutes from './routes/mi.route.js';
-
+import interviewAIRoutes from "./routes/interviewAI.route.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
 
@@ -38,10 +38,12 @@ const PORT = process.env.PORT || 8000;
 app.use(helmet());
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: process.env.CLIENT_URL || "http://localhost:5173" || "http://localhost:59745",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
-  })
-);
+  }));
+
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 app.use(cookieParser());
@@ -249,7 +251,7 @@ app.use("/api/v1/meetings", meetingRoute);
 app.use("/api/v1/chat", chatRouter);
 app.use('/api/mbti', mbtiRoutes);
 app.use('/api/mi', miRoutes);
-
+app.use("/api/v1/interview-ai", interviewAIRoutes);
 // Health Check Endpoint
 app.get("/health", (req, res) => {
   res.status(200).json({
@@ -268,11 +270,12 @@ app.use((err, req, res, next) => {
 });
 
 // Start Server
-httpServer.listen(PORT, async () => {
+httpServer.listen(PORT, "0.0.0.0", async () => {
   await connectDB();
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📡 Socket.IO endpoint: ws://localhost:${PORT}/socket.io`);
+  console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
+  console.log(`📡 Socket.IO endpoint: ws://0.0.0.0:${PORT}/socket.io`);
 });
+
 
 // Graceful shutdown
 process.on("SIGTERM", () => {

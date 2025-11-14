@@ -59,6 +59,7 @@ import CompoundInterestPage from "./components/pages/tools/CompoundInterestPage"
 import UnemploymentInsurancePage from "./components/pages/tools/UnemploymentInsurancePage";
 import SocialInsurancePage from "./components/pages/tools/SocialInsurancePage";
 import SavingPlannerPage from "./components/pages/tools/SavingPlannerPage";
+import InterviewAIPage from "./components/pages/tools/interviewAI";
 
 function App() {
   return (
@@ -112,6 +113,8 @@ function App() {
         <Route path="/tools/compound-interest" element={<CompoundInterestPage />} />
         <Route path="/tools/unemployment-insurance" element={<UnemploymentInsurancePage />} />
         <Route path="/tools/saving-planner" element={<SavingPlannerPage />} /> 
+        <Route path="/tools/interview-ai" element={<InterviewAIPage />} />
+        
 
         {/* Recruiter routes */}
         <Route path="/recruiter" element={<RecruiterLayout />}>

@@ -156,6 +156,9 @@ export const login = async (req, res, next) => {
         message: `Welcome back ${user.fullname}`,
         user,
         success: true,
+        // QUAN TRỌNG: THÊM TOKEN VÀO RESPONSE CHO MOBILE
+        accessToken: accessToken,
+        refreshToken: refreshToken
       });
   } catch (error) {
     next(error);
@@ -567,3 +570,4 @@ export const resetPassword = async (req, res, next) => {
     next(error);
   }
 };
+

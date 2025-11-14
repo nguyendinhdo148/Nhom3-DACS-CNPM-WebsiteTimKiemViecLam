@@ -64,7 +64,7 @@ export const getAppliedJobs = async (req, res, next) => {
       })
       .populate({
         path: "job",
-        select: "-_id -created_by -createdAt -updatedAt -__v -applications",
+        select: "title description requirements salary experienceLevel benefits location jobType position company status approval approvalNote category interviewTest",
         options: { sort: { createdAt: -1 } },
         populate: {
           path: "company",

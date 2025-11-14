@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { mobileAvatarUpload } from "../middleware/multer.js";
 import {
   register,
   login,
@@ -8,6 +9,7 @@ import {
   forgotPassword,
   resetPassword,
   refreshToken,
+  
 } from "../controllers/user.controller.js";
 import { isAuthenticated } from "../middleware/auth.middleware.js";
 import { singleUpload } from "../middleware/multer.js";
@@ -21,7 +23,10 @@ router
   .post("/refresh-token", refreshToken);
 router.put("/profile/update", isAuthenticated, singleUpload, updateProfile);
 router.put("/profile/avatar", isAuthenticated, singleUpload, updateAvatar);
+
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
+router.put("/profile/avatar/mobile", isAuthenticated, mobileAvatarUpload, updateAvatar);
+
 
 export default router;
